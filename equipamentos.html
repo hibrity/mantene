@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repairge - Equipamentos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #eef2f7;
+    }
+  </style>
+</head>
+<body class="bg-[#f3f4f6] text-slate-700">
+
+  <div class="min-h-screen flex">
+
+    <!-- SIDEBAR DESKTOP -->
+    <aside class="hidden md:flex w-[260px] bg-[#f5f7fb] border-r border-slate-200 flex-col min-h-screen">
+      <div class="h-16 px-5 flex items-center justify-between border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl border border-sky-200 bg-white flex items-center justify-center text-sky-400 text-lg shadow-sm">
+            🏷️
+          </div>
+          <span class="text-xl font-bold text-slate-700">Repairge</span>
+        </div>
+        <button class="text-slate-400 hover:text-slate-600 text-sm" title="Menu">
+          ⋮
+        </button>
+      </div>
+
+      <div class="px-5 py-4 border-b border-slate-200">
+        <p class="text-sm font-semibold text-slate-700 leading-7">
+          Administrador (Acesso Livre)<br />
+          (Empresa)
+        </p>
+      </div>
+
+      <nav class="flex-1 px-2 py-3 overflow-y-auto">
+        <a href="dashboard.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⬚</span>
+          <span>Painel Principal</span>
+        </a>
+
+        <a href="chat.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>💬</span>
+          <span>Chat Interno</span>
+        </a>
+
+        <a href="checklists-realizados.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>☑️</span>
+          <span>Checklists Realizados</span>
+        </a>
+
+        <a href="configuracoes.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⚙️</span>
+          <span>Configurações</span>
+        </a>
+
+        <a href="checklist-diario.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>📋</span>
+          <span>Criar Checklist Diário</span>
+        </a>
+
+        <a href="equipamentos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-sky-100/70 text-sky-500">
+          <span>🏭</span>
+          <span>Equipamentos</span>
+        </a>
+
+        <a href="usuarios.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>👥</span>
+          <span>Gerenciar Usuários</span>
+        </a>
+
+        <a href="mensagens-apagadas.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🗑️</span>
+          <span>Mensagens Apagadas</span>
+        </a>
+
+        <a href="setores.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏢</span>
+          <span>Setores</span>
+        </a>
+
+        <a href="tickets-concluidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>✅</span>
+          <span>Tickets Concluídos</span>
+        </a>
+
+        <a href="tickets.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🎫</span>
+          <span>Tickets de Manutenção</span>
+        </a>
+
+        <a href="tickets-removidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🧺</span>
+          <span>Tickets Removidos</span>
+        </a>
+      </nav>
+
+      <div class="border-t border-slate-200 p-3">
+        <a href="index.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⌂</span>
+          <span>Início</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- SIDEBAR MOBILE -->
+    <div id="sidebarMobileOverlay" class="fixed inset-0 bg-black/40 z-40 hidden md:hidden"></div>
+
+    <aside id="sidebarMobile" class="fixed top-0 left-0 h-full w-[285px] bg-[#f5f7fb] border-r border-slate-200 z-50 transform -translate-x-full transition-transform duration-300 md:hidden flex flex-col">
+      <div class="h-16 px-4 flex items-center justify-between border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl border border-sky-200 bg-white flex items-center justify-center text-sky-400 text-lg shadow-sm">
+            🏷️
+          </div>
+          <span class="text-xl font-bold text-slate-700">Repairge</span>
+        </div>
+        <button id="closeSidebarBtn" class="text-slate-500 text-xl">✕</button>
+      </div>
+
+      <div class="px-4 py-4 border-b border-slate-200">
+        <p class="text-sm font-semibold text-slate-700 leading-7">
+          Administrador (Acesso Livre)<br />
+          (Empresa)
+        </p>
+      </div>
+
+      <nav class="flex-1 px-2 py-3 overflow-y-auto">
+        <a href="dashboard.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⬚</span>
+          <span>Painel Principal</span>
+        </a>
+
+        <a href="chat.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>💬</span>
+          <span>Chat Interno</span>
+        </a>
+
+        <a href="checklists-realizados.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>☑️</span>
+          <span>Checklists Realizados</span>
+        </a>
+
+        <a href="configuracoes.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⚙️</span>
+          <span>Configurações</span>
+        </a>
+
+        <a href="checklist-diario.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>📋</span>
+          <span>Criar Checklist Diário</span>
+        </a>
+
+        <a href="equipamentos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-sky-100/70 text-sky-500">
+          <span>🏭</span>
+          <span>Equipamentos</span>
+        </a>
+
+        <a href="usuarios.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>👥</span>
+          <span>Gerenciar Usuários</span>
+        </a>
+
+        <a href="mensagens-apagadas.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🗑️</span>
+          <span>Mensagens Apagadas</span>
+        </a>
+
+        <a href="setores.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏢</span>
+          <span>Setores</span>
+        </a>
+
+        <a href="tickets-concluidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>✅</span>
+          <span>Tickets Concluídos</span>
+        </a>
+
+        <a href="tickets.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🎫</span>
+          <span>Tickets de Manutenção</span>
+        </a>
+
+        <a href="tickets-removidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🧺</span>
+          <span>Tickets Removidos</span>
+        </a>
+      </nav>
+
+      <div class="border-t border-slate-200 p-3">
+        <a href="index.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⌂</span>
+          <span>Início</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="flex-1 min-w-0 flex flex-col">
+
+      <!-- TOPBAR -->
+      <header class="h-16 bg-[#f8fafc] border-b border-slate-200 px-4 md:px-6 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <button id="openSidebarBtn" class="md:hidden w-10 h-10 rounded-lg hover:bg-slate-100 flex items-center justify-center text-slate-600 text-xl">
+            ☰
+          </button>
+          <div class="hidden md:block text-sm text-slate-400">
+            Gestão de equipamentos
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 md:gap-4">
+          <button class="w-8 h-8 rounded-full bg-orange-100 text-orange-500 flex items-center justify-center text-sm" title="Calculadora">
+            🧮
+          </button>
+          <button class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-sm" title="Calendário">
+            🗓️
+          </button>
+          <button class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm" title="WhatsApp">
+            🟢
+          </button>
+          <div class="w-10 h-10 rounded-full bg-sky-200 text-sky-700 font-semibold flex items-center justify-center text-sm">
+            AL
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <main class="flex-1 p-4 md:p-6">
+        <div class="max-w-6xl">
+
+          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 border-b border-slate-200 pb-4">
+            <div class="flex items-start gap-3">
+              <div class="text-sky-400 text-2xl mt-1">🏭</div>
+              <div class="max-w-3xl">
+                <h1 class="text-[22px] md:text-[28px] font-bold text-slate-700 leading-tight">
+                  Equipamentos
+                </h1>
+                <p class="mt-2 text-base md:text-sm text-slate-400 leading-8 md:leading-6">
+                  Gerencie todos os equipamentos nos setores da empresa.
+                </p>
+              </div>
+            </div>
+
+            <button id="openEquipmentModalBtn" class="inline-flex items-center justify-center gap-2 rounded-xl bg-sky-400 hover:bg-sky-500 text-white text-sm font-medium px-4 py-3 md:py-2.5 shadow-sm transition">
+              <span>＋</span>
+              <span>Adicionar Novo Equipamento</span>
+            </button>
+          </div>
+
+          <!-- ALERT -->
+          <div id="errorBox" class="hidden mt-4 rounded-xl border border-red-200 bg-red-50 text-red-600 px-4 py-3 text-sm">
+            Não foi possível carregar os dados do banco.
+          </div>
+
+          <!-- EMPTY SETOR -->
+          <div id="noSectorBox" class="hidden mt-5 bg-white border border-slate-200 rounded-2xl p-8 md:p-10 shadow-sm text-center">
+            <div class="text-5xl text-slate-400">🏢</div>
+            <h3 class="mt-4 text-lg font-semibold text-slate-700">
+              Nenhum Setor Encontrado
+            </h3>
+            <p class="mt-2 text-sm text-slate-400">
+              Por favor, adicione setores antes de gerenciar equipamentos.
+            </p>
+          </div>
+
+          <!-- TABLE / EMPTY -->
+          <section id="equipmentSection" class="mt-5">
+            <div class="hidden md:block bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full">
+                  <thead class="bg-slate-50 border-b border-slate-200">
+                    <tr>
+                      <th class="text-left px-5 py-4 text-sm font-semibold text-slate-500">Nome</th>
+                      <th class="text-left px-5 py-4 text-sm font-semibold text-slate-500">Setor</th>
+                      <th class="text-left px-5 py-4 text-sm font-semibold text-slate-500">Modelo</th>
+                      <th class="text-left px-5 py-4 text-sm font-semibold text-slate-500">Patrimônio</th>
+                      <th class="text-left px-5 py-4 text-sm font-semibold text-slate-500">Status</th>
+                      <th class="text-right px-5 py-4 text-sm font-semibold text-slate-500">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody id="equipmentTableBody">
+                    <tr>
+                      <td colspan="6" class="px-5 py-12 text-center text-slate-400">
+                        Carregando equipamentos...
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div id="equipmentCardsMobile" class="grid md:hidden gap-3">
+              <div class="bg-white border border-slate-200 rounded-2xl p-5 text-center text-slate-400 shadow-sm">
+                Carregando equipamentos...
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- MODAL EQUIPAMENTO -->
+  <div id="equipmentModalOverlay" class="fixed inset-0 bg-black/40 z-[60] hidden"></div>
+
+  <div id="equipmentModal" class="fixed inset-x-0 top-1/2 -translate-y-1/2 mx-auto w-[92%] max-w-xl bg-white rounded-2xl shadow-2xl border border-slate-200 z-[70] hidden">
+    <div class="px-5 py-4 border-b border-slate-200 flex items-start justify-between gap-4">
+      <div>
+        <h2 id="equipmentModalTitle" class="text-lg font-bold text-slate-700">Novo Equipamento</h2>
+        <p class="mt-1 text-sm text-slate-400">Preencha os dados do equipamento.</p>
+      </div>
+      <button id="closeEquipmentModalBtn" class="text-slate-400 hover:text-slate-600 text-xl">✕</button>
+    </div>
+
+    <form id="equipmentForm" class="p-5 space-y-4 max-h-[75vh] overflow-y-auto">
+      <input type="hidden" id="equipmentId" />
+
+      <div>
+        <label for="equipmentName" class="block text-sm font-medium text-slate-600 mb-2">
+          Nome do Equipamento
+        </label>
+        <input
+          id="equipmentName"
+          type="text"
+          placeholder="Ex: Torno CNC"
+          class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-300"
+          required
+        />
+      </div>
+
+      <div>
+        <label for="equipmentSector" class="block text-sm font-medium text-slate-600 mb-2">
+          Setor
+        </label>
+        <select
+          id="equipmentSector"
+          class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-300 bg-white"
+          required
+        >
+          <option value="">Selecione um setor</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="equipmentModel" class="block text-sm font-medium text-slate-600 mb-2">
+          Modelo
+        </label>
+        <input
+          id="equipmentModel"
+          type="text"
+          placeholder="Ex: XM-5000"
+          class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-300"
+        />
+      </div>
+
+      <div>
+        <label for="equipmentPatrimony" class="block text-sm font-medium text-slate-600 mb-2">
+          ID Patrimônio / Serial
+        </label>
+        <input
+          id="equipmentPatrimony"
+          type="text"
+          placeholder="Ex: PAT-00123"
+          class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-300"
+        />
+      </div>
+
+      <div>
+        <label for="equipmentStatus" class="block text-sm font-medium text-slate-600 mb-2">
+          Status
+        </label>
+        <select
+          id="equipmentStatus"
+          class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-300 bg-white"
+        >
+          <option value="ACTIVE">Ativo</option>
+          <option value="INACTIVE">Inativo</option>
+          <option value="MAINTENANCE">Em Manutenção</option>
+        </select>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-2">
+        <button
+          type="button"
+          id="cancelEquipmentBtn"
+          class="rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-sm font-medium px-4 py-3 md:py-2.5 transition"
+        >
+          Cancelar
+        </button>
+
+        <button
+          type="submit"
+          class="rounded-xl bg-sky-400 hover:bg-sky-500 text-white text-sm font-medium px-4 py-3 md:py-2.5 transition"
+        >
+          Salvar Equipamento
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- MODAL EXCLUIR -->
+  <div id="deleteModalOverlay" class="fixed inset-0 bg-black/40 z-[80] hidden"></div>
+
+  <div id="deleteModal" class="fixed inset-x-0 top-1/2 -translate-y-1/2 mx-auto w-[92%] max-w-md bg-white rounded-2xl shadow-2xl border border-slate-200 z-[90] hidden">
+    <div class="p-5">
+      <h3 class="text-lg font-bold text-slate-700">
+        Excluir equipamento?
+      </h3>
+      <p class="mt-2 text-sm text-slate-400 leading-6">
+        Esta ação não pode ser desfeita. O equipamento será removido permanentemente.
+      </p>
+
+      <div class="mt-5 flex justify-end gap-3">
+        <button
+          id="cancelDeleteBtn"
+          class="rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-sm font-medium px-4 py-3 md:py-2.5 transition"
+        >
+          Cancelar
+        </button>
+
+        <button
+          id="confirmDeleteBtn"
+          class="rounded-xl bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-4 py-3 md:py-2.5 transition"
+        >
+          Excluir
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="fixed right-4 bottom-4 z-[100] hidden max-w-[320px] rounded-2xl px-4 py-3 text-sm font-medium shadow-lg"></div>
+
+  <script type="module">
+    import { db } from "./js/config.js";
+    import {
+      collection,
+      addDoc,
+      getDocs,
+      doc,
+      updateDoc,
+      deleteDoc,
+      query,
+      orderBy,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const openSidebarBtn = document.getElementById("openSidebarBtn");
+    const closeSidebarBtn = document.getElementById("closeSidebarBtn");
+    const sidebarMobile = document.getElementById("sidebarMobile");
+    const sidebarMobileOverlay = document.getElementById("sidebarMobileOverlay");
+
+    const errorBox = document.getElementById("errorBox");
+    const noSectorBox = document.getElementById("noSectorBox");
+    const equipmentSection = document.getElementById("equipmentSection");
+
+    const openEquipmentModalBtn = document.getElementById("openEquipmentModalBtn");
+    const closeEquipmentModalBtn = document.getElementById("closeEquipmentModalBtn");
+    const cancelEquipmentBtn = document.getElementById("cancelEquipmentBtn");
+    const equipmentModal = document.getElementById("equipmentModal");
+    const equipmentModalOverlay = document.getElementById("equipmentModalOverlay");
+    const equipmentModalTitle = document.getElementById("equipmentModalTitle");
+
+    const equipmentForm = document.getElementById("equipmentForm");
+    const equipmentIdInput = document.getElementById("equipmentId");
+    const equipmentNameInput = document.getElementById("equipmentName");
+    const equipmentSectorInput = document.getElementById("equipmentSector");
+    const equipmentModelInput = document.getElementById("equipmentModel");
+    const equipmentPatrimonyInput = document.getElementById("equipmentPatrimony");
+    const equipmentStatusInput = document.getElementById("equipmentStatus");
+
+    const equipmentTableBody = document.getElementById("equipmentTableBody");
+    const equipmentCardsMobile = document.getElementById("equipmentCardsMobile");
+
+    const deleteModal = document.getElementById("deleteModal");
+    const deleteModalOverlay = document.getElementById("deleteModalOverlay");
+    const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+    const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+
+    const toast = document.getElementById("toast");
+
+    let sectorsCache = [];
+    let equipmentToDeleteId = null;
+    let equipmentToDeleteName = "";
+
+    function openSidebar() {
+      sidebarMobile.classList.remove("-translate-x-full");
+      sidebarMobileOverlay.classList.remove("hidden");
+    }
+
+    function closeSidebar() {
+      sidebarMobile.classList.add("-translate-x-full");
+      sidebarMobileOverlay.classList.add("hidden");
+    }
+
+    function openEquipmentModal(editing = false, equipment = null) {
+      equipmentModal.classList.remove("hidden");
+      equipmentModalOverlay.classList.remove("hidden");
+
+      populateSectorOptions();
+
+      if (editing && equipment) {
+        equipmentModalTitle.textContent = "Editar Equipamento";
+        equipmentIdInput.value = equipment.id;
+        equipmentNameInput.value = equipment.name || "";
+        equipmentSectorInput.value = equipment.sectorId || "";
+        equipmentModelInput.value = equipment.model || "";
+        equipmentPatrimonyInput.value = equipment.patrimonyId || "";
+        equipmentStatusInput.value = equipment.status || "ACTIVE";
+      } else {
+        equipmentModalTitle.textContent = "Novo Equipamento";
+        equipmentForm.reset();
+        equipmentIdInput.value = "";
+        equipmentStatusInput.value = "ACTIVE";
+      }
+    }
+
+    function closeEquipmentModal() {
+      equipmentModal.classList.add("hidden");
+      equipmentModalOverlay.classList.add("hidden");
+      equipmentForm.reset();
+      equipmentIdInput.value = "";
+    }
+
+    function openDeleteModal(id, name) {
+      equipmentToDeleteId = id;
+      equipmentToDeleteName = name;
+      deleteModal.classList.remove("hidden");
+      deleteModalOverlay.classList.remove("hidden");
+    }
+
+    function closeDeleteModal() {
+      equipmentToDeleteId = null;
+      equipmentToDeleteName = "";
+      deleteModal.classList.add("hidden");
+      deleteModalOverlay.classList.add("hidden");
+    }
+
+    function showToast(message, type = "success") {
+      toast.textContent = message;
+      toast.className = "fixed right-4 bottom-4 z-[100] max-w-[320px] rounded-2xl px-4 py-3 text-sm font-medium shadow-lg";
+
+      if (type === "success") {
+        toast.classList.add("bg-emerald-500", "text-white");
+      } else {
+        toast.classList.add("bg-red-500", "text-white");
+      }
+
+      toast.classList.remove("hidden");
+
+      setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 2600);
+    }
+
+    function getSectorName(sectorId) {
+      return sectorsCache.find(item => item.id === sectorId)?.name || "-";
+    }
+
+    function getStatusBadge(status) {
+      if (status === "ACTIVE") {
+        return `<span class="inline-flex rounded-full bg-green-100 text-green-700 px-3 py-1 text-xs font-semibold">Ativo</span>`;
+      }
+
+      if (status === "INACTIVE") {
+        return `<span class="inline-flex rounded-full bg-red-100 text-red-700 px-3 py-1 text-xs font-semibold">Inativo</span>`;
+      }
+
+      return `<span class="inline-flex rounded-full bg-yellow-100 text-yellow-700 px-3 py-1 text-xs font-semibold">Em Manutenção</span>`;
+    }
+
+    function populateSectorOptions() {
+      equipmentSectorInput.innerHTML = `<option value="">Selecione um setor</option>`;
+
+      sectorsCache.forEach(sector => {
+        const option = document.createElement("option");
+        option.value = sector.id;
+        option.textContent = sector.name;
+        equipmentSectorInput.appendChild(option);
+      });
+    }
+
+    function renderEquipment(items) {
+      if (!items.length) {
+        equipmentTableBody.innerHTML = `
+          <tr>
+            <td colspan="6" class="px-5 py-12 text-center text-slate-400">
+              Nenhum equipamento encontrado.
+            </td>
+          </tr>
+        `;
+
+        equipmentCardsMobile.innerHTML = `
+          <div class="bg-white border border-slate-200 rounded-2xl p-5 text-center text-slate-400 shadow-sm">
+            Nenhum equipamento encontrado.
+          </div>
+        `;
+        return;
+      }
+
+      equipmentTableBody.innerHTML = items.map(item => `
+        <tr class="border-b border-slate-100 last:border-b-0">
+          <td class="px-5 py-4 text-sm font-medium text-slate-700">${item.name || "-"}</td>
+          <td class="px-5 py-4 text-sm text-slate-500">${item.sectorName || getSectorName(item.sectorId)}</td>
+          <td class="px-5 py-4 text-sm text-slate-500">${item.model || "-"}</td>
+          <td class="px-5 py-4 text-sm text-slate-500">${item.patrimonyId || "-"}</td>
+          <td class="px-5 py-4 text-sm">${getStatusBadge(item.status)}</td>
+          <td class="px-5 py-4">
+            <div class="flex items-center justify-end gap-2">
+              <button
+                class="rounded-lg border border-slate-200 px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50"
+                data-action="edit"
+                data-id="${item.id}"
+                data-name="${item.name || ""}"
+                data-sector-id="${item.sectorId || ""}"
+                data-model="${item.model || ""}"
+                data-patrimony="${item.patrimonyId || ""}"
+                data-status="${item.status || "ACTIVE"}"
+              >
+                Editar
+              </button>
+              <button
+                class="rounded-lg border border-red-200 px-3 py-2 text-xs font-medium text-red-500 hover:bg-red-50"
+                data-action="delete"
+                data-id="${item.id}"
+                data-name="${item.name || ""}"
+              >
+                Excluir
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join("");
+
+      equipmentCardsMobile.innerHTML = items.map(item => `
+        <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="text-base font-semibold text-slate-700">${item.name || "-"}</div>
+              <div class="mt-2 text-sm text-slate-500 leading-6">Setor: ${item.sectorName || getSectorName(item.sectorId)}</div>
+              <div class="mt-1 text-sm text-slate-500 leading-6">Modelo: ${item.model || "-"}</div>
+              <div class="mt-1 text-sm text-slate-500 leading-6">Patrimônio: ${item.patrimonyId || "-"}</div>
+              <div class="mt-3">${getStatusBadge(item.status)}</div>
+            </div>
+          </div>
+          <div class="mt-4 flex gap-2">
+            <button
+              class="flex-1 rounded-xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50"
+              data-action="edit"
+              data-id="${item.id}"
+              data-name="${item.name || ""}"
+              data-sector-id="${item.sectorId || ""}"
+              data-model="${item.model || ""}"
+              data-patrimony="${item.patrimonyId || ""}"
+              data-status="${item.status || "ACTIVE"}"
+            >
+              Editar
+            </button>
+            <button
+              class="flex-1 rounded-xl border border-red-200 px-4 py-3 text-sm font-medium text-red-500 hover:bg-red-50"
+              data-action="delete"
+              data-id="${item.id}"
+              data-name="${item.name || ""}"
+            >
+              Excluir
+            </button>
+          </div>
+        </div>
+      `).join("");
+
+      bindRowActions();
+    }
+
+    function bindRowActions() {
+      document.querySelectorAll('[data-action="edit"]').forEach(button => {
+        button.addEventListener("click", () => {
+          openEquipmentModal(true, {
+            id: button.dataset.id,
+            name: button.dataset.name,
+            sectorId: button.dataset.sectorId,
+            model: button.dataset.model,
+            patrimonyId: button.dataset.patrimony,
+            status: button.dataset.status
+          });
+        });
+      });
+
+      document.querySelectorAll('[data-action="delete"]').forEach(button => {
+        button.addEventListener("click", () => {
+          openDeleteModal(button.dataset.id, button.dataset.name);
+        });
+      });
+    }
+
+    async function loadSectorsAndEquipment() {
+      try {
+        errorBox.classList.add("hidden");
+
+        const sectorsRef = collection(db, "sectors");
+        const sectorsQuery = query(sectorsRef, orderBy("name"));
+        const sectorsSnapshot = await getDocs(sectorsQuery);
+
+        sectorsCache = sectorsSnapshot.docs.map(docItem => ({
+          id: docItem.id,
+          ...docItem.data()
+        }));
+
+        if (!sectorsCache.length) {
+          noSectorBox.classList.remove("hidden");
+          equipmentSection.classList.add("hidden");
+          openEquipmentModalBtn.disabled = true;
+          openEquipmentModalBtn.classList.add("opacity-50", "cursor-not-allowed");
+          return;
+        }
+
+        noSectorBox.classList.add("hidden");
+        equipmentSection.classList.remove("hidden");
+        openEquipmentModalBtn.disabled = false;
+        openEquipmentModalBtn.classList.remove("opacity-50", "cursor-not-allowed");
+
+        const equipmentRef = collection(db, "equipment");
+        const equipmentQuery = query(equipmentRef, orderBy("name"));
+        const equipmentSnapshot = await getDocs(equipmentQuery);
+
+        const items = equipmentSnapshot.docs.map(docItem => ({
+          id: docItem.id,
+          ...docItem.data()
+        }));
+
+        renderEquipment(items);
+      } catch (error) {
+        console.error("Erro ao carregar dados:", error);
+        errorBox.classList.remove("hidden");
+        noSectorBox.classList.add("hidden");
+        equipmentSection.classList.remove("hidden");
+
+        equipmentTableBody.innerHTML = `
+          <tr>
+            <td colspan="6" class="px-5 py-12 text-center text-red-400">
+              Erro ao carregar dados.
+            </td>
+          </tr>
+        `;
+
+        equipmentCardsMobile.innerHTML = `
+          <div class="bg-white border border-red-200 rounded-2xl p-5 text-center text-red-400 shadow-sm">
+            Erro ao carregar dados.
+          </div>
+        `;
+      }
+    }
+
+    async function saveEquipment(event) {
+      event.preventDefault();
+
+      const id = equipmentIdInput.value.trim();
+      const name = equipmentNameInput.value.trim();
+      const sectorId = equipmentSectorInput.value.trim();
+      const model = equipmentModelInput.value.trim();
+      const patrimonyId = equipmentPatrimonyInput.value.trim();
+      const status = equipmentStatusInput.value;
+
+      if (!name) {
+        showToast("Informe o nome do equipamento.", "error");
+        return;
+      }
+
+      if (!sectorId) {
+        showToast("Selecione um setor.", "error");
+        return;
+      }
+
+      const sectorName = getSectorName(sectorId);
+
+      try {
+        if (id) {
+          await updateDoc(doc(db, "equipment", id), {
+            name,
+            sectorId,
+            sectorName,
+            model,
+            patrimonyId,
+            status,
+            updatedAt: serverTimestamp()
+          });
+
+          showToast("Equipamento atualizado com sucesso.");
+        } else {
+          await addDoc(collection(db, "equipment"), {
+            name,
+            sectorId,
+            sectorName,
+            model,
+            patrimonyId,
+            status,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp()
+          });
+
+          showToast("Equipamento criado com sucesso.");
+        }
+
+        closeEquipmentModal();
+        loadSectorsAndEquipment();
+      } catch (error) {
+        console.error("Erro ao salvar equipamento:", error);
+        showToast("Não foi possível salvar o equipamento.", "error");
+      }
+    }
+
+    async function confirmDeleteEquipment() {
+      if (!equipmentToDeleteId) return;
+
+      try {
+        await deleteDoc(doc(db, "equipment", equipmentToDeleteId));
+        showToast(`Equipamento "${equipmentToDeleteName}" excluído.`);
+        closeDeleteModal();
+        loadSectorsAndEquipment();
+      } catch (error) {
+        console.error("Erro ao excluir equipamento:", error);
+        showToast("Não foi possível excluir o equipamento.", "error");
+      }
+    }
+
+    openSidebarBtn?.addEventListener("click", () => {
+      sidebarMobile.classList.remove("-translate-x-full");
+      sidebarMobileOverlay.classList.remove("hidden");
+    });
+
+    closeSidebarBtn?.addEventListener("click", () => {
+      sidebarMobile.classList.add("-translate-x-full");
+      sidebarMobileOverlay.classList.add("hidden");
+    });
+
+    sidebarMobileOverlay?.addEventListener("click", () => {
+      sidebarMobile.classList.add("-translate-x-full");
+      sidebarMobileOverlay.classList.add("hidden");
+    });
+
+    openEquipmentModalBtn?.addEventListener("click", () => openEquipmentModal(false));
+    closeEquipmentModalBtn?.addEventListener("click", closeEquipmentModal);
+    cancelEquipmentBtn?.addEventListener("click", closeEquipmentModal);
+    equipmentModalOverlay?.addEventListener("click", closeEquipmentModal);
+
+    cancelDeleteBtn?.addEventListener("click", closeDeleteModal);
+    deleteModalOverlay?.addEventListener("click", closeDeleteModal);
+    confirmDeleteBtn?.addEventListener("click", confirmDeleteEquipment);
+
+    equipmentForm?.addEventListener("submit", saveEquipment);
+
+    loadSectorsAndEquipment();
+  </script>
+</body>
+</html>
