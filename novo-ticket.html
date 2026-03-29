@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repairge - Novo Ticket</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #eef2f7;
+    }
+  </style>
+</head>
+<body class="bg-[#f3f4f6] text-slate-700">
+
+  <div class="min-h-screen flex">
+
+    <!-- SIDEBAR DESKTOP -->
+    <aside class="hidden md:flex w-[260px] bg-[#f5f7fb] border-r border-slate-200 flex-col min-h-screen">
+      <div class="h-16 px-5 flex items-center justify-between border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl border border-sky-200 bg-white flex items-center justify-center text-sky-400 text-lg shadow-sm">
+            🏷️
+          </div>
+          <span class="text-xl font-bold text-slate-700">Repairge</span>
+        </div>
+        <button class="text-slate-400 hover:text-slate-600 text-sm" title="Menu">
+          ⋮
+        </button>
+      </div>
+
+      <div class="px-5 py-4 border-b border-slate-200">
+        <p class="text-sm font-semibold text-slate-700 leading-7">
+          Administrador (Acesso Livre)<br />
+          (Empresa)
+        </p>
+      </div>
+
+      <nav class="flex-1 px-2 py-3 overflow-y-auto">
+        <a href="dashboard.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⬚</span>
+          <span>Painel Principal</span>
+        </a>
+
+        <a href="chat.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>💬</span>
+          <span>Chat Interno</span>
+        </a>
+
+        <a href="checklists-realizados.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>☑️</span>
+          <span>Checklists Realizados</span>
+        </a>
+
+        <a href="configuracoes.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⚙️</span>
+          <span>Configurações</span>
+        </a>
+
+        <a href="checklist-diario.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>📋</span>
+          <span>Criar Checklist Diário</span>
+        </a>
+
+        <a href="equipamentos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏭</span>
+          <span>Equipamentos</span>
+        </a>
+
+        <a href="usuarios.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>👥</span>
+          <span>Gerenciar Usuários</span>
+        </a>
+
+        <a href="mensagens-apagadas.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🗑️</span>
+          <span>Mensagens Apagadas</span>
+        </a>
+
+        <a href="setores.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏢</span>
+          <span>Setores</span>
+        </a>
+
+        <a href="tickets-concluidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>✅</span>
+          <span>Tickets Concluídos</span>
+        </a>
+
+        <a href="tickets.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-sky-100/70 text-sky-500">
+          <span>🎫</span>
+          <span>Tickets de Manutenção</span>
+        </a>
+
+        <a href="tickets-removidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🧺</span>
+          <span>Tickets Removidos</span>
+        </a>
+      </nav>
+
+      <div class="border-t border-slate-200 p-3">
+        <a href="index.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⌂</span>
+          <span>Início</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- SIDEBAR MOBILE -->
+    <div id="sidebarMobileOverlay" class="fixed inset-0 bg-black/40 z-40 hidden md:hidden"></div>
+
+    <aside id="sidebarMobile" class="fixed top-0 left-0 h-full w-[285px] bg-[#f5f7fb] border-r border-slate-200 z-50 transform -translate-x-full transition-transform duration-300 md:hidden flex flex-col">
+      <div class="h-16 px-4 flex items-center justify-between border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl border border-sky-200 bg-white flex items-center justify-center text-sky-400 text-lg shadow-sm">
+            🏷️
+          </div>
+          <span class="text-xl font-bold text-slate-700">Repairge</span>
+        </div>
+        <button id="closeSidebarBtn" class="text-slate-500 text-xl">✕</button>
+      </div>
+
+      <div class="px-4 py-4 border-b border-slate-200">
+        <p class="text-sm font-semibold text-slate-700 leading-7">
+          Administrador (Acesso Livre)<br />
+          (Empresa)
+        </p>
+      </div>
+
+      <nav class="flex-1 px-2 py-3 overflow-y-auto">
+        <a href="dashboard.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⬚</span>
+          <span>Painel Principal</span>
+        </a>
+
+        <a href="chat.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>💬</span>
+          <span>Chat Interno</span>
+        </a>
+
+        <a href="checklists-realizados.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>☑️</span>
+          <span>Checklists Realizados</span>
+        </a>
+
+        <a href="configuracoes.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⚙️</span>
+          <span>Configurações</span>
+        </a>
+
+        <a href="checklist-diario.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>📋</span>
+          <span>Criar Checklist Diário</span>
+        </a>
+
+        <a href="equipamentos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏭</span>
+          <span>Equipamentos</span>
+        </a>
+
+        <a href="usuarios.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>👥</span>
+          <span>Gerenciar Usuários</span>
+        </a>
+
+        <a href="mensagens-apagadas.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🗑️</span>
+          <span>Mensagens Apagadas</span>
+        </a>
+
+        <a href="setores.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏢</span>
+          <span>Setores</span>
+        </a>
+
+        <a href="tickets-concluidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>✅</span>
+          <span>Tickets Concluídos</span>
+        </a>
+
+        <a href="tickets.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-sky-100/70 text-sky-500">
+          <span>🎫</span>
+          <span>Tickets de Manutenção</span>
+        </a>
+
+        <a href="tickets-removidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🧺</span>
+          <span>Tickets Removidos</span>
+        </a>
+      </nav>
+
+      <div class="border-t border-slate-200 p-3">
+        <a href="index.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⌂</span>
+          <span>Início</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="flex-1 min-w-0 flex flex-col">
+
+      <!-- TOPBAR -->
+      <header class="h-16 bg-[#f8fafc] border-b border-slate-200 px-4 md:px-6 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <button id="openSidebarBtn" class="md:hidden w-10 h-10 rounded-lg hover:bg-slate-100 flex items-center justify-center text-slate-600 text-xl">
+            ☰
+          </button>
+          <div class="hidden md:block text-sm text-slate-400">
+            Novo chamado
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 md:gap-4">
+          <button class="w-8 h-8 rounded-full bg-orange-100 text-orange-500 flex items-center justify-center text-sm" title="Calculadora">
+            🧮
+          </button>
+          <button class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-sm" title="Calendário">
+            🗓️
+          </button>
+          <button class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm" title="WhatsApp">
+            🟢
+          </button>
+          <div class="w-10 h-10 rounded-full bg-sky-200 text-sky-700 font-semibold flex items-center justify-center text-sm">
+            AL
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <main class="flex-1 p-4 md:p-6">
+        <div class="max-w-5xl">
+
+          <div class="flex items-start gap-3 border-b border-slate-200 pb-4">
+            <div class="text-sky-400 text-2xl mt-1">🎫</div>
+            <div class="max-w-3xl">
+              <h1 class="text-[22px] md:text-[28px] font-bold text-slate-700 leading-tight">
+                Criar Novo Ticket de Manutenção
+              </h1>
+              <p class="mt-2 text-base md:text-sm text-slate-400 leading-8 md:leading-6">
+                Preencha os detalhes abaixo para enviar uma nova solicitação de manutenção.
+              </p>
+            </div>
+          </div>
+
+          <div id="errorBox" class="hidden mt-4 rounded-xl border border-red-200 bg-red-50 text-red-600 px-4 py-3 text-sm">
+            Não foi possível carregar setores e equipamentos.
+          </div>
+
+          <section class="mt-5 bg-white border border-slate-200 rounded-2xl shadow-sm">
+            <form id="ticketForm" class="p-4 md:p-6 space-y-6">
+
+              <div>
+                <label for="description" class="block text-sm font-medium text-slate-600 mb-2">
+                  Descrição Detalhada
+                </label>
+                <textarea
+                  id="description"
+                  rows="6"
+                  placeholder="Descreva o problema ou solicitação em detalhes..."
+                  class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-300 resize-none"
+                  required
+                ></textarea>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-2">
+                  Anexar Foto do Problema (Opcional)
+                </label>
+
+                <div class="space-y-3">
+                  <label for="photoInput" class="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-sm font-medium px-4 py-3 md:py-2.5 cursor-pointer transition">
+                    <span>📷</span>
+                    <span>Selecionar Foto</span>
+                  </label>
+                  <input id="photoInput" type="file" accept="image/*" capture="environment" class="hidden" />
+
+                  <div id="photoPreviewWrapper" class="hidden space-y-3">
+                    <div class="relative w-full max-w-sm overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+                      <img id="photoPreview" src="" alt="Pré-visualização" class="w-full h-[220px] object-cover" />
+                    </div>
+
+                    <div class="flex gap-2">
+                      <button
+                        type="button"
+                        id="changePhotoBtn"
+                        class="rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-sm font-medium px-4 py-3 md:py-2.5 transition"
+                      >
+                        Alterar
+                      </button>
+
+                      <button
+                        type="button"
+                        id="removePhotoBtn"
+                        class="rounded-xl border border-red-200 bg-white hover:bg-red-50 text-red-500 text-sm font-medium px-4 py-3 md:py-2.5 transition"
+                      >
+                        Remover
+                      </button>
+                    </div>
+                  </div>
+
+                  <p class="text-xs text-slate-400">
+                    Você pode escolher da galeria ou usar a câmera do dispositivo.
+                  </p>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label for="sectorId" class="block text-sm font-medium text-slate-600 mb-2">
+                    Setor
+                  </label>
+                  <select
+                    id="sectorId"
+                    class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-300 bg-white"
+                    required
+                  >
+                    <option value="">Selecione o setor</option>
+                  </select>
+                  <p id="sectorHint" class="hidden mt-2 text-xs text-slate-400">Cadastre setores primeiro.</p>
+                </div>
+
+                <div>
+                  <label for="equipmentId" class="block text-sm font-medium text-slate-600 mb-2">
+                    Equipamento
+                  </label>
+                  <select
+                    id="equipmentId"
+                    class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-300 bg-white"
+                    disabled
+                    required
+                  >
+                    <option value="">Selecione um setor primeiro</option>
+                  </select>
+                  <p id="equipmentHint" class="hidden mt-2 text-xs text-slate-400">Nenhum equipamento neste setor.</p>
+                </div>
+
+                <div>
+                  <label for="priority" class="block text-sm font-medium text-slate-600 mb-2">
+                    Prioridade
+                  </label>
+                  <select
+                    id="priority"
+                    class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-300 bg-white"
+                    required
+                  >
+                    <option value="LOW">Baixa</option>
+                    <option value="MEDIUM" selected>Média</option>
+                    <option value="HIGH">Alta</option>
+                    <option value="URGENT">Urgente</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="flex justify-end gap-3 pt-2">
+                <a
+                  href="tickets.html"
+                  class="rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-sm font-medium px-4 py-3 md:py-2.5 transition"
+                >
+                  Cancelar
+                </a>
+
+                <button
+                  type="submit"
+                  id="submitBtn"
+                  class="rounded-xl bg-sky-400 hover:bg-sky-500 text-white text-sm font-medium px-4 py-3 md:py-2.5 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Enviar Ticket
+                </button>
+              </div>
+            </form>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div id="toast" class="fixed right-4 bottom-4 z-[100] hidden max-w-[320px] rounded-2xl px-4 py-3 text-sm font-medium shadow-lg"></div>
+
+  <script type="module">
+    import { db, storage } from "./js/config.js";
+    import {
+      collection,
+      getDocs,
+      addDoc,
+      query,
+      orderBy,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import {
+      ref,
+      uploadBytes,
+      getDownloadURL
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+    const openSidebarBtn = document.getElementById("openSidebarBtn");
+    const closeSidebarBtn = document.getElementById("closeSidebarBtn");
+    const sidebarMobile = document.getElementById("sidebarMobile");
+    const sidebarMobileOverlay = document.getElementById("sidebarMobileOverlay");
+
+    const errorBox = document.getElementById("errorBox");
+    const ticketForm = document.getElementById("ticketForm");
+    const submitBtn = document.getElementById("submitBtn");
+
+    const descriptionInput = document.getElementById("description");
+    const sectorIdInput = document.getElementById("sectorId");
+    const equipmentIdInput = document.getElementById("equipmentId");
+    const priorityInput = document.getElementById("priority");
+
+    const sectorHint = document.getElementById("sectorHint");
+    const equipmentHint = document.getElementById("equipmentHint");
+
+    const photoInput = document.getElementById("photoInput");
+    const photoPreviewWrapper = document.getElementById("photoPreviewWrapper");
+    const photoPreview = document.getElementById("photoPreview");
+    const changePhotoBtn = document.getElementById("changePhotoBtn");
+    const removePhotoBtn = document.getElementById("removePhotoBtn");
+
+    const toast = document.getElementById("toast");
+
+    let sectorsCache = [];
+    let equipmentCache = [];
+    let selectedPhotoFile = null;
+
+    const currentUser = JSON.parse(localStorage.getItem("repairgeCurrentUser") || "null") || {
+      id: "demo-admin",
+      name: "Administrador",
+      companyId: "empresa-demo"
+    };
+
+    function openSidebar() {
+      sidebarMobile.classList.remove("-translate-x-full");
+      sidebarMobileOverlay.classList.remove("hidden");
+    }
+
+    function closeSidebar() {
+      sidebarMobile.classList.add("-translate-x-full");
+      sidebarMobileOverlay.classList.add("hidden");
+    }
+
+    function showToast(message, type = "success") {
+      toast.textContent = message;
+      toast.className = "fixed right-4 bottom-4 z-[100] max-w-[320px] rounded-2xl px-4 py-3 text-sm font-medium shadow-lg";
+
+      if (type === "success") {
+        toast.classList.add("bg-emerald-500", "text-white");
+      } else {
+        toast.classList.add("bg-red-500", "text-white");
+      }
+
+      toast.classList.remove("hidden");
+
+      setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 2800);
+    }
+
+    function populateSectors() {
+      sectorIdInput.innerHTML = `<option value="">Selecione o setor</option>`;
+
+      sectorsCache.forEach(sector => {
+        const option = document.createElement("option");
+        option.value = sector.id;
+        option.textContent = sector.name;
+        sectorIdInput.appendChild(option);
+      });
+
+      const hasSectors = sectorsCache.length > 0;
+      sectorHint.classList.toggle("hidden", hasSectors);
+      sectorIdInput.disabled = !hasSectors;
+      submitBtn.disabled = !hasSectors;
+    }
+
+    function populateEquipment(sectorId) {
+      const filtered = equipmentCache.filter(item => item.sectorId === sectorId);
+
+      equipmentIdInput.innerHTML = "";
+
+      if (!sectorId) {
+        equipmentIdInput.innerHTML = `<option value="">Selecione um setor primeiro</option>`;
+        equipmentIdInput.disabled = true;
+        equipmentHint.classList.add("hidden");
+        return;
+      }
+
+      if (!filtered.length) {
+        equipmentIdInput.innerHTML = `<option value="">Nenhum equipamento neste setor</option>`;
+        equipmentIdInput.disabled = true;
+        equipmentHint.classList.remove("hidden");
+        return;
+      }
+
+      equipmentHint.classList.add("hidden");
+      equipmentIdInput.disabled = false;
+      equipmentIdInput.innerHTML = `<option value="">Selecione o equipamento</option>`;
+
+      filtered.forEach(equipment => {
+        const option = document.createElement("option");
+        option.value = equipment.id;
+        option.textContent = equipment.name;
+        equipmentIdInput.appendChild(option);
+      });
+    }
+
+    function handlePhotoChange(file) {
+      selectedPhotoFile = file || null;
+
+      if (!selectedPhotoFile) {
+        photoPreviewWrapper.classList.add("hidden");
+        photoPreview.src = "";
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        photoPreview.src = event.target.result;
+        photoPreviewWrapper.classList.remove("hidden");
+      };
+      reader.readAsDataURL(selectedPhotoFile);
+    }
+
+    async function uploadPhotoIfNeeded() {
+      if (!selectedPhotoFile) return null;
+
+      const fileName = `ticket_photos/${Date.now()}-${selectedPhotoFile.name.replaceAll(" ", "_")}`;
+      const fileRef = ref(storage, fileName);
+
+      await uploadBytes(fileRef, selectedPhotoFile);
+      return await getDownloadURL(fileRef);
+    }
+
+    async function loadBaseData() {
+      try {
+        errorBox.classList.add("hidden");
+
+        const sectorsSnapshot = await getDocs(query(collection(db, "sectors"), orderBy("name")));
+        sectorsCache = sectorsSnapshot.docs.map(item => ({
+          id: item.id,
+          ...item.data()
+        }));
+
+        const equipmentSnapshot = await getDocs(query(collection(db, "equipment"), orderBy("name")));
+        equipmentCache = equipmentSnapshot.docs.map(item => ({
+          id: item.id,
+          ...item.data()
+        }));
+
+        populateSectors();
+      } catch (error) {
+        console.error("Erro ao carregar base:", error);
+        errorBox.classList.remove("hidden");
+        submitBtn.disabled = true;
+      }
+    }
+
+    async function submitTicket(event) {
+      event.preventDefault();
+
+      const description = descriptionInput.value.trim();
+      const sectorId = sectorIdInput.value;
+      const equipmentId = equipmentIdInput.value;
+      const priority = priorityInput.value;
+
+      if (description.length < 10) {
+        showToast("A descrição deve ter pelo menos 10 caracteres.", "error");
+        return;
+      }
+
+      if (!sectorId) {
+        showToast("Selecione um setor.", "error");
+        return;
+      }
+
+      if (!equipmentId) {
+        showToast("Selecione um equipamento.", "error");
+        return;
+      }
+
+      const sector = sectorsCache.find(item => item.id === sectorId);
+      const equipment = equipmentCache.find(item => item.id === equipmentId);
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Enviando...";
+
+      try {
+        const photoURL = await uploadPhotoIfNeeded();
+
+        await addDoc(collection(db, "tickets"), {
+          title: `${currentUser.name} solicitou manutenção`,
+          description,
+          sectorId,
+          sectorName: sector?.name || "-",
+          equipmentId,
+          equipmentName: equipment?.name || "-",
+          priority,
+          status: "OPEN",
+          requesterId: currentUser.id,
+          requesterName: currentUser.name,
+          companyId: currentUser.companyId,
+          materialsRequested: [],
+          solutionNotes: "",
+          photoURL: photoURL || null,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+
+        showToast("Ticket criado com sucesso.");
+        ticketForm.reset();
+        selectedPhotoFile = null;
+        photoPreviewWrapper.classList.add("hidden");
+        photoPreview.src = "";
+        equipmentIdInput.innerHTML = `<option value="">Selecione um setor primeiro</option>`;
+        equipmentIdInput.disabled = true;
+        equipmentHint.classList.add("hidden");
+
+        setTimeout(() => {
+          window.location.href = "tickets.html";
+        }, 700);
+      } catch (error) {
+        console.error("Erro ao criar ticket:", error);
+        showToast("Não foi possível criar o ticket.", "error");
+      } finally {
+        submitBtn.disabled = sectorsCache.length === 0;
+        submitBtn.textContent = "Enviar Ticket";
+      }
+    }
+
+    openSidebarBtn?.addEventListener("click", openSidebar);
+    closeSidebarBtn?.addEventListener("click", closeSidebar);
+    sidebarMobileOverlay?.addEventListener("click", closeSidebar);
+
+    sectorIdInput?.addEventListener("change", (event) => {
+      populateEquipment(event.target.value);
+    });
+
+    photoInput?.addEventListener("change", (event) => {
+      handlePhotoChange(event.target.files?.[0] || null);
+    });
+
+    changePhotoBtn?.addEventListener("click", () => {
+      photoInput.click();
+    });
+
+    removePhotoBtn?.addEventListener("click", () => {
+      photoInput.value = "";
+      handlePhotoChange(null);
+    });
+
+    ticketForm?.addEventListener("submit", submitTicket);
+
+    loadBaseData();
+  </script>
+</body>
+</html>
