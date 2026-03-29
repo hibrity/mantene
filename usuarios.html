@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repairge - Usuários</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f3f4f6] text-slate-700">
+
+  <div class="min-h-screen flex">
+
+    <!-- Sidebar -->
+    <aside class="hidden md:flex w-[260px] bg-[#f5f7fb] border-r border-slate-200 flex-col min-h-screen">
+      <div class="h-16 px-5 flex items-center border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl border border-sky-200 bg-white flex items-center justify-center text-sky-400 text-lg shadow-sm">
+            🏷️
+          </div>
+          <span class="text-xl font-bold text-slate-700">Repairge</span>
+        </div>
+      </div>
+
+      <div class="px-5 py-4 border-b border-slate-200">
+        <p class="text-sm font-semibold text-slate-700 leading-7">
+          Administrador (Acesso Livre)<br />
+          (Empresa)
+        </p>
+      </div>
+
+      <nav class="flex-1 px-2 py-3 overflow-y-auto">
+        <a href="dashboard.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⬚</span>
+          <span>Painel Principal</span>
+        </a>
+
+        <a href="chat.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>💬</span>
+          <span>Chat Interno</span>
+        </a>
+
+        <a href="mensagens-apagadas.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🗑️</span>
+          <span>Mensagens Apagadas</span>
+        </a>
+
+        <a href="usuarios.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-sky-100 text-sky-600">
+          <span>👥</span>
+          <span>Usuários</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 min-w-0 flex flex-col">
+
+      <header class="h-16 bg-[#f8fafc] border-b border-slate-200 px-4 md:px-6 flex items-center justify-between">
+        <div>
+          <p class="text-sm text-slate-400">Gerenciamento de usuários</p>
+        </div>
+
+        <button
+          id="openModalBtn"
+          class="rounded-xl bg-sky-500 hover:bg-sky-600 px-5 py-3 text-sm font-medium text-white transition"
+        >
+          Novo Usuário
+        </button>
+      </header>
+
+      <main class="flex-1 p-4 md:p-6">
+        <div class="max-w-7xl mx-auto">
+
+          <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-slate-200 pb-5">
+            <div>
+              <h1 class="text-2xl md:text-3xl font-bold text-slate-700">
+                Usuários
+              </h1>
+              <p class="text-sm text-slate-400 mt-1">
+                Gerencie administradores, técnicos e operadores.
+              </p>
+            </div>
+          </div>
+
+          <!-- Filtros -->
+          <section class="mt-6 bg-white border border-slate-200 rounded-2xl shadow-sm p-4 md:p-5">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-slate-600 mb-2">Buscar</label>
+                <input
+                  type="text"
+                  id="searchInput"
+                  placeholder="Buscar por nome, email ou função..."
+                  class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-2">Função</label>
+                <select
+                  id="roleFilter"
+                  class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                >
+                  <option value="">Todas</option>
+                  <option value="Administrador">Administrador</option>
+                  <option value="Técnico">Técnico</option>
+                  <option value="Operador">Operador</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <!-- Stats -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Total de Usuários</p>
+              <h2 id="totalUsers" class="text-3xl font-bold text-slate-700 mt-2">0</h2>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Administradores</p>
+              <h2 id="adminsCount" class="text-3xl font-bold text-sky-500 mt-2">0</h2>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Técnicos</p>
+              <h2 id="techniciansCount" class="text-3xl font-bold text-emerald-500 mt-2">0</h2>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Operadores</p>
+              <h2 id="operatorsCount" class="text-3xl font-bold text-orange-500 mt-2">0</h2>
+            </div>
+          </div>
+
+          <div id="usersList" class="grid grid-cols-1 xl:grid-cols-2 gap-4 mt-6"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="userModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl p-6">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-slate-700">Novo Usuário</h2>
+        <button id="closeModalBtn" class="text-slate-400 hover:text-slate-600 text-xl">✕</button>
+      </div>
+
+      <form id="userForm" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-2">Nome</label>
+            <input type="text" id="name" required class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-2">Email</label>
+            <input type="email" id="email" required class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-2">Senha</label>
+            <input type="password" id="password" required class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-2">Função</label>
+            <select id="role" required class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200">
+              <option value="">Selecione</option>
+              <option value="Administrador">Administrador</option>
+              <option value="Técnico">Técnico</option>
+              <option value="Operador">Operador</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-4">
+          <button type="button" id="cancelBtn" class="rounded-xl border border-slate-200 px-5 py-3 text-sm font-medium text-slate-600 hover:bg-slate-100">
+            Cancelar
+          </button>
+
+          <button type="submit" class="rounded-xl bg-sky-500 hover:bg-sky-600 px-5 py-3 text-sm font-medium text-white">
+            Salvar Usuário
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import { db, auth } from './js/config.js';
+    import {
+      collection,
+      addDoc,
+      getDocs,
+      deleteDoc,
+      doc
+    } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+    import {
+      createUserWithEmailAndPassword
+    } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+
+    const usersList = document.getElementById('usersList');
+    const searchInput = document.getElementById('searchInput');
+    const roleFilter = document.getElementById('roleFilter');
+
+    const totalUsers = document.getElementById('totalUsers');
+    const adminsCount = document.getElementById('adminsCount');
+    const techniciansCount = document.getElementById('techniciansCount');
+    const operatorsCount = document.getElementById('operatorsCount');
+
+    const userModal = document.getElementById('userModal');
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const userForm = document.getElementById('userForm');
+
+    const currentUser = JSON.parse(localStorage.getItem('repairgeCurrentUser') || 'null') || {
+      companyId: 'empresa-demo'
+    };
+
+    let users = [];
+
+    function openModal() {
+      userModal.classList.remove('hidden');
+      userModal.classList.add('flex');
+    }
+
+    function closeModal() {
+      userModal.classList.add('hidden');
+      userModal.classList.remove('flex');
+      userForm.reset();
+    }
+
+    async function loadUsers() {
+      const snapshot = await getDocs(collection(db, 'users'));
+
+      users = snapshot.docs
+        .map(docItem => ({
+          id: docItem.id,
+          ...docItem.data()
+        }))
+        .filter(user => user.companyId === currentUser.companyId);
+
+      updateStats();
+      renderUsers();
+    }
+
+    function updateStats() {
+      totalUsers.textContent = users.length;
+      adminsCount.textContent = users.filter(user => user.role === 'Administrador').length;
+      techniciansCount.textContent = users.filter(user => user.role === 'Técnico').length;
+      operatorsCount.textContent = users.filter(user => user.role === 'Operador').length;
+    }
+
+    function renderUsers() {
+      const search = searchInput.value.toLowerCase();
+      const role = roleFilter.value;
+
+      const filtered = users.filter(user => {
+        const matchesSearch =
+          user.name?.toLowerCase().includes(search) ||
+          user.email?.toLowerCase().includes(search) ||
+          user.role?.toLowerCase().includes(search);
+
+        const matchesRole = !role || user.role === role;
+
+        return matchesSearch && matchesRole;
+      });
+
+      usersList.innerHTML = '';
+
+      if (!filtered.length) {
+        usersList.innerHTML = `
+          <div class="col-span-full bg-white border border-slate-200 rounded-2xl p-10 text-center shadow-sm">
+            <div class="text-5xl mb-4">👥</div>
+            <h3 class="text-lg font-semibold text-slate-700">Nenhum usuário encontrado</h3>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(user => {
+        const card = document.createElement('div');
+        card.className = 'bg-white border border-slate-200 rounded-2xl p-5 shadow-sm';
+
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-full bg-sky-100 text-sky-700 font-bold flex items-center justify-center text-lg">
+                ${user.name?.substring(0,2).toUpperCase()}
+              </div>
+
+              <div>
+                <h3 class="text-lg font-semibold text-slate-700">${user.name}</h3>
+                <p class="text-sm text-slate-400">${user.email}</p>
+
+                <div class="mt-3">
+                  <span class="px-3 py-1 rounded-full text-xs font-semibold bg-sky-100 text-sky-600">
+                    ${user.role}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <button
+              class="delete-user-btn rounded-xl border border-red-200 text-red-500 hover:bg-red-50 px-4 py-2 text-sm font-medium"
+              data-id="${user.id}"
+            >
+              Excluir
+            </button>
+          </div>
+        `;
+
+        usersList.appendChild(card);
+      });
+
+      document.querySelectorAll('.delete-user-btn').forEach(button => {
+        button.addEventListener('click', async () => {
+          const confirmed = confirm('Deseja excluir este usuário?');
+          if (!confirmed) return;
+
+          await deleteDoc(doc(db, 'users', button.dataset.id));
+          loadUsers();
+        });
+      });
+    }
+
+    userForm.addEventListener('submit', async event => {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const role = document.getElementById('role').value;
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+        await addDoc(collection(db, 'users'), {
+          uid: userCredential.user.uid,
+          name,
+          email,
+          role,
+          companyId: currentUser.companyId,
+          online: false,
+          createdAt: new Date().toISOString()
+        });
+
+        closeModal();
+        loadUsers();
+      } catch (error) {
+        console.error(error);
+        alert('Erro ao criar usuário');
+      }
+    });
+
+    searchInput.addEventListener('input', renderUsers);
+    roleFilter.addEventListener('change', renderUsers);
+
+    openModalBtn.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+
+    userModal.addEventListener('click', event => {
+      if (event.target === userModal) {
+        closeModal();
+      }
+    });
+
+    loadUsers();
+  </script>
+</body>
+</html>
