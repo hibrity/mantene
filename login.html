@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repairge - Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-100 via-slate-50 to-sky-100 flex items-center justify-center p-6">
+
+  <div class="w-full max-w-6xl grid lg:grid-cols-2 bg-white rounded-[32px] overflow-hidden shadow-2xl border border-slate-200">
+
+    <!-- Left -->
+    <div class="hidden lg:flex flex-col justify-between bg-gradient-to-br from-sky-500 to-sky-700 text-white p-12 relative overflow-hidden">
+      <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-10 left-10 w-40 h-40 rounded-full bg-white"></div>
+        <div class="absolute bottom-10 right-10 w-56 h-56 rounded-full bg-white"></div>
+      </div>
+
+      <div class="relative z-10">
+        <div class="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-3xl mb-6">
+          🏷️
+        </div>
+
+        <h1 class="text-4xl font-bold leading-tight">
+          Bem-vindo ao Repairge
+        </h1>
+
+        <p class="mt-5 text-sky-100 text-lg leading-8 max-w-md">
+          Gerencie tickets, equipamentos, checklists, usuários e toda a operação da sua empresa em um único lugar.
+        </p>
+      </div>
+
+      <div class="relative z-10 grid grid-cols-2 gap-4 mt-10">
+        <div class="bg-white/10 backdrop-blur rounded-2xl p-5 border border-white/10">
+          <p class="text-3xl font-bold">+500</p>
+          <p class="text-sm text-sky-100 mt-1">Tickets gerenciados</p>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur rounded-2xl p-5 border border-white/10">
+          <p class="text-3xl font-bold">24h</p>
+          <p class="text-sm text-sky-100 mt-1">Monitoramento contínuo</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right -->
+    <div class="p-8 md:p-12 flex flex-col justify-center">
+      <div class="max-w-md mx-auto w-full">
+
+        <div class="mb-8">
+          <div class="w-14 h-14 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-2xl mb-5 lg:hidden">
+            🏷️
+          </div>
+
+          <h2 class="text-3xl font-bold text-slate-700">
+            Entrar
+          </h2>
+
+          <p class="text-slate-400 mt-2">
+            Faça login para acessar o sistema.
+          </p>
+        </div>
+
+        <form id="loginForm" class="space-y-5">
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-2">
+              E-mail
+            </label>
+            <input
+              type="email"
+              id="email"
+              required
+              placeholder="Digite seu e-mail"
+              class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-2">
+              Senha
+            </label>
+            <input
+              type="password"
+              id="password"
+              required
+              placeholder="Digite sua senha"
+              class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+            />
+          </div>
+
+          <div class="flex items-center justify-between gap-3 text-sm">
+            <label class="flex items-center gap-2 text-slate-500 cursor-pointer">
+              <input type="checkbox" id="rememberMe" class="rounded border-slate-300">
+              Lembrar de mim
+            </label>
+
+            <a href="esqueci-senha.html" class="text-sky-600 hover:text-sky-700 font-medium">
+              Esqueci minha senha
+            </a>
+          </div>
+
+          <button
+            type="submit"
+            id="submitBtn"
+            class="w-full rounded-2xl bg-sky-500 hover:bg-sky-600 text-white font-semibold py-4 transition"
+          >
+            Entrar
+          </button>
+
+          <div class="text-center pt-2">
+            <p class="text-sm text-slate-500">
+              Ainda não possui conta?
+              <a href="cadastro.html" class="text-sky-600 hover:text-sky-700 font-semibold">
+                Criar conta
+              </a>
+            </p>
+          </div>
+        </form>
+
+        <div
+          id="errorBox"
+          class="hidden mt-6 rounded-2xl border border-red-200 bg-red-50 p-5"
+        >
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center text-lg">
+              !
+            </div>
+
+            <div>
+              <h3 class="font-semibold text-red-700">
+                Não foi possível entrar
+              </h3>
+
+              <p id="errorMessage" class="text-sm text-red-600 mt-1">
+                Verifique suas credenciais.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="successBox"
+          class="hidden mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-5"
+        >
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg">
+              ✓
+            </div>
+
+            <div>
+              <h3 class="font-semibold text-emerald-700">
+                Login realizado com sucesso
+              </h3>
+
+              <p class="text-sm text-emerald-600 mt-1">
+                Redirecionando para o painel...
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import {
+      getUsers,
+      setCurrentUser
+    } from "./js/data-service.js";
+
+    const loginForm = document.getElementById("loginForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const errorBox = document.getElementById("errorBox");
+    const errorMessage = document.getElementById("errorMessage");
+    const successBox = document.getElementById("successBox");
+
+    function hideMessages() {
+      errorBox.classList.add("hidden");
+      successBox.classList.add("hidden");
+    }
+
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorBox.classList.remove("hidden");
+      successBox.classList.add("hidden");
+    }
+
+    function showSuccess() {
+      successBox.classList.remove("hidden");
+      errorBox.classList.add("hidden");
+    }
+
+    function normalizeEmail(email) {
+      return String(email || "").trim().toLowerCase();
+    }
+
+    function seedDemoAdminIfNeeded() {
+      const users = getUsers();
+
+      if (users.length > 0) return;
+
+      const demoUsers = [
+        {
+          id: "demo-admin",
+          uid: "demo-admin",
+          name: "Administrador",
+          email: "admin@repairge.com",
+          password: "123456",
+          role: "Administrador",
+          companyId: "empresa-demo",
+          companyName: "Empresa Demo",
+          online: false,
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: "demo-tecnico",
+          uid: "demo-tecnico",
+          name: "Técnico",
+          email: "tecnico@repairge.com",
+          password: "123456",
+          role: "Técnico",
+          companyId: "empresa-demo",
+          companyName: "Empresa Demo",
+          online: false,
+          createdAt: new Date().toISOString()
+        }
+      ];
+
+      localStorage.setItem("repairgeUsers", JSON.stringify(demoUsers));
+    }
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      hideMessages();
+
+      const email = normalizeEmail(document.getElementById("email").value);
+      const password = document.getElementById("password").value;
+      const rememberMe = document.getElementById("rememberMe").checked;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Entrando...";
+
+      try {
+        const users = getUsers();
+        const foundUser = users.find(
+          (user) =>
+            normalizeEmail(user.email) === email &&
+            String(user.password || "") === String(password)
+        );
+
+        if (!foundUser) {
+          showError("E-mail ou senha inválidos.");
+          return;
+        }
+
+        const sessionUser = {
+          id: foundUser.id || foundUser.uid || `user_${Date.now()}`,
+          uid: foundUser.uid || foundUser.id || `user_${Date.now()}`,
+          name: foundUser.name || "Usuário",
+          email: foundUser.email,
+          role: foundUser.role || "Operador",
+          companyId: foundUser.companyId || "empresa-demo",
+          companyName: foundUser.companyName || "Empresa Demo",
+          rememberMe
+        };
+
+        setCurrentUser(sessionUser);
+
+        showSuccess();
+
+        setTimeout(() => {
+          window.location.href = "dashboard.html";
+        }, 900);
+      } catch (error) {
+        console.error("Erro no login:", error);
+        showError("Ocorreu um erro ao entrar. Tente novamente.");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Entrar";
+      }
+    });
+
+    seedDemoAdminIfNeeded();
+  </script>
+</body>
+</html>
