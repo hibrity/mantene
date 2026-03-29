@@ -216,103 +216,188 @@
           </div>
         </form>
 
+        <div
+          id="errorBox"
+          class="hidden mt-6 rounded-2xl border border-red-200 bg-red-50 p-5"
+        >
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center text-lg">
+              !
+            </div>
+
+            <div>
+              <h3 class="font-semibold text-red-700">
+                Não foi possível criar a conta
+              </h3>
+
+              <p id="errorMessage" class="text-sm text-red-600 mt-1">
+                Verifique os dados informados.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="successBox"
+          class="hidden mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-5"
+        >
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg">
+              ✓
+            </div>
+
+            <div>
+              <h3 class="font-semibold text-emerald-700">
+                Conta criada com sucesso
+              </h3>
+
+              <p class="text-sm text-emerald-600 mt-1">
+                Redirecionando para o painel...
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 
   <script type="module">
-    import { auth, db } from './js/config.js';
-
     import {
-      createUserWithEmailAndPassword
-    } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+      getUsers,
+      createUser,
+      getCompanies,
+      createCompany,
+      setCurrentUser
+    } from "./js/data-service.js";
 
-    import {
-      collection,
-      addDoc
-    } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+    const registerForm = document.getElementById("registerForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const errorBox = document.getElementById("errorBox");
+    const errorMessage = document.getElementById("errorMessage");
+    const successBox = document.getElementById("successBox");
 
-    const registerForm = document.getElementById('registerForm');
-    const submitBtn = document.getElementById('submitBtn');
+    function hideMessages() {
+      errorBox.classList.add("hidden");
+      successBox.classList.add("hidden");
+    }
 
-    registerForm.addEventListener('submit', async event => {
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorBox.classList.remove("hidden");
+      successBox.classList.add("hidden");
+    }
+
+    function showSuccess() {
+      successBox.classList.remove("hidden");
+      errorBox.classList.add("hidden");
+    }
+
+    function normalizeEmail(email) {
+      return String(email || "").trim().toLowerCase();
+    }
+
+    registerForm.addEventListener("submit", async (event) => {
       event.preventDefault();
+      hideMessages();
 
-      const companyName = document.getElementById('companyName').value;
-      const companyCnpj = document.getElementById('companyCnpj').value;
-      const companyPhone = document.getElementById('companyPhone').value;
-      const companyAddress = document.getElementById('companyAddress').value;
+      const companyName = document.getElementById("companyName").value.trim();
+      const companyCnpj = document.getElementById("companyCnpj").value.trim();
+      const companyPhone = document.getElementById("companyPhone").value.trim();
+      const companyAddress = document.getElementById("companyAddress").value.trim();
 
-      const adminName = document.getElementById('adminName').value;
-      const adminEmail = document.getElementById('adminEmail').value;
-      const password = document.getElementById('password').value;
-      const confirmPassword = document.getElementById('confirmPassword').value;
+      const adminName = document.getElementById("adminName").value.trim();
+      const adminEmail = normalizeEmail(document.getElementById("adminEmail").value);
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      if (!companyName || !companyCnpj || !companyPhone || !companyAddress) {
+        showError("Preencha todos os dados da empresa.");
+        return;
+      }
+
+      if (!adminName || !adminEmail || !password || !confirmPassword) {
+        showError("Preencha todos os dados do administrador.");
+        return;
+      }
+
+      if (password.length < 6) {
+        showError("A senha precisa ter pelo menos 6 caracteres.");
+        return;
+      }
 
       if (password !== confirmPassword) {
-        alert('As senhas não coincidem.');
+        showError("As senhas não coincidem.");
         return;
       }
 
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Criando conta...';
+      submitBtn.textContent = "Criando conta...";
 
       try {
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          adminEmail,
-          password
+        const existingUsers = getUsers();
+        const emailAlreadyUsed = existingUsers.some(
+          (user) => normalizeEmail(user.email) === adminEmail
         );
 
-        const companyRef = await addDoc(collection(db, 'companies'), {
+        if (emailAlreadyUsed) {
+          showError("Este e-mail já está cadastrado.");
+          return;
+        }
+
+        const existingCompanies = getCompanies();
+        const cnpjAlreadyUsed = existingCompanies.some(
+          (company) => String(company.cnpj || "").trim() === companyCnpj
+        );
+
+        if (cnpjAlreadyUsed) {
+          showError("Este CNPJ já está cadastrado.");
+          return;
+        }
+
+        const newCompany = createCompany({
           name: companyName,
           cnpj: companyCnpj,
           phone: companyPhone,
           address: companyAddress,
           email: adminEmail,
-          createdAt: new Date().toISOString(),
           emailNotifications: true,
           darkMode: false,
           whatsappEnabled: true
         });
 
-        const userData = {
-          uid: userCredential.user.uid,
+        const newUser = createUser({
+          uid: `user_${Date.now()}`,
           name: adminName,
           email: adminEmail,
-          role: 'Administrador',
-          companyId: companyRef.id,
+          password: password,
+          role: "Administrador",
+          companyId: newCompany.id,
           companyName: companyName,
-          online: true,
-          createdAt: new Date().toISOString()
-        };
+          online: true
+        });
 
-        await addDoc(collection(db, 'users'), userData);
-
-        localStorage.setItem('repairgeCurrentUser', JSON.stringify({
-          id: userCredential.user.uid,
-          uid: userCredential.user.uid,
-          name: adminName,
-          email: adminEmail,
-          role: 'Administrador',
-          companyId: companyRef.id,
+        setCurrentUser({
+          id: newUser.id,
+          uid: newUser.uid || newUser.id,
+          name: newUser.name,
+          email: newUser.email,
+          role: newUser.role,
+          companyId: newCompany.id,
           companyName: companyName
-        }));
+        });
 
-        alert('Conta criada com sucesso!');
-        window.location.href = 'dashboard.html';
+        showSuccess();
+
+        setTimeout(() => {
+          window.location.href = "dashboard.html";
+        }, 900);
       } catch (error) {
-        console.error(error);
-
-        if (error.code === 'auth/email-already-in-use') {
-          alert('Este e-mail já está em uso.');
-        } else if (error.code === 'auth/weak-password') {
-          alert('A senha precisa ter pelo menos 6 caracteres.');
-        } else {
-          alert('Erro ao criar conta.');
-        }
+        console.error("Erro ao criar conta:", error);
+        showError("Ocorreu um erro ao criar a conta. Tente novamente.");
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Criar Conta';
+        submitBtn.textContent = "Criar Conta";
       }
     });
   </script>
