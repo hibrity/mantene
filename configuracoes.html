@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repairge - Configurações</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f3f4f6] text-slate-700">
+
+  <div class="min-h-screen flex">
+
+    <!-- Sidebar -->
+    <aside class="hidden md:flex w-[260px] bg-[#f5f7fb] border-r border-slate-200 flex-col min-h-screen">
+      <div class="h-16 px-5 flex items-center border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl border border-sky-200 bg-white flex items-center justify-center text-sky-400 text-lg shadow-sm">
+            🏷️
+          </div>
+          <span class="text-xl font-bold text-slate-700">Repairge</span>
+        </div>
+      </div>
+
+      <div class="px-5 py-4 border-b border-slate-200">
+        <p class="text-sm font-semibold text-slate-700 leading-7">
+          Administrador (Acesso Livre)<br />
+          (Empresa)
+        </p>
+      </div>
+
+      <nav class="flex-1 px-2 py-3 overflow-y-auto">
+        <a href="dashboard.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⬚</span>
+          <span>Painel Principal</span>
+        </a>
+
+        <a href="usuarios.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>👥</span>
+          <span>Usuários</span>
+        </a>
+
+        <a href="configuracoes.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-sky-100 text-sky-600">
+          <span>⚙️</span>
+          <span>Configurações</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 min-w-0 flex flex-col">
+
+      <header class="h-16 bg-[#f8fafc] border-b border-slate-200 px-4 md:px-6 flex items-center justify-between">
+        <div>
+          <p class="text-sm text-slate-400">Gerenciamento da empresa</p>
+        </div>
+
+        <div class="w-10 h-10 rounded-full bg-sky-200 text-sky-700 font-semibold flex items-center justify-center text-sm">
+          AD
+        </div>
+      </header>
+
+      <main class="flex-1 p-4 md:p-6">
+        <div class="max-w-5xl mx-auto">
+
+          <div class="border-b border-slate-200 pb-5">
+            <h1 class="text-2xl md:text-3xl font-bold text-slate-700">
+              Configurações
+            </h1>
+            <p class="text-sm text-slate-400 mt-1">
+              Atualize os dados da empresa e personalize o sistema.
+            </p>
+          </div>
+
+          <!-- Empresa -->
+          <section class="mt-6 bg-white border border-slate-200 rounded-2xl shadow-sm p-6">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-xl">
+                🏢
+              </div>
+              <div>
+                <h2 class="text-xl font-bold text-slate-700">Dados da Empresa</h2>
+                <p class="text-sm text-slate-400">
+                  Atualize as informações principais da empresa.
+                </p>
+              </div>
+            </div>
+
+            <form id="companyForm" class="space-y-5">
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-slate-600 mb-2">
+                    Nome da Empresa
+                  </label>
+                  <input
+                    type="text"
+                    id="companyName"
+                    class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                    placeholder="Digite o nome da empresa"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-slate-600 mb-2">
+                    CNPJ
+                  </label>
+                  <input
+                    type="text"
+                    id="companyCnpj"
+                    class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                    placeholder="00.000.000/0000-00"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-slate-600 mb-2">
+                    E-mail
+                  </label>
+                  <input
+                    type="email"
+                    id="companyEmail"
+                    class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                    placeholder="empresa@email.com"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-slate-600 mb-2">
+                    Telefone
+                  </label>
+                  <input
+                    type="text"
+                    id="companyPhone"
+                    class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                    placeholder="(00) 00000-0000"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-2">
+                  Endereço
+                </label>
+                <input
+                  type="text"
+                  id="companyAddress"
+                  class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                  placeholder="Digite o endereço da empresa"
+                />
+              </div>
+
+              <div class="flex justify-end">
+                <button
+                  type="submit"
+                  class="rounded-xl bg-sky-500 hover:bg-sky-600 px-5 py-3 text-sm font-medium text-white transition"
+                >
+                  Salvar Alterações
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <!-- Preferências -->
+          <section class="mt-6 bg-white border border-slate-200 rounded-2xl shadow-sm p-6">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl">
+                🎨
+              </div>
+              <div>
+                <h2 class="text-xl font-bold text-slate-700">Preferências do Sistema</h2>
+                <p class="text-sm text-slate-400">
+                  Personalize o funcionamento da plataforma.
+                </p>
+              </div>
+            </div>
+
+            <div class="space-y-5">
+
+              <div class="flex items-center justify-between border border-slate-200 rounded-2xl p-4">
+                <div>
+                  <h3 class="font-semibold text-slate-700">Notificações por E-mail</h3>
+                  <p class="text-sm text-slate-400">
+                    Receber alertas de tickets e atividades.
+                  </p>
+                </div>
+
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="emailNotifications" class="sr-only peer">
+                  <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-sky-500 transition"></div>
+                  <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition peer-checked:translate-x-5"></div>
+                </label>
+              </div>
+
+              <div class="flex items-center justify-between border border-slate-200 rounded-2xl p-4">
+                <div>
+                  <h3 class="font-semibold text-slate-700">Modo Escuro</h3>
+                  <p class="text-sm text-slate-400">
+                    Ativar tema escuro no sistema.
+                  </p>
+                </div>
+
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="darkMode" class="sr-only peer">
+                  <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-sky-500 transition"></div>
+                  <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition peer-checked:translate-x-5"></div>
+                </label>
+              </div>
+
+              <div class="flex items-center justify-between border border-slate-200 rounded-2xl p-4">
+                <div>
+                  <h3 class="font-semibold text-slate-700">WhatsApp Integrado</h3>
+                  <p class="text-sm text-slate-400">
+                    Exibir botão rápido para atendimento.
+                  </p>
+                </div>
+
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="whatsappEnabled" class="sr-only peer">
+                  <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-sky-500 transition"></div>
+                  <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition peer-checked:translate-x-5"></div>
+                </label>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- Zona de perigo -->
+          <section class="mt-6 bg-white border border-red-200 rounded-2xl shadow-sm p-6">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-2xl bg-red-100 text-red-500 flex items-center justify-center text-xl">
+                ⚠️
+              </div>
+              <div>
+                <h2 class="text-xl font-bold text-red-500">Zona de Perigo</h2>
+                <p class="text-sm text-slate-400">
+                  Ações permanentes e irreversíveis.
+                </p>
+              </div>
+            </div>
+
+            <div class="border border-red-200 rounded-2xl p-5">
+              <h3 class="font-semibold text-slate-700">
+                Excluir Conta da Empresa
+              </h3>
+
+              <p class="text-sm text-slate-500 mt-2">
+                Esta ação apagará permanentemente usuários, tickets, equipamentos, setores e demais dados vinculados à empresa.
+              </p>
+
+              <button
+                id="deleteCompanyBtn"
+                class="mt-5 rounded-xl bg-red-500 hover:bg-red-600 px-5 py-3 text-sm font-medium text-white transition"
+              >
+                Excluir Empresa Permanentemente
+              </button>
+            </div>
+          </section>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module">
+    import { db } from './js/config.js';
+    import {
+      doc,
+      getDoc,
+      updateDoc,
+      deleteDoc,
+      collection,
+      getDocs
+    } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+    const companyForm = document.getElementById('companyForm');
+    const deleteCompanyBtn = document.getElementById('deleteCompanyBtn');
+
+    const currentUser = JSON.parse(localStorage.getItem('repairgeCurrentUser') || 'null') || {
+      companyId: 'empresa-demo'
+    };
+
+    async function loadCompanyData() {
+      try {
+        const companyRef = doc(db, 'companies', currentUser.companyId);
+        const companySnap = await getDoc(companyRef);
+
+        if (!companySnap.exists()) return;
+
+        const company = companySnap.data();
+
+        document.getElementById('companyName').value = company.name || '';
+        document.getElementById('companyCnpj').value = company.cnpj || '';
+        document.getElementById('companyEmail').value = company.email || '';
+        document.getElementById('companyPhone').value = company.phone || '';
+        document.getElementById('companyAddress').value = company.address || '';
+
+        document.getElementById('emailNotifications').checked = company.emailNotifications || false;
+        document.getElementById('darkMode').checked = company.darkMode || false;
+        document.getElementById('whatsappEnabled').checked = company.whatsappEnabled || false;
+      } catch (error) {
+        console.error('Erro ao carregar empresa:', error);
+      }
+    }
+
+    companyForm.addEventListener('submit', async event => {
+      event.preventDefault();
+
+      try {
+        const companyRef = doc(db, 'companies', currentUser.companyId);
+
+        await updateDoc(companyRef, {
+          name: document.getElementById('companyName').value,
+          cnpj: document.getElementById('companyCnpj').value,
+          email: document.getElementById('companyEmail').value,
+          phone: document.getElementById('companyPhone').value,
+          address: document.getElementById('companyAddress').value,
+          emailNotifications: document.getElementById('emailNotifications').checked,
+          darkMode: document.getElementById('darkMode').checked,
+          whatsappEnabled: document.getElementById('whatsappEnabled').checked,
+          updatedAt: new Date().toISOString()
+        });
+
+        alert('Configurações salvas com sucesso!');
+      } catch (error) {
+        console.error(error);
+        alert('Erro ao salvar configurações');
+      }
+    });
+
+    deleteCompanyBtn.addEventListener('click', async () => {
+      const confirmed = confirm(
+        'Tem certeza que deseja excluir permanentemente a empresa? Esta ação não pode ser desfeita.'
+      );
+
+      if (!confirmed) return;
+
+      try {
+        await deleteDoc(doc(db, 'companies', currentUser.companyId));
+
+        alert('Empresa excluída com sucesso.');
+
+        window.location.href = 'login.html';
+      } catch (error) {
+        console.error(error);
+        alert('Erro ao excluir empresa');
+      }
+    });
+
+    loadCompanyData();
+  </script>
+</body>
+</html>
