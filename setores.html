@@ -32,15 +32,12 @@
           </div>
           <span class="text-xl font-bold text-slate-700">Repairge</span>
         </div>
-        <button class="text-slate-400 hover:text-slate-600 text-sm" title="Menu">
-          ⋮
-        </button>
       </div>
 
       <div class="px-5 py-4 border-b border-slate-200">
         <p class="text-sm font-semibold text-slate-700 leading-7">
-          Administrador (Acesso Livre)<br />
-          (Empresa)
+          <span data-user-name>Administrador</span><br />
+          <span data-user-role>Administrador</span>
         </p>
       </div>
 
@@ -130,8 +127,8 @@
 
       <div class="px-4 py-4 border-b border-slate-200">
         <p class="text-sm font-semibold text-slate-700 leading-7">
-          Administrador (Acesso Livre)<br />
-          (Empresa)
+          <span data-user-name>Administrador</span><br />
+          <span data-user-role>Administrador</span>
         </p>
       </div>
 
@@ -196,13 +193,6 @@
           <span>Tickets Removidos</span>
         </a>
       </nav>
-
-      <div class="border-t border-slate-200 p-3">
-        <a href="index.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
-          <span>⌂</span>
-          <span>Início</span>
-        </a>
-      </div>
     </aside>
 
     <!-- MAIN -->
@@ -220,17 +210,8 @@
         </div>
 
         <div class="flex items-center gap-3 md:gap-4">
-          <button class="w-8 h-8 rounded-full bg-orange-100 text-orange-500 flex items-center justify-center text-sm" title="Calculadora">
-            🧮
-          </button>
-          <button class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-sm" title="Calendário">
-            🗓️
-          </button>
-          <button class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm" title="WhatsApp">
-            🟢
-          </button>
-          <div class="w-10 h-10 rounded-full bg-sky-200 text-sky-700 font-semibold flex items-center justify-center text-sm">
-            AL
+          <div class="w-10 h-10 rounded-full bg-sky-200 text-sky-700 font-semibold flex items-center justify-center text-sm" data-user-initials>
+            AD
           </div>
         </div>
       </header>
@@ -252,33 +233,27 @@
               </div>
             </div>
 
-            <button id="openSectorModalBtn" class="inline-flex items-center justify-center gap-2 rounded-xl bg-sky-400 hover:bg-sky-500 text-white text-sm font-medium px-4 py-3 md:py-2.5 shadow-sm transition">
+            <button id="addSectorButton" class="inline-flex items-center justify-center gap-2 rounded-xl bg-sky-400 hover:bg-sky-500 text-white text-sm font-medium px-4 py-3 md:py-2.5 shadow-sm transition">
               <span>＋</span>
               <span>Novo Setor</span>
             </button>
           </div>
 
-          <!-- ALERT -->
-          <div id="errorBox" class="hidden mt-4 rounded-xl border border-red-200 bg-red-50 text-red-600 px-4 py-3 text-sm">
-            Não foi possível carregar os setores.
-          </div>
-
-          <!-- TABLE / EMPTY -->
           <section class="mt-5">
             <div class="hidden md:block bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
               <div class="overflow-x-auto">
                 <table class="w-full">
                   <thead class="bg-slate-50 border-b border-slate-200">
                     <tr>
-                      <th class="text-left px-5 py-4 text-sm font-semibold text-slate-500">Nome</th>
-                      <th class="text-left px-5 py-4 text-sm font-semibold text-slate-500">Descrição</th>
-                      <th class="text-left px-5 py-4 text-sm font-semibold text-slate-500">Criado em</th>
-                      <th class="text-right px-5 py-4 text-sm font-semibold text-slate-500">Ações</th>
+                      <th class="text-left px-6 py-4 text-sm font-semibold text-slate-500">Nome</th>
+                      <th class="text-left px-6 py-4 text-sm font-semibold text-slate-500">Descrição</th>
+                      <th class="text-left px-6 py-4 text-sm font-semibold text-slate-500">Criado em</th>
+                      <th class="text-right px-6 py-4 text-sm font-semibold text-slate-500">Ações</th>
                     </tr>
                   </thead>
-                  <tbody id="sectorTableBody">
+                  <tbody id="sectorsTableBody">
                     <tr>
-                      <td colspan="4" class="px-5 py-12 text-center text-slate-400">
+                      <td colspan="4" class="px-6 py-10 text-center text-slate-400">
                         Carregando setores...
                       </td>
                     </tr>
@@ -287,439 +262,312 @@
               </div>
             </div>
 
-            <div id="sectorCardsMobile" class="grid md:hidden gap-3">
-              <div class="bg-white border border-slate-200 rounded-2xl p-5 text-center text-slate-400 shadow-sm">
-                Carregando setores...
-              </div>
-            </div>
+            <div id="mobileSectorsList" class="grid md:hidden gap-3"></div>
           </section>
         </div>
       </main>
     </div>
   </div>
 
-  <!-- MODAL SETOR -->
-  <div id="sectorModalOverlay" class="fixed inset-0 bg-black/40 z-[60] hidden"></div>
-
-  <div id="sectorModal" class="fixed inset-x-0 top-1/2 -translate-y-1/2 mx-auto w-[92%] max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 z-[70] hidden">
-    <div class="px-5 py-4 border-b border-slate-200 flex items-start justify-between gap-4">
-      <div>
-        <h2 id="sectorModalTitle" class="text-lg font-bold text-slate-700">Novo Setor</h2>
-        <p class="mt-1 text-sm text-slate-400">Preencha os dados do setor.</p>
-      </div>
-      <button id="closeSectorModalBtn" class="text-slate-400 hover:text-slate-600 text-xl">✕</button>
-    </div>
-
-    <form id="sectorForm" class="p-5 space-y-4">
-      <input type="hidden" id="sectorId" />
-
-      <div>
-        <label for="sectorName" class="block text-sm font-medium text-slate-600 mb-2">
-          Nome do Setor
-        </label>
-        <input
-          id="sectorName"
-          type="text"
-          placeholder="Ex: Linha de Produção Alfa"
-          class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-300"
-          required
-        />
+  <!-- MODAL -->
+  <div id="sectorModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg p-6">
+      <div class="flex items-center justify-between mb-6">
+        <h2 id="modalTitle" class="text-2xl font-bold text-slate-700">Novo Setor</h2>
+        <button id="closeModalButton" class="text-slate-400 hover:text-slate-600 text-xl">✕</button>
       </div>
 
-      <div>
-        <label for="sectorDescription" class="block text-sm font-medium text-slate-600 mb-2">
-          Descrição
-        </label>
-        <textarea
-          id="sectorDescription"
-          rows="4"
-          placeholder="Breve descrição do setor"
-          class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-300 resize-none"
-        ></textarea>
-      </div>
+      <form id="sectorForm" class="space-y-4">
+        <input type="hidden" id="sectorId" />
 
-      <div class="flex justify-end gap-3 pt-2">
-        <button
-          type="button"
-          id="cancelSectorBtn"
-          class="rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-sm font-medium px-4 py-3 md:py-2.5 transition"
-        >
-          Cancelar
-        </button>
+        <div>
+          <label class="block text-sm font-medium text-slate-600 mb-2">Nome do Setor</label>
+          <input
+            type="text"
+            id="sectorName"
+            required
+            placeholder="Digite o nome do setor"
+            class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+          />
+        </div>
 
-        <button
-          type="submit"
-          class="rounded-xl bg-sky-400 hover:bg-sky-500 text-white text-sm font-medium px-4 py-3 md:py-2.5 transition"
-        >
-          Salvar Setor
-        </button>
-      </div>
-    </form>
-  </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-600 mb-2">Descrição</label>
+          <textarea
+            id="sectorDescription"
+            rows="4"
+            placeholder="Digite a descrição do setor"
+            class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm outline-none focus:ring-2 focus:ring-sky-200 resize-none"
+          ></textarea>
+        </div>
 
-  <!-- MODAL EXCLUIR -->
-  <div id="deleteModalOverlay" class="fixed inset-0 bg-black/40 z-[80] hidden"></div>
+        <div class="flex justify-end gap-3 pt-4">
+          <button
+            type="button"
+            id="cancelButton"
+            class="rounded-xl border border-slate-200 px-5 py-3 text-sm font-medium text-slate-600 hover:bg-slate-100"
+          >
+            Cancelar
+          </button>
 
-  <div id="deleteModal" class="fixed inset-x-0 top-1/2 -translate-y-1/2 mx-auto w-[92%] max-w-md bg-white rounded-2xl shadow-2xl border border-slate-200 z-[90] hidden">
-    <div class="p-5">
-      <h3 class="text-lg font-bold text-slate-700">
-        Excluir setor?
-      </h3>
-      <p class="mt-2 text-sm text-slate-400 leading-6">
-        Esta ação não pode ser desfeita. O setor será removido permanentemente.
-      </p>
-
-      <div class="mt-5 flex justify-end gap-3">
-        <button
-          id="cancelDeleteBtn"
-          class="rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-sm font-medium px-4 py-3 md:py-2.5 transition"
-        >
-          Cancelar
-        </button>
-
-        <button
-          id="confirmDeleteBtn"
-          class="rounded-xl bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-4 py-3 md:py-2.5 transition"
-        >
-          Excluir
-        </button>
-      </div>
+          <button
+            type="submit"
+            id="saveButton"
+            class="rounded-xl bg-sky-500 hover:bg-sky-600 px-5 py-3 text-sm font-medium text-white"
+          >
+            Salvar
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 
-  <!-- TOAST -->
-  <div id="toast" class="fixed right-4 bottom-4 z-[100] hidden max-w-[320px] rounded-2xl px-4 py-3 text-sm font-medium shadow-lg"></div>
+  <script src="./js/current-user.js"></script>
+  <script src="./js/sidebar.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/auth-guard.js"></script>
 
   <script type="module">
     import {
-      db
-    } from "./js/config.js";
+      getSectors,
+      createSector,
+      updateSector,
+      deleteSector,
+      getCurrentUser
+    } from "./js/data-service.js";
 
-    import {
-      collection,
-      addDoc,
-      getDocs,
-      doc,
-      updateDoc,
-      deleteDoc,
-      query,
-      orderBy,
-      serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    const currentUser = getCurrentUser();
 
-    const openSidebarBtn = document.getElementById("openSidebarBtn");
-    const closeSidebarBtn = document.getElementById("closeSidebarBtn");
-    const sidebarMobile = document.getElementById("sidebarMobile");
-    const sidebarMobileOverlay = document.getElementById("sidebarMobileOverlay");
+    if (!currentUser) {
+      window.location.href = "login.html";
+    }
 
-    const openSectorModalBtn = document.getElementById("openSectorModalBtn");
-    const closeSectorModalBtn = document.getElementById("closeSectorModalBtn");
-    const cancelSectorBtn = document.getElementById("cancelSectorBtn");
+    const sectorsTableBody = document.getElementById("sectorsTableBody");
+    const mobileSectorsList = document.getElementById("mobileSectorsList");
     const sectorModal = document.getElementById("sectorModal");
-    const sectorModalOverlay = document.getElementById("sectorModalOverlay");
-    const sectorModalTitle = document.getElementById("sectorModalTitle");
-
     const sectorForm = document.getElementById("sectorForm");
+    const modalTitle = document.getElementById("modalTitle");
+    const saveButton = document.getElementById("saveButton");
+
     const sectorIdInput = document.getElementById("sectorId");
     const sectorNameInput = document.getElementById("sectorName");
     const sectorDescriptionInput = document.getElementById("sectorDescription");
 
-    const sectorTableBody = document.getElementById("sectorTableBody");
-    const sectorCardsMobile = document.getElementById("sectorCardsMobile");
+    const addSectorButton = document.getElementById("addSectorButton");
+    const closeModalButton = document.getElementById("closeModalButton");
+    const cancelButton = document.getElementById("cancelButton");
 
-    const deleteModal = document.getElementById("deleteModal");
-    const deleteModalOverlay = document.getElementById("deleteModalOverlay");
-    const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
-    const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
-
-    const errorBox = document.getElementById("errorBox");
-    const toast = document.getElementById("toast");
-
-    let sectorToDeleteId = null;
-    let sectorToDeleteName = "";
-
-    function openSidebar() {
-      sidebarMobile.classList.remove("-translate-x-full");
-      sidebarMobileOverlay.classList.remove("hidden");
+    function getCompanySectors() {
+      const sectors = getSectors();
+      return sectors.filter(sector => sector.companyId === currentUser.companyId);
     }
 
-    function closeSidebar() {
-      sidebarMobile.classList.add("-translate-x-full");
-      sidebarMobileOverlay.classList.add("hidden");
-    }
+    function renderSectors() {
+      const sectors = getCompanySectors();
 
-    function openSectorModal(editing = false, sector = null) {
-      sectorModal.classList.remove("hidden");
-      sectorModalOverlay.classList.remove("hidden");
+      sectorsTableBody.innerHTML = "";
+      mobileSectorsList.innerHTML = "";
 
-      if (editing && sector) {
-        sectorModalTitle.textContent = "Editar Setor";
-        sectorIdInput.value = sector.id;
-        sectorNameInput.value = sector.name || "";
-        sectorDescriptionInput.value = sector.description || "";
-      } else {
-        sectorModalTitle.textContent = "Novo Setor";
-        sectorForm.reset();
-        sectorIdInput.value = "";
-      }
-    }
-
-    function closeSectorModal() {
-      sectorModal.classList.add("hidden");
-      sectorModalOverlay.classList.add("hidden");
-      sectorForm.reset();
-      sectorIdInput.value = "";
-    }
-
-    function openDeleteModal(id, name) {
-      sectorToDeleteId = id;
-      sectorToDeleteName = name;
-      deleteModal.classList.remove("hidden");
-      deleteModalOverlay.classList.remove("hidden");
-    }
-
-    function closeDeleteModal() {
-      sectorToDeleteId = null;
-      sectorToDeleteName = "";
-      deleteModal.classList.add("hidden");
-      deleteModalOverlay.classList.add("hidden");
-    }
-
-    function showToast(message, type = "success") {
-      toast.textContent = message;
-      toast.className = "fixed right-4 bottom-4 z-[100] max-w-[320px] rounded-2xl px-4 py-3 text-sm font-medium shadow-lg";
-
-      if (type === "success") {
-        toast.classList.add("bg-emerald-500", "text-white");
-      } else {
-        toast.classList.add("bg-red-500", "text-white");
-      }
-
-      toast.classList.remove("hidden");
-
-      setTimeout(() => {
-        toast.classList.add("hidden");
-      }, 2600);
-    }
-
-    function formatDate(value) {
-      if (!value) return "-";
-
-      try {
-        if (typeof value?.toDate === "function") {
-          return value.toDate().toLocaleString("pt-BR");
-        }
-
-        const date = new Date(value);
-        return isNaN(date.getTime()) ? "-" : date.toLocaleString("pt-BR");
-      } catch {
-        return "-";
-      }
-    }
-
-    function renderSectors(items) {
-      if (!items.length) {
-        sectorTableBody.innerHTML = `
+      if (sectors.length === 0) {
+        sectorsTableBody.innerHTML = `
           <tr>
-            <td colspan="4" class="px-5 py-12 text-center text-slate-400">
-              Nenhum setor encontrado.
+            <td colspan="4" class="px-6 py-10 text-center text-slate-400">
+              Nenhum setor cadastrado.
             </td>
           </tr>
         `;
 
-        sectorCardsMobile.innerHTML = `
-          <div class="bg-white border border-slate-200 rounded-2xl p-5 text-center text-slate-400 shadow-sm">
-            Nenhum setor encontrado.
+        mobileSectorsList.innerHTML = `
+          <div class="bg-white border border-slate-200 rounded-2xl p-8 text-center text-slate-400 shadow-sm">
+            Nenhum setor cadastrado.
           </div>
         `;
         return;
       }
 
-      sectorTableBody.innerHTML = items.map(item => `
-        <tr class="border-b border-slate-100 last:border-b-0">
-          <td class="px-5 py-4 text-sm font-medium text-slate-700">${item.name || "-"}</td>
-          <td class="px-5 py-4 text-sm text-slate-500">${item.description || "-"}</td>
-          <td class="px-5 py-4 text-sm text-slate-500">${formatDate(item.createdAt)}</td>
-          <td class="px-5 py-4">
+      sectors.forEach((sector) => {
+        const createdAt = sector.createdAt
+          ? new Date(sector.createdAt).toLocaleDateString("pt-BR")
+          : "-";
+
+        const row = document.createElement("tr");
+        row.className = "border-b border-slate-100 hover:bg-slate-50";
+
+        row.innerHTML = `
+          <td class="px-6 py-4 font-medium text-slate-700">
+            ${sector.name || "-"}
+          </td>
+
+          <td class="px-6 py-4 text-slate-500">
+            ${sector.description || "-"}
+          </td>
+
+          <td class="px-6 py-4 text-slate-500">
+            ${createdAt}
+          </td>
+
+          <td class="px-6 py-4">
             <div class="flex items-center justify-end gap-2">
               <button
-                class="rounded-lg border border-slate-200 px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50"
-                data-action="edit"
-                data-id="${item.id}"
-                data-name="${item.name || ""}"
-                data-description="${item.description || ""}"
+                class="edit-sector px-3 py-2 rounded-xl bg-amber-100 text-amber-700 hover:bg-amber-200 text-sm font-medium"
+                data-id="${sector.id}"
               >
                 Editar
               </button>
+
               <button
-                class="rounded-lg border border-red-200 px-3 py-2 text-xs font-medium text-red-500 hover:bg-red-50"
-                data-action="delete"
-                data-id="${item.id}"
-                data-name="${item.name || ""}"
+                class="delete-sector px-3 py-2 rounded-xl bg-red-100 text-red-700 hover:bg-red-200 text-sm font-medium"
+                data-id="${sector.id}"
               >
                 Excluir
               </button>
             </div>
           </td>
-        </tr>
-      `).join("");
+        `;
 
-      sectorCardsMobile.innerHTML = items.map(item => `
-        <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
-          <div class="flex items-start justify-between gap-3">
-            <div>
-              <div class="text-base font-semibold text-slate-700">${item.name || "-"}</div>
-              <div class="mt-2 text-sm text-slate-500 leading-6">${item.description || "-"}</div>
-              <div class="mt-3 text-xs text-slate-400">${formatDate(item.createdAt)}</div>
+        sectorsTableBody.appendChild(row);
+
+        const mobileCard = document.createElement("div");
+        mobileCard.className = "bg-white border border-slate-200 rounded-2xl p-5 shadow-sm";
+
+        mobileCard.innerHTML = `
+          <div class="flex items-start justify-between gap-4">
+            <div class="min-w-0">
+              <h3 class="text-lg font-semibold text-slate-700">${sector.name || "-"}</h3>
+              <p class="text-sm text-slate-500 mt-2">${sector.description || "-"}</p>
+              <p class="text-xs text-slate-400 mt-3">Criado em: ${createdAt}</p>
             </div>
           </div>
-          <div class="mt-4 flex gap-2">
+
+          <div class="flex gap-2 mt-4">
             <button
-              class="flex-1 rounded-xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50"
-              data-action="edit"
-              data-id="${item.id}"
-              data-name="${item.name || ""}"
-              data-description="${item.description || ""}"
+              class="edit-sector flex-1 px-3 py-3 rounded-xl bg-amber-100 text-amber-700 hover:bg-amber-200 text-sm font-medium"
+              data-id="${sector.id}"
             >
               Editar
             </button>
+
             <button
-              class="flex-1 rounded-xl border border-red-200 px-4 py-3 text-sm font-medium text-red-500 hover:bg-red-50"
-              data-action="delete"
-              data-id="${item.id}"
-              data-name="${item.name || ""}"
+              class="delete-sector flex-1 px-3 py-3 rounded-xl bg-red-100 text-red-700 hover:bg-red-200 text-sm font-medium"
+              data-id="${sector.id}"
             >
               Excluir
             </button>
           </div>
-        </div>
-      `).join("");
+        `;
 
-      bindRowActions();
+        mobileSectorsList.appendChild(mobileCard);
+      });
+
+      bindSectorActions();
     }
 
-    function bindRowActions() {
-      document.querySelectorAll('[data-action="edit"]').forEach(button => {
+    function bindSectorActions() {
+      const editButtons = document.querySelectorAll(".edit-sector");
+      const deleteButtons = document.querySelectorAll(".delete-sector");
+
+      editButtons.forEach((button) => {
         button.addEventListener("click", () => {
-          openSectorModal(true, {
-            id: button.dataset.id,
-            name: button.dataset.name,
-            description: button.dataset.description
-          });
+          const sectorId = button.dataset.id;
+          const sectors = getCompanySectors();
+          const sector = sectors.find(item => item.id === sectorId);
+
+          if (!sector) return;
+
+          modalTitle.textContent = "Editar Setor";
+          saveButton.textContent = "Salvar Alterações";
+
+          sectorIdInput.value = sector.id;
+          sectorNameInput.value = sector.name || "";
+          sectorDescriptionInput.value = sector.description || "";
+
+          openModal();
         });
       });
 
-      document.querySelectorAll('[data-action="delete"]').forEach(button => {
+      deleteButtons.forEach((button) => {
         button.addEventListener("click", () => {
-          openDeleteModal(button.dataset.id, button.dataset.name);
+          const sectorId = button.dataset.id;
+          const confirmed = confirm("Deseja realmente excluir este setor?");
+
+          if (!confirmed) return;
+
+          deleteSector(sectorId);
+          renderSectors();
         });
       });
     }
 
-    async function loadSectors() {
-      try {
-        errorBox.classList.add("hidden");
+    function resetForm() {
+      sectorIdInput.value = "";
+      sectorNameInput.value = "";
+      sectorDescriptionInput.value = "";
 
-        const sectorsRef = collection(db, "sectors");
-        const q = query(sectorsRef, orderBy("name"));
-        const snapshot = await getDocs(q);
+      modalTitle.textContent = "Novo Setor";
+      saveButton.textContent = "Salvar";
+    }
 
-        const items = snapshot.docs.map(docItem => ({
-          id: docItem.id,
-          ...docItem.data()
-        }));
+    function openModal() {
+      sectorModal.classList.remove("hidden");
+      sectorModal.classList.add("flex");
+    }
 
-        renderSectors(items);
-      } catch (error) {
-        console.error("Erro ao carregar setores:", error);
-        errorBox.classList.remove("hidden");
+    function closeModal() {
+      sectorModal.classList.add("hidden");
+      sectorModal.classList.remove("flex");
+      resetForm();
+    }
 
-        sectorTableBody.innerHTML = `
-          <tr>
-            <td colspan="4" class="px-5 py-12 text-center text-red-400">
-              Erro ao carregar setores.
-            </td>
-          </tr>
-        `;
+    addSectorButton.addEventListener("click", () => {
+      resetForm();
+      openModal();
+    });
 
-        sectorCardsMobile.innerHTML = `
-          <div class="bg-white border border-red-200 rounded-2xl p-5 text-center text-red-400 shadow-sm">
-            Erro ao carregar setores.
-          </div>
-        `;
+    closeModalButton.addEventListener("click", closeModal);
+    cancelButton.addEventListener("click", closeModal);
+
+    sectorModal.addEventListener("click", (event) => {
+      if (event.target === sectorModal) {
+        closeModal();
       }
-    }
+    });
 
-    async function saveSector(event) {
+    sectorForm.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      const id = sectorIdInput.value.trim();
+      const id = sectorIdInput.value;
       const name = sectorNameInput.value.trim();
       const description = sectorDescriptionInput.value.trim();
 
       if (!name) {
-        showToast("Informe o nome do setor.", "error");
+        alert("Informe o nome do setor.");
         return;
       }
 
-      try {
-        if (id) {
-          await updateDoc(doc(db, "sectors", id), {
-            name,
-            description,
-            updatedAt: serverTimestamp()
-          });
-
-          showToast("Setor atualizado com sucesso.");
-        } else {
-          await addDoc(collection(db, "sectors"), {
-            name,
-            description,
-            createdAt: serverTimestamp(),
-            updatedAt: serverTimestamp()
-          });
-
-          showToast("Setor criado com sucesso.");
-        }
-
-        closeSectorModal();
-        loadSectors();
-      } catch (error) {
-        console.error("Erro ao salvar setor:", error);
-        showToast("Não foi possível salvar o setor.", "error");
+      if (id) {
+        updateSector(id, {
+          name,
+          description
+        });
+      } else {
+        createSector({
+          name,
+          description,
+          companyId: currentUser.companyId,
+          companyName: currentUser.companyName,
+          createdBy: currentUser.name
+        });
       }
+
+      closeModal();
+      renderSectors();
+    });
+
+    if (window.RepairgeCurrentUser) {
+      window.RepairgeCurrentUser.updateCurrentUserHeader();
     }
 
-    async function confirmDeleteSector() {
-      if (!sectorToDeleteId) return;
-
-      try {
-        await deleteDoc(doc(db, "sectors", sectorToDeleteId));
-        showToast(`Setor "${sectorToDeleteName}" excluído.`);
-        closeDeleteModal();
-        loadSectors();
-      } catch (error) {
-        console.error("Erro ao excluir setor:", error);
-        showToast("Não foi possível excluir o setor.", "error");
-      }
-    }
-
-    openSidebarBtn?.addEventListener("click", openSidebar);
-    closeSidebarBtn?.addEventListener("click", closeSidebar);
-    sidebarMobileOverlay?.addEventListener("click", closeSidebar);
-
-    openSectorModalBtn?.addEventListener("click", () => openSectorModal(false));
-    closeSectorModalBtn?.addEventListener("click", closeSectorModal);
-    cancelSectorBtn?.addEventListener("click", closeSectorModal);
-    sectorModalOverlay?.addEventListener("click", closeSectorModal);
-
-    cancelDeleteBtn?.addEventListener("click", closeDeleteModal);
-    deleteModalOverlay?.addEventListener("click", closeDeleteModal);
-    confirmDeleteBtn?.addEventListener("click", confirmDeleteSector);
-
-    sectorForm?.addEventListener("submit", saveSector);
-
-    loadSectors();
+    renderSectors();
   </script>
 </body>
 </html>
