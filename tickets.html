@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repairge - Tickets de Manutenção</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #eef2f7;
+    }
+  </style>
+</head>
+<body class="bg-[#f3f4f6] text-slate-700">
+
+  <div class="min-h-screen flex">
+
+    <!-- SIDEBAR DESKTOP -->
+    <aside class="hidden md:flex w-[260px] bg-[#f5f7fb] border-r border-slate-200 flex-col min-h-screen">
+      <div class="h-16 px-5 flex items-center justify-between border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl border border-sky-200 bg-white flex items-center justify-center text-sky-400 text-lg shadow-sm">
+            🏷️
+          </div>
+          <span class="text-xl font-bold text-slate-700">Repairge</span>
+        </div>
+        <button class="text-slate-400 hover:text-slate-600 text-sm" title="Menu">
+          ⋮
+        </button>
+      </div>
+
+      <div class="px-5 py-4 border-b border-slate-200">
+        <p class="text-sm font-semibold text-slate-700 leading-7">
+          Administrador (Acesso Livre)<br />
+          (Empresa)
+        </p>
+      </div>
+
+      <nav class="flex-1 px-2 py-3 overflow-y-auto">
+        <a href="dashboard.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⬚</span>
+          <span>Painel Principal</span>
+        </a>
+
+        <a href="chat.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>💬</span>
+          <span>Chat Interno</span>
+        </a>
+
+        <a href="checklists-realizados.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>☑️</span>
+          <span>Checklists Realizados</span>
+        </a>
+
+        <a href="configuracoes.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⚙️</span>
+          <span>Configurações</span>
+        </a>
+
+        <a href="checklist-diario.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>📋</span>
+          <span>Criar Checklist Diário</span>
+        </a>
+
+        <a href="equipamentos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏭</span>
+          <span>Equipamentos</span>
+        </a>
+
+        <a href="usuarios.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>👥</span>
+          <span>Gerenciar Usuários</span>
+        </a>
+
+        <a href="mensagens-apagadas.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🗑️</span>
+          <span>Mensagens Apagadas</span>
+        </a>
+
+        <a href="setores.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏢</span>
+          <span>Setores</span>
+        </a>
+
+        <a href="tickets-concluidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>✅</span>
+          <span>Tickets Concluídos</span>
+        </a>
+
+        <a href="tickets.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-sky-100/70 text-sky-500">
+          <span>🎫</span>
+          <span>Tickets de Manutenção</span>
+        </a>
+
+        <a href="tickets-removidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🧺</span>
+          <span>Tickets Removidos</span>
+        </a>
+      </nav>
+
+      <div class="border-t border-slate-200 p-3">
+        <a href="index.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⌂</span>
+          <span>Início</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- SIDEBAR MOBILE -->
+    <div id="sidebarMobileOverlay" class="fixed inset-0 bg-black/40 z-40 hidden md:hidden"></div>
+
+    <aside id="sidebarMobile" class="fixed top-0 left-0 h-full w-[285px] bg-[#f5f7fb] border-r border-slate-200 z-50 transform -translate-x-full transition-transform duration-300 md:hidden flex flex-col">
+      <div class="h-16 px-4 flex items-center justify-between border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl border border-sky-200 bg-white flex items-center justify-center text-sky-400 text-lg shadow-sm">
+            🏷️
+          </div>
+          <span class="text-xl font-bold text-slate-700">Repairge</span>
+        </div>
+        <button id="closeSidebarBtn" class="text-slate-500 text-xl">✕</button>
+      </div>
+
+      <div class="px-4 py-4 border-b border-slate-200">
+        <p class="text-sm font-semibold text-slate-700 leading-7">
+          Administrador (Acesso Livre)<br />
+          (Empresa)
+        </p>
+      </div>
+
+      <nav class="flex-1 px-2 py-3 overflow-y-auto">
+        <a href="dashboard.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⬚</span>
+          <span>Painel Principal</span>
+        </a>
+
+        <a href="chat.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>💬</span>
+          <span>Chat Interno</span>
+        </a>
+
+        <a href="checklists-realizados.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>☑️</span>
+          <span>Checklists Realizados</span>
+        </a>
+
+        <a href="configuracoes.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⚙️</span>
+          <span>Configurações</span>
+        </a>
+
+        <a href="checklist-diario.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>📋</span>
+          <span>Criar Checklist Diário</span>
+        </a>
+
+        <a href="equipamentos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏭</span>
+          <span>Equipamentos</span>
+        </a>
+
+        <a href="usuarios.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>👥</span>
+          <span>Gerenciar Usuários</span>
+        </a>
+
+        <a href="mensagens-apagadas.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🗑️</span>
+          <span>Mensagens Apagadas</span>
+        </a>
+
+        <a href="setores.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏢</span>
+          <span>Setores</span>
+        </a>
+
+        <a href="tickets-concluidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>✅</span>
+          <span>Tickets Concluídos</span>
+        </a>
+
+        <a href="tickets.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-sky-100/70 text-sky-500">
+          <span>🎫</span>
+          <span>Tickets de Manutenção</span>
+        </a>
+
+        <a href="tickets-removidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🧺</span>
+          <span>Tickets Removidos</span>
+        </a>
+      </nav>
+
+      <div class="border-t border-slate-200 p-3">
+        <a href="index.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⌂</span>
+          <span>Início</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="flex-1 min-w-0 flex flex-col">
+
+      <!-- TOPBAR -->
+      <header class="h-16 bg-[#f8fafc] border-b border-slate-200 px-4 md:px-6 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <button id="openSidebarBtn" class="md:hidden w-10 h-10 rounded-lg hover:bg-slate-100 flex items-center justify-center text-slate-600 text-xl">
+            ☰
+          </button>
+          <div class="hidden md:block text-sm text-slate-400">
+            Gestão de chamados
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 md:gap-4">
+          <button class="w-8 h-8 rounded-full bg-orange-100 text-orange-500 flex items-center justify-center text-sm" title="Calculadora">
+            🧮
+          </button>
+          <button class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-sm" title="Calendário">
+            🗓️
+          </button>
+          <button class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm" title="WhatsApp">
+            🟢
+          </button>
+          <div class="w-10 h-10 rounded-full bg-sky-200 text-sky-700 font-semibold flex items-center justify-center text-sm">
+            AL
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <main class="flex-1 p-4 md:p-6">
+        <div class="max-w-7xl">
+
+          <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 border-b border-slate-200 pb-4">
+            <div class="flex items-start gap-3">
+              <div class="text-sky-400 text-2xl mt-1">🎫</div>
+              <div class="max-w-3xl">
+                <h1 class="text-[22px] md:text-[28px] font-bold text-slate-700 leading-tight">
+                  Tickets de Manutenção
+                </h1>
+                <p class="mt-2 text-base md:text-sm text-slate-400 leading-8 md:leading-6">
+                  Acompanhe os chamados ativos, veja detalhes e mova tickets para concluídos ou removidos.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+              <a href="novo-ticket.html" class="inline-flex items-center justify-center gap-2 rounded-xl bg-sky-400 hover:bg-sky-500 text-white text-sm font-medium px-4 py-3 md:py-2.5 shadow-sm transition">
+                <span>＋</span>
+                <span>Novo Ticket</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- FILTERS -->
+          <section class="mt-5 bg-white border border-slate-200 rounded-2xl shadow-sm p-4 md:p-5">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-2">Buscar</label>
+                <input
+                  id="searchInput"
+                  type="text"
+                  placeholder="Buscar por título, setor, equipamento..."
+                  class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-300"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-2">Status</label>
+                <select
+                  id="statusFilter"
+                  class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-300 bg-white"
+                >
+                  <option value="ALL">Todos</option>
+                  <option value="OPEN">Aberto</option>
+                  <option value="IN_PROGRESS">Em Andamento</option>
+                  <option value="MATERIAL_REQUESTED">Material Solicitado</option>
+                  <option value="PENDING">Pendente</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-2">Prioridade</label>
+                <select
+                  id="priorityFilter"
+                  class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-300 bg-white"
+                >
+                  <option value="ALL">Todas</option>
+                  <option value="LOW">Baixa</option>
+                  <option value="MEDIUM">Média</option>
+                  <option value="HIGH">Alta</option>
+                  <option value="URGENT">Urgente</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <!-- ALERT -->
+          <div id="errorBox" class="hidden mt-4 rounded-xl border border-red-200 bg-red-50 text-red-600 px-4 py-3 text-sm">
+            Não foi possível carregar os tickets.
+          </div>
+
+          <!-- TABLE -->
+          <section class="mt-5">
+            <div class="hidden md:block bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full">
+                  <thead class="bg-slate-50 border-b border-slate-200">
+                    <tr>
+                      <th class="text-left px-5 py-4 text-sm font-semibold text-slate-500">Ticket</th>
+                      <th class="text-left px-5 py-4 text-sm font-semibold text-slate-500">Setor</th>
+                      <th class="text-left px-5 py-4 text-sm font-semibold text-slate-500">Equipamento</th>
+                      <th class="text-left px-5 py-4 text-sm font-semibold text-slate-500">Prioridade</th>
+                      <th class="text-left px-5 py-4 text-sm font-semibold text-slate-500">Status</th>
+                      <th class="text-left px-5 py-4 text-sm font-semibold text-slate-500">Abertura</th>
+                      <th class="text-right px-5 py-4 text-sm font-semibold text-slate-500">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ticketsTableBody">
+                    <tr>
+                      <td colspan="7" class="px-5 py-12 text-center text-slate-400">
+                        Carregando tickets...
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div id="ticketsCardsMobile" class="grid md:hidden gap-3">
+              <div class="bg-white border border-slate-200 rounded-2xl p-5 text-center text-slate-400 shadow-sm">
+                Carregando tickets...
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- MODAL DETALHES -->
+  <div id="detailsModalOverlay" class="fixed inset-0 bg-black/40 z-[60] hidden"></div>
+
+  <div id="detailsModal" class="fixed inset-x-0 top-1/2 -translate-y-1/2 mx-auto w-[92%] max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200 z-[70] hidden">
+    <div class="px-5 py-4 border-b border-slate-200 flex items-start justify-between gap-4">
+      <div>
+        <h2 class="text-lg font-bold text-slate-700">Detalhes do Ticket</h2>
+        <p class="mt-1 text-sm text-slate-400">Visualize as informações completas do chamado.</p>
+      </div>
+      <button id="closeDetailsModalBtn" class="text-slate-400 hover:text-slate-600 text-xl">✕</button>
+    </div>
+
+    <div id="detailsContent" class="p-5 space-y-4 max-h-[75vh] overflow-y-auto">
+      <div class="text-sm text-slate-400">Carregando...</div>
+    </div>
+
+    <div class="px-5 py-4 border-t border-slate-200 flex justify-end">
+      <button
+        type="button"
+        id="closeDetailsFooterBtn"
+        class="rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-sm font-medium px-4 py-3 md:py-2.5 transition"
+      >
+        Fechar
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL EXCLUIR -->
+  <div id="deleteModalOverlay" class="fixed inset-0 bg-black/40 z-[80] hidden"></div>
+
+  <div id="deleteModal" class="fixed inset-x-0 top-1/2 -translate-y-1/2 mx-auto w-[92%] max-w-md bg-white rounded-2xl shadow-2xl border border-slate-200 z-[90] hidden">
+    <div class="p-5">
+      <h3 class="text-lg font-bold text-slate-700">Mover ticket para removidos?</h3>
+      <p class="mt-2 text-sm text-slate-400 leading-6">
+        O ticket será retirado da lista ativa e enviado para a página de tickets removidos.
+      </p>
+
+      <div class="mt-5 flex justify-end gap-3">
+        <button
+          id="cancelDeleteBtn"
+          class="rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-sm font-medium px-4 py-3 md:py-2.5 transition"
+        >
+          Cancelar
+        </button>
+
+        <button
+          id="confirmDeleteBtn"
+          class="rounded-xl bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-4 py-3 md:py-2.5 transition"
+        >
+          Remover
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CONCLUIR -->
+  <div id="completeModalOverlay" class="fixed inset-0 bg-black/40 z-[80] hidden"></div>
+
+  <div id="completeModal" class="fixed inset-x-0 top-1/2 -translate-y-1/2 mx-auto w-[92%] max-w-md bg-white rounded-2xl shadow-2xl border border-slate-200 z-[90] hidden">
+    <div class="p-5">
+      <h3 class="text-lg font-bold text-slate-700">Concluir ticket?</h3>
+      <p class="mt-2 text-sm text-slate-400 leading-6">
+        O ticket será retirado da lista ativa e enviado para a página de tickets concluídos.
+      </p>
+
+      <div class="mt-5 flex justify-end gap-3">
+        <button
+          id="cancelCompleteBtn"
+          class="rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-sm font-medium px-4 py-3 md:py-2.5 transition"
+        >
+          Cancelar
+        </button>
+
+        <button
+          id="confirmCompleteBtn"
+          class="rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-3 md:py-2.5 transition"
+        >
+          Concluir
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="fixed right-4 bottom-4 z-[100] hidden max-w-[320px] rounded-2xl px-4 py-3 text-sm font-medium shadow-lg"></div>
+
+  <script type="module">
+    import { db } from "./js/config.js";
+    import {
+      collection,
+      addDoc,
+      getDocs,
+      doc,
+      deleteDoc,
+      query,
+      orderBy,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const openSidebarBtn = document.getElementById("openSidebarBtn");
+    const closeSidebarBtn = document.getElementById("closeSidebarBtn");
+    const sidebarMobile = document.getElementById("sidebarMobile");
+    const sidebarMobileOverlay = document.getElementById("sidebarMobileOverlay");
+
+    const ticketsTableBody = document.getElementById("ticketsTableBody");
+    const ticketsCardsMobile = document.getElementById("ticketsCardsMobile");
+    const searchInput = document.getElementById("searchInput");
+    const statusFilter = document.getElementById("statusFilter");
+    const priorityFilter = document.getElementById("priorityFilter");
+    const errorBox = document.getElementById("errorBox");
+
+    const detailsModal = document.getElementById("detailsModal");
+    const detailsModalOverlay = document.getElementById("detailsModalOverlay");
+    const detailsContent = document.getElementById("detailsContent");
+    const closeDetailsModalBtn = document.getElementById("closeDetailsModalBtn");
+    const closeDetailsFooterBtn = document.getElementById("closeDetailsFooterBtn");
+
+    const deleteModal = document.getElementById("deleteModal");
+    const deleteModalOverlay = document.getElementById("deleteModalOverlay");
+    const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+    const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+
+    const completeModal = document.getElementById("completeModal");
+    const completeModalOverlay = document.getElementById("completeModalOverlay");
+    const cancelCompleteBtn = document.getElementById("cancelCompleteBtn");
+    const confirmCompleteBtn = document.getElementById("confirmCompleteBtn");
+
+    const toast = document.getElementById("toast");
+
+    let ticketsCache = [];
+    let selectedTicketForDelete = null;
+    let selectedTicketForComplete = null;
+
+    function openSidebar() {
+      sidebarMobile.classList.remove("-translate-x-full");
+      sidebarMobileOverlay.classList.remove("hidden");
+    }
+
+    function closeSidebar() {
+      sidebarMobile.classList.add("-translate-x-full");
+      sidebarMobileOverlay.classList.add("hidden");
+    }
+
+    function showToast(message, type = "success") {
+      toast.textContent = message;
+      toast.className = "fixed right-4 bottom-4 z-[100] max-w-[320px] rounded-2xl px-4 py-3 text-sm font-medium shadow-lg";
+
+      if (type === "success") {
+        toast.classList.add("bg-emerald-500", "text-white");
+      } else {
+        toast.classList.add("bg-red-500", "text-white");
+      }
+
+      toast.classList.remove("hidden");
+
+      setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 2600);
+    }
+
+    function formatDate(value) {
+      if (!value) return "-";
+
+      try {
+        if (typeof value?.toDate === "function") {
+          return value.toDate().toLocaleString("pt-BR");
+        }
+
+        const date = new Date(value);
+        return isNaN(date.getTime()) ? "-" : date.toLocaleString("pt-BR");
+      } catch {
+        return "-";
+      }
+    }
+
+    function getPriorityBadge(priority) {
+      if (priority === "LOW") {
+        return `<span class="inline-flex rounded-full bg-slate-100 text-slate-600 px-3 py-1 text-xs font-semibold">Baixa</span>`;
+      }
+      if (priority === "MEDIUM") {
+        return `<span class="inline-flex rounded-full bg-blue-100 text-blue-700 px-3 py-1 text-xs font-semibold">Média</span>`;
+      }
+      if (priority === "HIGH") {
+        return `<span class="inline-flex rounded-full bg-orange-100 text-orange-700 px-3 py-1 text-xs font-semibold">Alta</span>`;
+      }
+      return `<span class="inline-flex rounded-full bg-red-100 text-red-700 px-3 py-1 text-xs font-semibold">Urgente</span>`;
+    }
+
+    function getStatusBadge(status) {
+      if (status === "OPEN") {
+        return `<span class="inline-flex rounded-full bg-sky-100 text-sky-700 px-3 py-1 text-xs font-semibold">Aberto</span>`;
+      }
+      if (status === "IN_PROGRESS") {
+        return `<span class="inline-flex rounded-full bg-violet-100 text-violet-700 px-3 py-1 text-xs font-semibold">Em Andamento</span>`;
+      }
+      if (status === "MATERIAL_REQUESTED") {
+        return `<span class="inline-flex rounded-full bg-amber-100 text-amber-700 px-3 py-1 text-xs font-semibold">Material Solicitado</span>`;
+      }
+      if (status === "PENDING") {
+        return `<span class="inline-flex rounded-full bg-slate-100 text-slate-700 px-3 py-1 text-xs font-semibold">Pendente</span>`;
+      }
+      return `<span class="inline-flex rounded-full bg-slate-100 text-slate-700 px-3 py-1 text-xs font-semibold">${status || "-"}</span>`;
+    }
+
+    function escapeHtml(text = "") {
+      return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function getFilteredTickets() {
+      const search = searchInput.value.trim().toLowerCase();
+      const status = statusFilter.value;
+      const priority = priorityFilter.value;
+
+      return ticketsCache.filter(ticket => {
+        const haystack = [
+          ticket.title,
+          ticket.description,
+          ticket.sectorName,
+          ticket.equipmentName,
+          ticket.requesterName
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+
+        const matchesSearch = !search || haystack.includes(search);
+        const matchesStatus = status === "ALL" || ticket.status === status;
+        const matchesPriority = priority === "ALL" || ticket.priority === priority;
+
+        return matchesSearch && matchesStatus && matchesPriority;
+      });
+    }
+
+    function openDetailsModal(ticketId) {
+      const ticket = ticketsCache.find(item => item.id === ticketId);
+      if (!ticket) return;
+
+      detailsContent.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+            <div class="text-xs uppercase tracking-wide text-slate-400">Título</div>
+            <div class="mt-2 text-sm font-semibold text-slate-700">${escapeHtml(ticket.title || "-")}</div>
+          </div>
+
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+            <div class="text-xs uppercase tracking-wide text-slate-400">Solicitante</div>
+            <div class="mt-2 text-sm font-semibold text-slate-700">${escapeHtml(ticket.requesterName || "-")}</div>
+          </div>
+
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+            <div class="text-xs uppercase tracking-wide text-slate-400">Setor</div>
+            <div class="mt-2 text-sm font-semibold text-slate-700">${escapeHtml(ticket.sectorName || "-")}</div>
+          </div>
+
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+            <div class="text-xs uppercase tracking-wide text-slate-400">Equipamento</div>
+            <div class="mt-2 text-sm font-semibold text-slate-700">${escapeHtml(ticket.equipmentName || "-")}</div>
+          </div>
+
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+            <div class="text-xs uppercase tracking-wide text-slate-400">Prioridade</div>
+            <div class="mt-2">${getPriorityBadge(ticket.priority)}</div>
+          </div>
+
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+            <div class="text-xs uppercase tracking-wide text-slate-400">Status</div>
+            <div class="mt-2">${getStatusBadge(ticket.status)}</div>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+          <div class="text-xs uppercase tracking-wide text-slate-400">Descrição</div>
+          <div class="mt-2 text-sm text-slate-600 leading-7 whitespace-pre-wrap">${escapeHtml(ticket.description || "-")}</div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+            <div class="text-xs uppercase tracking-wide text-slate-400">Criado em</div>
+            <div class="mt-2 text-sm font-semibold text-slate-700">${formatDate(ticket.createdAt)}</div>
+          </div>
+
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+            <div class="text-xs uppercase tracking-wide text-slate-400">Atualizado em</div>
+            <div class="mt-2 text-sm font-semibold text-slate-700">${formatDate(ticket.updatedAt)}</div>
+          </div>
+        </div>
+
+        ${
+          ticket.photoURL
+            ? `
+            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+              <div class="text-xs uppercase tracking-wide text-slate-400">Foto anexada</div>
+              <div class="mt-3">
+                <img src="${ticket.photoURL}" alt="Foto do ticket" class="w-full max-h-[320px] object-cover rounded-xl border border-slate-200" />
+              </div>
+            </div>
+          `
+            : ""
+        }
+      `;
+
+      detailsModal.classList.remove("hidden");
+      detailsModalOverlay.classList.remove("hidden");
+    }
+
+    function closeDetailsModal() {
+      detailsModal.classList.add("hidden");
+      detailsModalOverlay.classList.add("hidden");
+    }
+
+    function openDeleteModal(ticketId) {
+      selectedTicketForDelete = ticketsCache.find(item => item.id === ticketId) || null;
+      deleteModal.classList.remove("hidden");
+      deleteModalOverlay.classList.remove("hidden");
+    }
+
+    function closeDeleteModal() {
+      selectedTicketForDelete = null;
+      deleteModal.classList.add("hidden");
+      deleteModalOverlay.classList.add("hidden");
+    }
+
+    function openCompleteModal(ticketId) {
+      selectedTicketForComplete = ticketsCache.find(item => item.id === ticketId) || null;
+      completeModal.classList.remove("hidden");
+      completeModalOverlay.classList.remove("hidden");
+    }
+
+    function closeCompleteModal() {
+      selectedTicketForComplete = null;
+      completeModal.classList.add("hidden");
+      completeModalOverlay.classList.add("hidden");
+    }
+
+    function renderTickets(items) {
+      if (!items.length) {
+        ticketsTableBody.innerHTML = `
+          <tr>
+            <td colspan="7" class="px-5 py-12 text-center text-slate-400">
+              Nenhum ticket encontrado.
+            </td>
+          </tr>
+        `;
+
+        ticketsCardsMobile.innerHTML = `
+          <div class="bg-white border border-slate-200 rounded-2xl p-5 text-center text-slate-400 shadow-sm">
+            Nenhum ticket encontrado.
+          </div>
+        `;
+        return;
+      }
+
+      ticketsTableBody.innerHTML = items.map(ticket => `
+        <tr class="border-b border-slate-100 last:border-b-0">
+          <td class="px-5 py-4">
+            <div class="text-sm font-medium text-slate-700">${escapeHtml(ticket.title || "-")}</div>
+            <div class="mt-1 text-xs text-slate-400">${escapeHtml(ticket.requesterName || "-")}</div>
+          </td>
+          <td class="px-5 py-4 text-sm text-slate-500">${escapeHtml(ticket.sectorName || "-")}</td>
+          <td class="px-5 py-4 text-sm text-slate-500">${escapeHtml(ticket.equipmentName || "-")}</td>
+          <td class="px-5 py-4 text-sm">${getPriorityBadge(ticket.priority)}</td>
+          <td class="px-5 py-4 text-sm">${getStatusBadge(ticket.status)}</td>
+          <td class="px-5 py-4 text-sm text-slate-500">${formatDate(ticket.createdAt)}</td>
+          <td class="px-5 py-4">
+            <div class="flex items-center justify-end gap-2 flex-wrap">
+              <button
+                class="rounded-lg border border-slate-200 px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50"
+                data-action="view"
+                data-id="${ticket.id}"
+              >
+                Ver
+              </button>
+              <button
+                class="rounded-lg border border-emerald-200 px-3 py-2 text-xs font-medium text-emerald-600 hover:bg-emerald-50"
+                data-action="complete"
+                data-id="${ticket.id}"
+              >
+                Concluir
+              </button>
+              <button
+                class="rounded-lg border border-red-200 px-3 py-2 text-xs font-medium text-red-500 hover:bg-red-50"
+                data-action="delete"
+                data-id="${ticket.id}"
+              >
+                Remover
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join("");
+
+      ticketsCardsMobile.innerHTML = items.map(ticket => `
+        <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="text-base font-semibold text-slate-700">${escapeHtml(ticket.title || "-")}</div>
+              <div class="mt-1 text-sm text-slate-400">${escapeHtml(ticket.requesterName || "-")}</div>
+            </div>
+            <div>${getPriorityBadge(ticket.priority)}</div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-1 gap-2 text-sm text-slate-500">
+            <div><span class="font-medium text-slate-600">Setor:</span> ${escapeHtml(ticket.sectorName || "-")}</div>
+            <div><span class="font-medium text-slate-600">Equipamento:</span> ${escapeHtml(ticket.equipmentName || "-")}</div>
+            <div><span class="font-medium text-slate-600">Status:</span> ${getStatusBadge(ticket.status)}</div>
+            <div><span class="font-medium text-slate-600">Abertura:</span> ${formatDate(ticket.createdAt)}</div>
+          </div>
+
+          <div class="mt-4 flex gap-2 flex-wrap">
+            <button
+              class="flex-1 rounded-xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50"
+              data-action="view"
+              data-id="${ticket.id}"
+            >
+              Ver
+            </button>
+            <button
+              class="flex-1 rounded-xl border border-emerald-200 px-4 py-3 text-sm font-medium text-emerald-600 hover:bg-emerald-50"
+              data-action="complete"
+              data-id="${ticket.id}"
+            >
+              Concluir
+            </button>
+            <button
+              class="flex-1 rounded-xl border border-red-200 px-4 py-3 text-sm font-medium text-red-500 hover:bg-red-50"
+              data-action="delete"
+              data-id="${ticket.id}"
+            >
+              Remover
+            </button>
+          </div>
+        </div>
+      `).join("");
+
+      bindActions();
+    }
+
+    function bindActions() {
+      document.querySelectorAll('[data-action="view"]').forEach(button => {
+        button.addEventListener("click", () => openDetailsModal(button.dataset.id));
+      });
+
+      document.querySelectorAll('[data-action="delete"]').forEach(button => {
+        button.addEventListener("click", () => openDeleteModal(button.dataset.id));
+      });
+
+      document.querySelectorAll('[data-action="complete"]').forEach(button => {
+        button.addEventListener("click", () => openCompleteModal(button.dataset.id));
+      });
+    }
+
+    function applyFilters() {
+      const items = getFilteredTickets();
+      renderTickets(items);
+    }
+
+    async function loadTickets() {
+      try {
+        errorBox.classList.add("hidden");
+
+        const ticketsRef = collection(db, "tickets");
+        const q = query(ticketsRef, orderBy("createdAt", "desc"));
+        const snapshot = await getDocs(q);
+
+        ticketsCache = snapshot.docs.map(docItem => ({
+          id: docItem.id,
+          ...docItem.data()
+        }));
+
+        applyFilters();
+      } catch (error) {
+        console.error("Erro ao carregar tickets:", error);
+        errorBox.classList.remove("hidden");
+
+        ticketsTableBody.innerHTML = `
+          <tr>
+            <td colspan="7" class="px-5 py-12 text-center text-red-400">
+              Erro ao carregar tickets.
+            </td>
+          </tr>
+        `;
+
+        ticketsCardsMobile.innerHTML = `
+          <div class="bg-white border border-red-200 rounded-2xl p-5 text-center text-red-400 shadow-sm">
+            Erro ao carregar tickets.
+          </div>
+        `;
+      }
+    }
+
+    async function moveTicketToCollection(ticket, collectionName, newStatus) {
+      const payload = {
+        ...ticket,
+        originalId: ticket.id,
+        status: newStatus,
+        movedAt: serverTimestamp()
+      };
+
+      delete payload.id;
+
+      await addDoc(collection(db, collectionName), payload);
+      await deleteDoc(doc(db, "tickets", ticket.id));
+    }
+
+    async function confirmDeleteTicket() {
+      if (!selectedTicketForDelete) return;
+
+      try {
+        await moveTicketToCollection(selectedTicketForDelete, "ticketsRemoved", "REMOVED");
+        showToast("Ticket movido para removidos.");
+        closeDeleteModal();
+        closeDetailsModal();
+        await loadTickets();
+      } catch (error) {
+        console.error("Erro ao remover ticket:", error);
+        showToast("Não foi possível mover o ticket.", "error");
+      }
+    }
+
+    async function confirmCompleteTicket() {
+      if (!selectedTicketForComplete) return;
+
+      try {
+        await moveTicketToCollection(selectedTicketForComplete, "ticketsCompleted", "RESOLVED");
+        showToast("Ticket concluído com sucesso.");
+        closeCompleteModal();
+        closeDetailsModal();
+        await loadTickets();
+      } catch (error) {
+        console.error("Erro ao concluir ticket:", error);
+        showToast("Não foi possível concluir o ticket.", "error");
+      }
+    }
+
+    openSidebarBtn?.addEventListener("click", openSidebar);
+    closeSidebarBtn?.addEventListener("click", closeSidebar);
+    sidebarMobileOverlay?.addEventListener("click", closeSidebar);
+
+    closeDetailsModalBtn?.addEventListener("click", closeDetailsModal);
+    closeDetailsFooterBtn?.addEventListener("click", closeDetailsModal);
+    detailsModalOverlay?.addEventListener("click", closeDetailsModal);
+
+    cancelDeleteBtn?.addEventListener("click", closeDeleteModal);
+    deleteModalOverlay?.addEventListener("click", closeDeleteModal);
+    confirmDeleteBtn?.addEventListener("click", confirmDeleteTicket);
+
+    cancelCompleteBtn?.addEventListener("click", closeCompleteModal);
+    completeModalOverlay?.addEventListener("click", closeCompleteModal);
+    confirmCompleteBtn?.addEventListener("click", confirmCompleteTicket);
+
+    searchInput?.addEventListener("input", applyFilters);
+    statusFilter?.addEventListener("change", applyFilters);
+    priorityFilter?.addEventListener("change", applyFilters);
+
+    loadTickets();
+  </script>
+</body>
+</html>
