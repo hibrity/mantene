@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repairge - Cadastro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-100 via-slate-50 to-sky-100 flex items-center justify-center p-6">
+
+  <div class="w-full max-w-7xl grid lg:grid-cols-2 bg-white rounded-[32px] overflow-hidden shadow-2xl border border-slate-200">
+
+    <!-- Lado esquerdo -->
+    <div class="hidden lg:flex flex-col justify-between bg-gradient-to-br from-sky-500 to-sky-700 text-white p-12 relative overflow-hidden">
+      <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-10 left-10 w-40 h-40 rounded-full bg-white"></div>
+        <div class="absolute bottom-10 right-10 w-56 h-56 rounded-full bg-white"></div>
+      </div>
+
+      <div class="relative z-10">
+        <div class="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-3xl mb-6">
+          🏷️
+        </div>
+
+        <h1 class="text-4xl font-bold leading-tight">
+          Crie sua conta no Repairge
+        </h1>
+
+        <p class="mt-5 text-sky-100 text-lg leading-8 max-w-md">
+          Cadastre sua empresa, configure usuários, gerencie tickets, equipamentos, checklists e toda sua operação em um único sistema.
+        </p>
+      </div>
+
+      <div class="relative z-10 grid grid-cols-2 gap-4 mt-10">
+        <div class="bg-white/10 backdrop-blur rounded-2xl p-5 border border-white/10">
+          <p class="text-3xl font-bold">+100</p>
+          <p class="text-sm text-sky-100 mt-1">Empresas cadastradas</p>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur rounded-2xl p-5 border border-white/10">
+          <p class="text-3xl font-bold">24/7</p>
+          <p class="text-sm text-sky-100 mt-1">Disponibilidade</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lado direito -->
+    <div class="p-8 md:p-12 flex flex-col justify-center">
+      <div class="max-w-2xl mx-auto w-full">
+
+        <div class="mb-8">
+          <div class="w-14 h-14 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-2xl mb-5 lg:hidden">
+            🏷️
+          </div>
+
+          <h2 class="text-3xl font-bold text-slate-700">
+            Criar Conta
+          </h2>
+
+          <p class="text-slate-400 mt-2">
+            Preencha os dados da empresa e do administrador.
+          </p>
+        </div>
+
+        <form id="registerForm" class="space-y-6">
+
+          <!-- Empresa -->
+          <div class="bg-slate-50 border border-slate-200 rounded-3xl p-5">
+            <h3 class="text-lg font-semibold text-slate-700 mb-5">
+              Dados da Empresa
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-slate-600 mb-2">
+                  Nome da Empresa
+                </label>
+                <input
+                  type="text"
+                  id="companyName"
+                  required
+                  placeholder="Digite o nome da empresa"
+                  class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-2">
+                  CNPJ
+                </label>
+                <input
+                  type="text"
+                  id="companyCnpj"
+                  required
+                  placeholder="00.000.000/0000-00"
+                  class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-2">
+                  Telefone
+                </label>
+                <input
+                  type="text"
+                  id="companyPhone"
+                  required
+                  placeholder="(00) 00000-0000"
+                  class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                />
+              </div>
+
+              <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-slate-600 mb-2">
+                  Endereço
+                </label>
+                <input
+                  type="text"
+                  id="companyAddress"
+                  required
+                  placeholder="Digite o endereço da empresa"
+                  class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Administrador -->
+          <div class="bg-slate-50 border border-slate-200 rounded-3xl p-5">
+            <h3 class="text-lg font-semibold text-slate-700 mb-5">
+              Administrador Principal
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-2">
+                  Nome Completo
+                </label>
+                <input
+                  type="text"
+                  id="adminName"
+                  required
+                  placeholder="Digite seu nome"
+                  class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-2">
+                  E-mail
+                </label>
+                <input
+                  type="email"
+                  id="adminEmail"
+                  required
+                  placeholder="Digite seu e-mail"
+                  class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-2">
+                  Senha
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  required
+                  placeholder="Crie uma senha"
+                  class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-2">
+                  Confirmar Senha
+                </label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  required
+                  placeholder="Repita a senha"
+                  class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <input
+              type="checkbox"
+              id="terms"
+              required
+              class="mt-1 rounded border-slate-300"
+            />
+            <label for="terms" class="text-sm text-slate-500 leading-6">
+              Concordo com os termos de uso e política de privacidade do Repairge.
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            id="submitBtn"
+            class="w-full rounded-2xl bg-sky-500 hover:bg-sky-600 text-white font-semibold py-4 transition"
+          >
+            Criar Conta
+          </button>
+
+          <div class="text-center pt-2">
+            <p class="text-sm text-slate-500">
+              Já possui uma conta?
+              <a href="login.html" class="text-sky-600 hover:text-sky-700 font-semibold">
+                Entrar
+              </a>
+            </p>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { auth, db } from './js/config.js';
+
+    import {
+      createUserWithEmailAndPassword
+    } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+
+    import {
+      collection,
+      addDoc
+    } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+    const registerForm = document.getElementById('registerForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    registerForm.addEventListener('submit', async event => {
+      event.preventDefault();
+
+      const companyName = document.getElementById('companyName').value;
+      const companyCnpj = document.getElementById('companyCnpj').value;
+      const companyPhone = document.getElementById('companyPhone').value;
+      const companyAddress = document.getElementById('companyAddress').value;
+
+      const adminName = document.getElementById('adminName').value;
+      const adminEmail = document.getElementById('adminEmail').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      if (password !== confirmPassword) {
+        alert('As senhas não coincidem.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Criando conta...';
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          adminEmail,
+          password
+        );
+
+        const companyRef = await addDoc(collection(db, 'companies'), {
+          name: companyName,
+          cnpj: companyCnpj,
+          phone: companyPhone,
+          address: companyAddress,
+          email: adminEmail,
+          createdAt: new Date().toISOString(),
+          emailNotifications: true,
+          darkMode: false,
+          whatsappEnabled: true
+        });
+
+        const userData = {
+          uid: userCredential.user.uid,
+          name: adminName,
+          email: adminEmail,
+          role: 'Administrador',
+          companyId: companyRef.id,
+          companyName: companyName,
+          online: true,
+          createdAt: new Date().toISOString()
+        };
+
+        await addDoc(collection(db, 'users'), userData);
+
+        localStorage.setItem('repairgeCurrentUser', JSON.stringify({
+          id: userCredential.user.uid,
+          uid: userCredential.user.uid,
+          name: adminName,
+          email: adminEmail,
+          role: 'Administrador',
+          companyId: companyRef.id,
+          companyName: companyName
+        }));
+
+        alert('Conta criada com sucesso!');
+        window.location.href = 'dashboard.html';
+      } catch (error) {
+        console.error(error);
+
+        if (error.code === 'auth/email-already-in-use') {
+          alert('Este e-mail já está em uso.');
+        } else if (error.code === 'auth/weak-password') {
+          alert('A senha precisa ter pelo menos 6 caracteres.');
+        } else {
+          alert('Erro ao criar conta.');
+        }
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Criar Conta';
+      }
+    });
+  </script>
+</body>
+</html>
