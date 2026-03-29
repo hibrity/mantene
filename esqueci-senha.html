@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repairge - Esqueci Minha Senha</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-100 via-slate-50 to-sky-100 flex items-center justify-center p-6">
+
+  <div class="w-full max-w-5xl grid lg:grid-cols-2 bg-white rounded-[32px] overflow-hidden shadow-2xl border border-slate-200">
+
+    <!-- Left -->
+    <div class="hidden lg:flex flex-col justify-between bg-gradient-to-br from-sky-500 to-sky-700 text-white p-12 relative overflow-hidden">
+      <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-10 left-10 w-40 h-40 rounded-full bg-white"></div>
+        <div class="absolute bottom-10 right-10 w-56 h-56 rounded-full bg-white"></div>
+      </div>
+
+      <div class="relative z-10">
+        <div class="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-3xl mb-6">
+          🔒
+        </div>
+
+        <h1 class="text-4xl font-bold leading-tight">
+          Recuperar acesso
+        </h1>
+
+        <p class="mt-5 text-sky-100 text-lg leading-8 max-w-md">
+          Informe seu e-mail para receber o link de redefinição de senha.
+        </p>
+      </div>
+
+      <div class="relative z-10 bg-white/10 backdrop-blur rounded-3xl p-6 border border-white/10">
+        <p class="text-sm text-sky-100 leading-7">
+          Após enviar o e-mail, verifique sua caixa de entrada e também a pasta de spam.
+        </p>
+      </div>
+    </div>
+
+    <!-- Right -->
+    <div class="p-8 md:p-12 flex flex-col justify-center">
+      <div class="max-w-md mx-auto w-full">
+
+        <div class="mb-8">
+          <div class="w-14 h-14 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-2xl mb-5 lg:hidden">
+            🔒
+          </div>
+
+          <h2 class="text-3xl font-bold text-slate-700">
+            Esqueci Minha Senha
+          </h2>
+
+          <p class="text-slate-400 mt-2">
+            Digite seu e-mail para receber o link de recuperação.
+          </p>
+        </div>
+
+        <form id="forgotPasswordForm" class="space-y-5">
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-2">
+              E-mail
+            </label>
+            <input
+              type="email"
+              id="email"
+              required
+              placeholder="Digite seu e-mail"
+              class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+            />
+          </div>
+
+          <button
+            type="submit"
+            id="submitBtn"
+            class="w-full rounded-2xl bg-sky-500 hover:bg-sky-600 text-white font-semibold py-4 transition"
+          >
+            Enviar Link de Recuperação
+          </button>
+
+          <div class="text-center pt-2">
+            <p class="text-sm text-slate-500">
+              Lembrou sua senha?
+              <a href="login.html" class="text-sky-600 hover:text-sky-700 font-semibold">
+                Voltar para login
+              </a>
+            </p>
+          </div>
+        </form>
+
+        <div
+          id="successBox"
+          class="hidden mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-5"
+        >
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg">
+              ✓
+            </div>
+
+            <div>
+              <h3 class="font-semibold text-emerald-700">
+                Link enviado com sucesso
+              </h3>
+
+              <p class="text-sm text-emerald-600 mt-1">
+                Verifique sua caixa de entrada e siga as instruções para redefinir sua senha.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { auth } from './js/config.js';
+
+    import {
+      sendPasswordResetEmail
+    } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+
+    const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successBox = document.getElementById('successBox');
+
+    forgotPasswordForm.addEventListener('submit', async event => {
+      event.preventDefault();
+
+      const email = document.getElementById('email').value;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+
+      try {
+        await sendPasswordResetEmail(auth, email);
+
+        successBox.classList.remove('hidden');
+        forgotPasswordForm.reset();
+      } catch (error) {
+        console.error(error);
+
+        if (error.code === 'auth/user-not-found') {
+          alert('Nenhuma conta encontrada com este e-mail.');
+        } else if (error.code === 'auth/invalid-email') {
+          alert('Digite um e-mail válido.');
+        } else {
+          alert('Erro ao enviar e-mail de recuperação.');
+        }
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enviar Link de Recuperação';
+      }
+    });
+  </script>
+</body>
+</html>
