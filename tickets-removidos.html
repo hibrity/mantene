@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Repairge - Tickets Concluídos</title>
+  <title>Repairge - Tickets Removidos</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     ::-webkit-scrollbar {
@@ -22,15 +22,14 @@
   </style>
 </head>
 <body class="bg-[#f3f4f6] text-slate-700">
-
   <div class="min-h-screen flex">
 
-    <!-- Sidebar Desktop -->
+    <!-- SIDEBAR DESKTOP -->
     <aside class="hidden md:flex w-[260px] bg-[#f5f7fb] border-r border-slate-200 flex-col min-h-screen">
       <div class="h-16 px-5 flex items-center justify-between border-b border-slate-200">
         <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl border border-sky-200 bg-white flex items-center justify-center text-sky-400 text-lg shadow-sm">
-            🏷️
+          <div class="w-9 h-9 rounded-xl border border-red-200 bg-white flex items-center justify-center text-red-400 text-lg shadow-sm">
+            🧺
           </div>
           <span class="text-xl font-bold text-slate-700">Repairge</span>
         </div>
@@ -38,8 +37,8 @@
 
       <div class="px-5 py-4 border-b border-slate-200">
         <p class="text-sm font-semibold text-slate-700 leading-7">
-          Administrador (Acesso Livre)<br />
-          (Empresa)
+          <span data-user-name>Administrador</span><br />
+          <span data-user-role>Administrador</span>
         </p>
       </div>
 
@@ -49,19 +48,24 @@
           <span>Painel Principal</span>
         </a>
 
-        <a href="tickets.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
-          <span>🎫</span>
-          <span>Tickets de Manutenção</span>
+        <a href="chat.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>💬</span>
+          <span>Chat Interno</span>
         </a>
 
-        <a href="tickets-concluidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-emerald-100 text-emerald-600">
-          <span>✅</span>
-          <span>Tickets Concluídos</span>
+        <a href="checklists-realizados.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>☑️</span>
+          <span>Checklists Realizados</span>
         </a>
 
-        <a href="tickets-removidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
-          <span>🗑️</span>
-          <span>Tickets Removidos</span>
+        <a href="configuracoes.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⚙️</span>
+          <span>Configurações</span>
+        </a>
+
+        <a href="checklist-diario.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>📋</span>
+          <span>Criar Checklist Diário</span>
         </a>
 
         <a href="equipamentos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
@@ -69,158 +73,209 @@
           <span>Equipamentos</span>
         </a>
 
+        <a href="usuarios.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>👥</span>
+          <span>Gerenciar Usuários</span>
+        </a>
+
+        <a href="mensagens-apagadas.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🗑️</span>
+          <span>Mensagens Apagadas</span>
+        </a>
+
         <a href="setores.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
           <span>🏢</span>
           <span>Setores</span>
         </a>
+
+        <a href="tickets.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🎫</span>
+          <span>Tickets de Manutenção</span>
+        </a>
+
+        <a href="tickets-concluidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>✅</span>
+          <span>Tickets Concluídos</span>
+        </a>
+
+        <a href="tickets-removidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-red-100 text-red-600">
+          <span>🧺</span>
+          <span>Tickets Removidos</span>
+        </a>
       </nav>
+
+      <div class="border-t border-slate-200 p-3">
+        <a href="index.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⌂</span>
+          <span>Início</span>
+        </a>
+      </div>
     </aside>
 
-    <!-- Main -->
+    <!-- MAIN -->
     <div class="flex-1 min-w-0 flex flex-col">
 
-      <!-- Header -->
       <header class="h-16 bg-[#f8fafc] border-b border-slate-200 px-4 md:px-6 flex items-center justify-between">
         <div>
-          <p class="text-sm text-slate-400">Tickets finalizados</p>
+          <h1 class="text-lg md:text-xl font-bold text-slate-700">
+            Tickets Removidos
+          </h1>
+          <p class="text-xs md:text-sm text-slate-400">
+            Histórico de chamados descartados ou cancelados
+          </p>
         </div>
 
         <div class="flex items-center gap-3">
-          <button class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-sm">
-            🔔
-          </button>
-
-          <div class="w-10 h-10 rounded-full bg-emerald-200 text-emerald-700 font-semibold flex items-center justify-center text-sm">
+          <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-semibold" data-user-initials>
             AD
           </div>
         </div>
       </header>
 
-      <!-- Content -->
       <main class="flex-1 p-4 md:p-6">
+        <div class="max-w-7xl mx-auto">
 
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-slate-200 pb-5">
-          <div>
-            <h1 class="text-2xl md:text-3xl font-bold text-slate-700">
-              Tickets Concluídos
-            </h1>
-            <p class="text-sm text-slate-400 mt-1">
-              Visualize chamados finalizados, responsáveis e observações finais.
-            </p>
+          <!-- FILTROS -->
+          <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-2">
+                  Buscar ticket
+                </label>
+                <input
+                  type="text"
+                  id="searchInput"
+                  placeholder="Título, descrição, setor..."
+                  class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-red-200"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-2">
+                  Prioridade
+                </label>
+                <select
+                  id="priorityFilter"
+                  class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-red-200"
+                >
+                  <option value="">Todas</option>
+                  <option value="LOW">Baixa</option>
+                  <option value="MEDIUM">Média</option>
+                  <option value="HIGH">Alta</option>
+                  <option value="URGENT">Urgente</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-2">
+                  Ordenar
+                </label>
+                <select
+                  id="sortFilter"
+                  class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-red-200"
+                >
+                  <option value="recent">Mais recentes</option>
+                  <option value="oldest">Mais antigos</option>
+                </select>
+              </div>
+            </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row gap-3">
-            <input
-              type="text"
-              id="searchInput"
-              placeholder="Buscar ticket..."
-              class="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-emerald-200 w-full sm:w-[250px]"
-            />
+          <!-- STATS -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Total Removidos</p>
+              <h2 id="totalRemoved" class="text-3xl font-bold text-slate-700 mt-2">0</h2>
+            </div>
 
-            <select
-              id="priorityFilter"
-              class="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-emerald-200"
-            >
-              <option value="">Todas prioridades</option>
-              <option value="LOW">Baixa</option>
-              <option value="MEDIUM">Média</option>
-              <option value="HIGH">Alta</option>
-              <option value="URGENT">Urgente</option>
-            </select>
-          </div>
-        </div>
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Urgentes</p>
+              <h2 id="urgentCount" class="text-3xl font-bold text-red-500 mt-2">0</h2>
+            </div>
 
-        <!-- Stats -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-            <p class="text-sm text-slate-400">Total Concluídos</p>
-            <h2 id="totalFinished" class="text-3xl font-bold text-slate-700 mt-2">0</h2>
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Altas</p>
+              <h2 id="highCount" class="text-3xl font-bold text-orange-500 mt-2">0</h2>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Removidos Hoje</p>
+              <h2 id="todayCount" class="text-3xl font-bold text-slate-700 mt-2">0</h2>
+            </div>
           </div>
 
-          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-            <p class="text-sm text-slate-400">Urgentes Resolvidos</p>
-            <h2 id="urgentFinished" class="text-3xl font-bold text-red-500 mt-2">0</h2>
-          </div>
+          <!-- LISTA -->
+          <div id="ticketsContainer" class="space-y-4"></div>
 
-          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-            <p class="text-sm text-slate-400">Alta Prioridade</p>
-            <h2 id="highFinished" class="text-3xl font-bold text-orange-500 mt-2">0</h2>
-          </div>
-
-          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-            <p class="text-sm text-slate-400">Finalizados Hoje</p>
-            <h2 id="todayFinished" class="text-3xl font-bold text-emerald-500 mt-2">0</h2>
-          </div>
-        </div>
-
-        <!-- List -->
-        <div class="mt-6 space-y-4" id="ticketsList">
-
-          <!-- Empty State -->
+          <!-- EMPTY -->
           <div id="emptyState" class="hidden bg-white border border-slate-200 rounded-2xl p-10 text-center shadow-sm">
-            <div class="text-5xl mb-4">✅</div>
-            <h3 class="text-lg font-semibold text-slate-700">
-              Nenhum ticket concluído encontrado
+            <div class="text-5xl mb-4">🧺</div>
+            <h3 class="text-xl font-semibold text-slate-700">
+              Nenhum ticket removido encontrado
             </h3>
             <p class="text-sm text-slate-400 mt-2">
-              Não existem chamados finalizados com os filtros atuais.
+              Não existem tickets removidos com os filtros atuais.
             </p>
           </div>
 
         </div>
-
       </main>
     </div>
   </div>
 
-  <!-- Modal -->
-  <div id="detailsModal" class="fixed inset-0 bg-black/40 z-50 hidden items-center justify-center p-4">
-    <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden">
-      <div class="border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-        <h2 class="text-xl font-bold text-slate-700">Detalhes do Ticket</h2>
+  <!-- MODAL DETALHES -->
+  <div id="detailsModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden">
+      <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
+        <h2 class="text-xl font-bold text-slate-700">
+          Detalhes do Ticket
+        </h2>
         <button id="closeModalBtn" class="text-slate-500 hover:text-slate-700 text-xl">
           ✕
         </button>
       </div>
 
-      <div id="modalContent" class="p-6 space-y-5"></div>
+      <div id="modalContent" class="p-6 max-h-[80vh] overflow-y-auto"></div>
     </div>
   </div>
 
-  <div id="toast" class="fixed right-4 bottom-4 hidden z-[100] rounded-2xl px-4 py-3 text-sm font-medium shadow-lg bg-emerald-500 text-white">
-    Ticket restaurado com sucesso.
-  </div>
+  <script src="./js/current-user.js"></script>
+  <script src="./js/sidebar.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/auth-guard.js"></script>
 
   <script type="module">
-    import { db } from "./js/config.js";
     import {
-      collection,
-      getDocs,
-      query,
-      where,
-      orderBy,
-      updateDoc,
-      doc
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+      getCurrentUser,
+      getTickets,
+      updateTicket
+    } from "./js/data-service.js";
 
-    const ticketsList = document.getElementById("ticketsList");
-    const emptyState = document.getElementById("emptyState");
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+      window.location.href = "login.html";
+    }
+
     const searchInput = document.getElementById("searchInput");
     const priorityFilter = document.getElementById("priorityFilter");
+    const sortFilter = document.getElementById("sortFilter");
 
-    const totalFinished = document.getElementById("totalFinished");
-    const urgentFinished = document.getElementById("urgentFinished");
-    const highFinished = document.getElementById("highFinished");
-    const todayFinished = document.getElementById("todayFinished");
+    const ticketsContainer = document.getElementById("ticketsContainer");
+    const emptyState = document.getElementById("emptyState");
+
+    const totalRemoved = document.getElementById("totalRemoved");
+    const urgentCount = document.getElementById("urgentCount");
+    const highCount = document.getElementById("highCount");
+    const todayCount = document.getElementById("todayCount");
 
     const detailsModal = document.getElementById("detailsModal");
     const modalContent = document.getElementById("modalContent");
     const closeModalBtn = document.getElementById("closeModalBtn");
-    const toast = document.getElementById("toast");
 
-    let ticketsData = [];
+    let removedTickets = [];
 
-    function getPriorityLabel(priority) {
+    function getPriorityBadge(priority) {
       switch (priority) {
         case "LOW":
           return `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600">Baixa</span>`;
@@ -231,20 +286,14 @@
         case "URGENT":
           return `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-600">Urgente</span>`;
         default:
-          return `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600">-</span>`;
+          return `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600">Sem prioridade</span>`;
       }
     }
 
     function formatDate(dateValue) {
       if (!dateValue) return "-";
 
-      let date;
-
-      if (dateValue.seconds) {
-        date = new Date(dateValue.seconds * 1000);
-      } else {
-        date = new Date(dateValue);
-      }
+      const date = new Date(dateValue);
 
       return date.toLocaleDateString("pt-BR") + " às " + date.toLocaleTimeString("pt-BR", {
         hour: "2-digit",
@@ -255,14 +304,7 @@
     function isToday(dateValue) {
       if (!dateValue) return false;
 
-      let date;
-
-      if (dateValue.seconds) {
-        date = new Date(dateValue.seconds * 1000);
-      } else {
-        date = new Date(dateValue);
-      }
-
+      const date = new Date(dateValue);
       const today = new Date();
 
       return (
@@ -272,33 +314,54 @@
       );
     }
 
-    function updateStats(filtered) {
-      totalFinished.textContent = filtered.length;
-      urgentFinished.textContent = filtered.filter(item => item.priority === "URGENT").length;
-      highFinished.textContent = filtered.filter(item => item.priority === "HIGH").length;
-      todayFinished.textContent = filtered.filter(item => isToday(item.completedAt || item.updatedAt)).length;
+    function loadTickets() {
+      removedTickets = getTickets().filter(ticket =>
+        ticket.companyId === currentUser.companyId &&
+        ticket.status === "REMOVED"
+      );
+
+      renderTickets();
+    }
+
+    function updateStats(tickets) {
+      totalRemoved.textContent = tickets.length;
+      urgentCount.textContent = tickets.filter(ticket => ticket.priority === "URGENT").length;
+      highCount.textContent = tickets.filter(ticket => ticket.priority === "HIGH").length;
+      todayCount.textContent = tickets.filter(ticket => isToday(ticket.removedAt || ticket.updatedAt)).length;
     }
 
     function renderTickets() {
       const search = searchInput.value.toLowerCase().trim();
       const priority = priorityFilter.value;
+      const sort = sortFilter.value;
 
-      const filtered = ticketsData.filter(ticket => {
-        const matchesSearch =
-          ticket.description?.toLowerCase().includes(search) ||
-          ticket.sectorName?.toLowerCase().includes(search) ||
-          ticket.equipmentName?.toLowerCase().includes(search) ||
-          ticket.technicianName?.toLowerCase().includes(search);
+      let filtered = removedTickets.filter(ticket => {
+        const content = `
+          ${ticket.title || ""}
+          ${ticket.description || ""}
+          ${ticket.sectorName || ""}
+          ${ticket.equipmentName || ""}
+          ${ticket.requesterName || ""}
+        `.toLowerCase();
 
+        const matchesSearch = !search || content.includes(search);
         const matchesPriority = !priority || ticket.priority === priority;
 
         return matchesSearch && matchesPriority;
       });
 
+      filtered.sort((a, b) => {
+        const dateA = new Date(a.removedAt || a.updatedAt || a.createdAt);
+        const dateB = new Date(b.removedAt || b.updatedAt || b.createdAt);
+
+        return sort === "recent"
+          ? dateB - dateA
+          : dateA - dateB;
+      });
+
       updateStats(filtered);
 
-      const oldCards = ticketsList.querySelectorAll(".ticket-card");
-      oldCards.forEach(card => card.remove());
+      ticketsContainer.innerHTML = "";
 
       if (!filtered.length) {
         emptyState.classList.remove("hidden");
@@ -309,21 +372,25 @@
 
       filtered.forEach(ticket => {
         const card = document.createElement("div");
-        card.className = "ticket-card bg-white border border-slate-200 rounded-2xl p-5 shadow-sm";
+        card.className = "bg-white border border-slate-200 rounded-2xl p-5 shadow-sm";
 
         card.innerHTML = `
           <div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-5">
-            <div class="flex-1 min-w-0">
+            <div class="flex-1">
               <div class="flex flex-wrap items-center gap-2 mb-3">
-                ${getPriorityLabel(ticket.priority)}
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-600">
-                  Concluído
+                ${getPriorityBadge(ticket.priority)}
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-600">
+                  Removido
                 </span>
               </div>
 
               <h3 class="text-lg font-semibold text-slate-700">
-                ${ticket.description || "Sem descrição"}
+                ${ticket.title || "Sem título"}
               </h3>
+
+              <p class="text-sm text-slate-500 mt-2 line-clamp-2">
+                ${ticket.description || "Sem descrição"}
+              </p>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 text-sm text-slate-500">
                 <div>
@@ -337,42 +404,27 @@
                 </div>
 
                 <div>
-                  <span class="font-semibold text-slate-600">Responsável:</span>
-                  ${ticket.technicianName || "Não informado"}
+                  <span class="font-semibold text-slate-600">Solicitante:</span>
+                  ${ticket.requesterName || "-"}
                 </div>
 
                 <div>
-                  <span class="font-semibold text-slate-600">Finalizado em:</span>
-                  ${formatDate(ticket.completedAt || ticket.updatedAt)}
+                  <span class="font-semibold text-slate-600">Removido em:</span>
+                  ${formatDate(ticket.removedAt || ticket.updatedAt)}
                 </div>
               </div>
-
-              ${
-                ticket.solutionNotes
-                  ? `
-                    <div class="mt-4 rounded-xl bg-slate-50 border border-slate-200 p-3">
-                      <p class="text-xs uppercase tracking-wide text-slate-400 mb-1">
-                        Observações Finais
-                      </p>
-                      <p class="text-sm text-slate-600">
-                        ${ticket.solutionNotes}
-                      </p>
-                    </div>
-                  `
-                  : ""
-              }
             </div>
 
-            <div class="flex flex-row xl:flex-col gap-2 xl:w-[180px]">
+            <div class="flex flex-col sm:flex-row xl:flex-col gap-2 xl:w-[180px]">
               <button
-                class="view-details-btn flex-1 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-4 py-3 text-sm font-medium text-slate-600 transition"
+                class="details-btn rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-4 py-3 text-sm font-medium text-slate-600 transition"
                 data-id="${ticket.id}"
               >
                 Ver Detalhes
               </button>
 
               <button
-                class="restore-btn flex-1 rounded-xl bg-amber-500 hover:bg-amber-600 px-4 py-3 text-sm font-medium text-white transition"
+                class="restore-btn rounded-xl bg-emerald-500 hover:bg-emerald-600 px-4 py-3 text-sm font-medium text-white transition"
                 data-id="${ticket.id}"
               >
                 Restaurar
@@ -381,23 +433,28 @@
           </div>
         `;
 
-        ticketsList.appendChild(card);
+        ticketsContainer.appendChild(card);
       });
 
       bindButtons();
     }
 
     function bindButtons() {
-      document.querySelectorAll(".view-details-btn").forEach(button => {
+      document.querySelectorAll(".details-btn").forEach(button => {
         button.addEventListener("click", () => {
-          const ticketId = button.dataset.id;
-          const ticket = ticketsData.find(item => item.id === ticketId);
+          const ticket = removedTickets.find(item => item.id === button.dataset.id);
+          if (!ticket) return;
 
           modalContent.innerHTML = `
-            <div class="space-y-4">
+            <div class="space-y-5">
+              <div>
+                <p class="text-xs uppercase tracking-wide text-slate-400">Título</p>
+                <p class="text-slate-700 font-semibold mt-1">${ticket.title || "-"}</p>
+              </div>
+
               <div>
                 <p class="text-xs uppercase tracking-wide text-slate-400">Descrição</p>
-                <p class="text-slate-700 mt-1">${ticket.description || "-"}</p>
+                <p class="text-slate-600 mt-1">${ticket.description || "-"}</p>
               </div>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -412,13 +469,15 @@
                 </div>
 
                 <div>
-                  <p class="text-xs uppercase tracking-wide text-slate-400">Prioridade</p>
-                  <div class="mt-2">${getPriorityLabel(ticket.priority)}</div>
+                  <p class="text-xs uppercase tracking-wide text-slate-400">Solicitante</p>
+                  <p class="text-slate-700 mt-1">${ticket.requesterName || "-"}</p>
                 </div>
 
                 <div>
-                  <p class="text-xs uppercase tracking-wide text-slate-400">Responsável</p>
-                  <p class="text-slate-700 mt-1">${ticket.technicianName || "Não informado"}</p>
+                  <p class="text-xs uppercase tracking-wide text-slate-400">Prioridade</p>
+                  <div class="mt-2">
+                    ${getPriorityBadge(ticket.priority)}
+                  </div>
                 </div>
 
                 <div>
@@ -427,34 +486,21 @@
                 </div>
 
                 <div>
-                  <p class="text-xs uppercase tracking-wide text-slate-400">Finalizado em</p>
-                  <p class="text-slate-700 mt-1">${formatDate(ticket.completedAt || ticket.updatedAt)}</p>
+                  <p class="text-xs uppercase tracking-wide text-slate-400">Removido em</p>
+                  <p class="text-slate-700 mt-1">${formatDate(ticket.removedAt || ticket.updatedAt)}</p>
                 </div>
               </div>
 
-              ${
-                ticket.solutionNotes
-                  ? `
-                    <div>
-                      <p class="text-xs uppercase tracking-wide text-slate-400">Observações Finais</p>
-                      <div class="mt-2 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
-                        ${ticket.solutionNotes}
-                      </div>
-                    </div>
-                  `
-                  : ""
-              }
-
-              ${
-                ticket.photoURL
-                  ? `
-                    <div>
-                      <p class="text-xs uppercase tracking-wide text-slate-400 mb-2">Imagem</p>
-                      <img src="${ticket.photoURL}" class="w-full rounded-2xl border border-slate-200 max-h-[300px] object-cover" />
-                    </div>
-                  `
-                  : ""
-              }
+              ${ticket.photoURL ? `
+                <div>
+                  <p class="text-xs uppercase tracking-wide text-slate-400 mb-2">Imagem</p>
+                  <img
+                    src="${ticket.photoURL}"
+                    alt="Imagem do ticket"
+                    class="w-full max-h-[320px] object-cover rounded-2xl border border-slate-200"
+                  />
+                </div>
+              ` : ""}
             </div>
           `;
 
@@ -464,52 +510,23 @@
       });
 
       document.querySelectorAll(".restore-btn").forEach(button => {
-        button.addEventListener("click", async () => {
+        button.addEventListener("click", () => {
           const ticketId = button.dataset.id;
 
-          try {
-            await updateDoc(doc(db, "tickets", ticketId), {
-              status: "IN_PROGRESS"
-            });
+          updateTicket(ticketId, {
+            status: "OPEN",
+            statusLabel: "Aberto",
+            updatedAt: new Date().toISOString()
+          });
 
-            ticketsData = ticketsData.filter(item => item.id !== ticketId);
-            renderTickets();
-
-            toast.classList.remove("hidden");
-
-            setTimeout(() => {
-              toast.classList.add("hidden");
-            }, 2500);
-          } catch (error) {
-            console.error("Erro ao restaurar ticket:", error);
-          }
+          loadTickets();
         });
       });
     }
 
-    async function loadTickets() {
-      try {
-        const q = query(
-          collection(db, "tickets"),
-          where("status", "==", "COMPLETED"),
-          orderBy("updatedAt", "desc")
-        );
-
-        const snapshot = await getDocs(q);
-
-        ticketsData = snapshot.docs.map(docItem => ({
-          id: docItem.id,
-          ...docItem.data()
-        }));
-
-        renderTickets();
-      } catch (error) {
-        console.error("Erro ao carregar tickets concluídos:", error);
-      }
-    }
-
     searchInput.addEventListener("input", renderTickets);
     priorityFilter.addEventListener("change", renderTickets);
+    sortFilter.addEventListener("change", renderTickets);
 
     closeModalBtn.addEventListener("click", () => {
       detailsModal.classList.add("hidden");
@@ -522,6 +539,10 @@
         detailsModal.classList.remove("flex");
       }
     });
+
+    if (window.RepairgeCurrentUser) {
+      window.RepairgeCurrentUser.updateCurrentUserHeader();
+    }
 
     loadTickets();
   </script>
