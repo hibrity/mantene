@@ -39,8 +39,8 @@
 
       <div class="px-5 py-4 border-b border-slate-200">
         <p class="text-sm font-semibold text-slate-700 leading-7">
-          Administrador (Acesso Livre)<br />
-          (Empresa)
+          <span data-user-name>Administrador</span><br />
+          <span data-user-role>Administrador</span>
         </p>
       </div>
 
@@ -130,8 +130,8 @@
 
       <div class="px-4 py-4 border-b border-slate-200">
         <p class="text-sm font-semibold text-slate-700 leading-7">
-          Administrador (Acesso Livre)<br />
-          (Empresa)
+          <span data-user-name>Administrador</span><br />
+          <span data-user-role>Administrador</span>
         </p>
       </div>
 
@@ -229,8 +229,8 @@
           <button class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm" title="WhatsApp">
             🟢
           </button>
-          <div class="w-10 h-10 rounded-full bg-sky-200 text-sky-700 font-semibold flex items-center justify-center text-sm">
-            AL
+          <div class="w-10 h-10 rounded-full bg-sky-200 text-sky-700 font-semibold flex items-center justify-center text-sm" data-user-initials>
+            AD
           </div>
         </div>
       </header>
@@ -251,9 +251,8 @@
             </div>
           </div>
 
-          <div id="errorBox" class="hidden mt-4 rounded-xl border border-red-200 bg-red-50 text-red-600 px-4 py-3 text-sm">
-            Não foi possível carregar setores e equipamentos.
-          </div>
+          <div id="warningBox" class="hidden mt-4 rounded-xl border border-yellow-200 bg-yellow-50 text-yellow-700 px-4 py-3 text-sm"></div>
+          <div id="errorBox" class="hidden mt-4 rounded-xl border border-red-200 bg-red-50 text-red-600 px-4 py-3 text-sm"></div>
 
           <section class="mt-5 bg-white border border-slate-200 rounded-2xl shadow-sm">
             <form id="ticketForm" class="p-4 md:p-6 space-y-6">
@@ -308,7 +307,7 @@
                   </div>
 
                   <p class="text-xs text-slate-400">
-                    Você pode escolher da galeria ou usar a câmera do dispositivo.
+                    A foto será salva no navegador em base64 enquanto o sistema estiver usando localStorage.
                   </p>
                 </div>
               </div>
@@ -385,27 +384,25 @@
 
   <div id="toast" class="fixed right-4 bottom-4 z-[100] hidden max-w-[320px] rounded-2xl px-4 py-3 text-sm font-medium shadow-lg"></div>
 
+  <script src="./js/current-user.js"></script>
+  <script src="./js/sidebar.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/auth-guard.js"></script>
+
   <script type="module">
-    import { db, storage } from "./js/config.js";
     import {
-      collection,
-      getDocs,
-      addDoc,
-      query,
-      orderBy,
-      serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-    import {
-      ref,
-      uploadBytes,
-      getDownloadURL
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+      getCurrentUser,
+      getSectors,
+      getEquipment,
+      createTicket
+    } from "./js/data-service.js";
 
     const openSidebarBtn = document.getElementById("openSidebarBtn");
     const closeSidebarBtn = document.getElementById("closeSidebarBtn");
     const sidebarMobile = document.getElementById("sidebarMobile");
     const sidebarMobileOverlay = document.getElementById("sidebarMobileOverlay");
 
+    const warningBox = document.getElementById("warningBox");
     const errorBox = document.getElementById("errorBox");
     const ticketForm = document.getElementById("ticketForm");
     const submitBtn = document.getElementById("submitBtn");
@@ -428,13 +425,13 @@
 
     let sectorsCache = [];
     let equipmentCache = [];
-    let selectedPhotoFile = null;
+    let selectedPhotoBase64 = null;
 
-    const currentUser = JSON.parse(localStorage.getItem("repairgeCurrentUser") || "null") || {
-      id: "demo-admin",
-      name: "Administrador",
-      companyId: "empresa-demo"
-    };
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+      window.location.href = "login.html";
+    }
 
     function openSidebar() {
       sidebarMobile.classList.remove("-translate-x-full");
@@ -463,6 +460,36 @@
       }, 2800);
     }
 
+    function setError(message = "") {
+      if (!message) {
+        errorBox.classList.add("hidden");
+        errorBox.textContent = "";
+        return;
+      }
+
+      errorBox.textContent = message;
+      errorBox.classList.remove("hidden");
+    }
+
+    function setWarning(message = "") {
+      if (!message) {
+        warningBox.classList.add("hidden");
+        warningBox.textContent = "";
+        return;
+      }
+
+      warningBox.textContent = message;
+      warningBox.classList.remove("hidden");
+    }
+
+    function getCompanySectors() {
+      return getSectors().filter(item => item.companyId === currentUser.companyId);
+    }
+
+    function getCompanyEquipment() {
+      return getEquipment().filter(item => item.companyId === currentUser.companyId);
+    }
+
     function populateSectors() {
       sectorIdInput.innerHTML = `<option value="">Selecione o setor</option>`;
 
@@ -476,7 +503,6 @@
       const hasSectors = sectorsCache.length > 0;
       sectorHint.classList.toggle("hidden", hasSectors);
       sectorIdInput.disabled = !hasSectors;
-      submitBtn.disabled = !hasSectors;
     }
 
     function populateEquipment(sectorId) {
@@ -511,57 +537,63 @@
     }
 
     function handlePhotoChange(file) {
-      selectedPhotoFile = file || null;
-
-      if (!selectedPhotoFile) {
-        photoPreviewWrapper.classList.add("hidden");
+      if (!file) {
+        selectedPhotoBase64 = null;
         photoPreview.src = "";
+        photoPreviewWrapper.classList.add("hidden");
         return;
       }
 
       const reader = new FileReader();
       reader.onload = (event) => {
-        photoPreview.src = event.target.result;
+        selectedPhotoBase64 = event.target.result;
+        photoPreview.src = selectedPhotoBase64;
         photoPreviewWrapper.classList.remove("hidden");
       };
-      reader.readAsDataURL(selectedPhotoFile);
+      reader.readAsDataURL(file);
     }
 
-    async function uploadPhotoIfNeeded() {
-      if (!selectedPhotoFile) return null;
-
-      const fileName = `ticket_photos/${Date.now()}-${selectedPhotoFile.name.replaceAll(" ", "_")}`;
-      const fileRef = ref(storage, fileName);
-
-      await uploadBytes(fileRef, selectedPhotoFile);
-      return await getDownloadURL(fileRef);
-    }
-
-    async function loadBaseData() {
+    function loadBaseData() {
       try {
-        errorBox.classList.add("hidden");
+        setError("");
+        setWarning("");
 
-        const sectorsSnapshot = await getDocs(query(collection(db, "sectors"), orderBy("name")));
-        sectorsCache = sectorsSnapshot.docs.map(item => ({
-          id: item.id,
-          ...item.data()
-        }));
-
-        const equipmentSnapshot = await getDocs(query(collection(db, "equipment"), orderBy("name")));
-        equipmentCache = equipmentSnapshot.docs.map(item => ({
-          id: item.id,
-          ...item.data()
-        }));
+        sectorsCache = getCompanySectors().sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+        equipmentCache = getCompanyEquipment().sort((a, b) => (a.name || "").localeCompare(b.name || ""));
 
         populateSectors();
+
+        if (sectorsCache.length === 0) {
+          setWarning("Cadastre setores antes de criar um ticket.");
+          submitBtn.disabled = true;
+          return;
+        }
+
+        if (equipmentCache.length === 0) {
+          setWarning("Cadastre equipamentos antes de criar um ticket.");
+          submitBtn.disabled = true;
+          return;
+        }
+
+        submitBtn.disabled = false;
       } catch (error) {
         console.error("Erro ao carregar base:", error);
-        errorBox.classList.remove("hidden");
+        setError("Não foi possível carregar setores e equipamentos.");
         submitBtn.disabled = true;
       }
     }
 
-    async function submitTicket(event) {
+    function getPriorityLabel(value) {
+      const map = {
+        LOW: "Baixa",
+        MEDIUM: "Média",
+        HIGH: "Alta",
+        URGENT: "Urgente"
+      };
+      return map[value] || "Média";
+    }
+
+    function submitTicket(event) {
       event.preventDefault();
 
       const description = descriptionInput.value.trim();
@@ -591,9 +623,7 @@
       submitBtn.textContent = "Enviando...";
 
       try {
-        const photoURL = await uploadPhotoIfNeeded();
-
-        await addDoc(collection(db, "tickets"), {
+        createTicket({
           title: `${currentUser.name} solicitou manutenção`,
           description,
           sectorId,
@@ -601,20 +631,24 @@
           equipmentId,
           equipmentName: equipment?.name || "-",
           priority,
+          priorityLabel: getPriorityLabel(priority),
           status: "OPEN",
+          statusLabel: "Aberto",
           requesterId: currentUser.id,
           requesterName: currentUser.name,
           companyId: currentUser.companyId,
+          companyName: currentUser.companyName || "",
           materialsRequested: [],
           solutionNotes: "",
-          photoURL: photoURL || null,
-          createdAt: serverTimestamp(),
-          updatedAt: serverTimestamp()
+          photoURL: selectedPhotoBase64 || null,
+          removedAt: null,
+          completedAt: null
         });
 
         showToast("Ticket criado com sucesso.");
+
         ticketForm.reset();
-        selectedPhotoFile = null;
+        selectedPhotoBase64 = null;
         photoPreviewWrapper.classList.add("hidden");
         photoPreview.src = "";
         equipmentIdInput.innerHTML = `<option value="">Selecione um setor primeiro</option>`;
@@ -628,7 +662,7 @@
         console.error("Erro ao criar ticket:", error);
         showToast("Não foi possível criar o ticket.", "error");
       } finally {
-        submitBtn.disabled = sectorsCache.length === 0;
+        submitBtn.disabled = sectorsCache.length === 0 || equipmentCache.length === 0;
         submitBtn.textContent = "Enviar Ticket";
       }
     }
@@ -655,6 +689,10 @@
     });
 
     ticketForm?.addEventListener("submit", submitTicket);
+
+    if (window.RepairgeCurrentUser) {
+      window.RepairgeCurrentUser.updateCurrentUserHeader();
+    }
 
     loadBaseData();
   </script>
