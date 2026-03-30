@@ -3,19 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Repairge - Checklist Diário</title>
+  <title>Repairge - Checklists Realizados</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     ::-webkit-scrollbar {
       width: 10px;
       height: 10px;
     }
-
     ::-webkit-scrollbar-thumb {
       background: #cbd5e1;
       border-radius: 999px;
     }
-
     ::-webkit-scrollbar-track {
       background: #eef2f7;
     }
@@ -25,7 +23,7 @@
 
   <div class="min-h-screen flex">
 
-    <!-- Sidebar Desktop -->
+    <!-- SIDEBAR DESKTOP -->
     <aside class="hidden md:flex w-[260px] bg-[#f5f7fb] border-r border-slate-200 flex-col min-h-screen">
       <div class="h-16 px-5 flex items-center justify-between border-b border-slate-200">
         <div class="flex items-center gap-3">
@@ -34,12 +32,15 @@
           </div>
           <span class="text-xl font-bold text-slate-700">Repairge</span>
         </div>
+        <button class="text-slate-400 hover:text-slate-600 text-sm" title="Menu">
+          ⋮
+        </button>
       </div>
 
       <div class="px-5 py-4 border-b border-slate-200">
         <p class="text-sm font-semibold text-slate-700 leading-7">
-          Administrador (Acesso Livre)<br />
-          (Empresa)
+          <span data-user-name>Administrador</span><br />
+          <span data-user-role>Administrador</span>
         </p>
       </div>
 
@@ -49,19 +50,24 @@
           <span>Painel Principal</span>
         </a>
 
-        <a href="tickets.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
-          <span>🎫</span>
-          <span>Tickets de Manutenção</span>
+        <a href="chat.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>💬</span>
+          <span>Chat Interno</span>
         </a>
 
-        <a href="checklist-diario.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-sky-100 text-sky-600">
-          <span>📋</span>
-          <span>Checklist Diário</span>
-        </a>
-
-        <a href="checklists-realizados.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+        <a href="checklists-realizados.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-sky-100/70 text-sky-500">
           <span>☑️</span>
           <span>Checklists Realizados</span>
+        </a>
+
+        <a href="configuracoes.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⚙️</span>
+          <span>Configurações</span>
+        </a>
+
+        <a href="checklist-diario.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>📋</span>
+          <span>Criar Checklist Diário</span>
         </a>
 
         <a href="equipamentos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
@@ -69,62 +75,210 @@
           <span>Equipamentos</span>
         </a>
 
+        <a href="usuarios.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>👥</span>
+          <span>Gerenciar Usuários</span>
+        </a>
+
+        <a href="mensagens-apagadas.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🗑️</span>
+          <span>Mensagens Apagadas</span>
+        </a>
+
         <a href="setores.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
           <span>🏢</span>
           <span>Setores</span>
         </a>
+
+        <a href="tickets-concluidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>✅</span>
+          <span>Tickets Concluídos</span>
+        </a>
+
+        <a href="tickets.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🎫</span>
+          <span>Tickets de Manutenção</span>
+        </a>
+
+        <a href="tickets-removidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🧺</span>
+          <span>Tickets Removidos</span>
+        </a>
       </nav>
+
+      <div class="border-t border-slate-200 p-3">
+        <a href="index.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⌂</span>
+          <span>Início</span>
+        </a>
+      </div>
     </aside>
 
-    <!-- Main -->
+    <!-- SIDEBAR MOBILE -->
+    <div id="sidebarMobileOverlay" class="fixed inset-0 bg-black/40 z-40 hidden md:hidden"></div>
+
+    <aside id="sidebarMobile" class="fixed top-0 left-0 h-full w-[285px] bg-[#f5f7fb] border-r border-slate-200 z-50 transform -translate-x-full transition-transform duration-300 md:hidden flex flex-col">
+      <div class="h-16 px-4 flex items-center justify-between border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl border border-sky-200 bg-white flex items-center justify-center text-sky-400 text-lg shadow-sm">
+            🏷️
+          </div>
+          <span class="text-xl font-bold text-slate-700">Repairge</span>
+        </div>
+        <button id="closeSidebarBtn" class="text-slate-500 text-xl">✕</button>
+      </div>
+
+      <div class="px-4 py-4 border-b border-slate-200">
+        <p class="text-sm font-semibold text-slate-700 leading-7">
+          <span data-user-name>Administrador</span><br />
+          <span data-user-role>Administrador</span>
+        </p>
+      </div>
+
+      <nav class="flex-1 px-2 py-3 overflow-y-auto">
+        <a href="dashboard.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⬚</span>
+          <span>Painel Principal</span>
+        </a>
+
+        <a href="chat.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>💬</span>
+          <span>Chat Interno</span>
+        </a>
+
+        <a href="checklists-realizados.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-sky-100/70 text-sky-500">
+          <span>☑️</span>
+          <span>Checklists Realizados</span>
+        </a>
+
+        <a href="configuracoes.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⚙️</span>
+          <span>Configurações</span>
+        </a>
+
+        <a href="checklist-diario.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>📋</span>
+          <span>Criar Checklist Diário</span>
+        </a>
+
+        <a href="equipamentos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏭</span>
+          <span>Equipamentos</span>
+        </a>
+
+        <a href="usuarios.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>👥</span>
+          <span>Gerenciar Usuários</span>
+        </a>
+
+        <a href="mensagens-apagadas.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🗑️</span>
+          <span>Mensagens Apagadas</span>
+        </a>
+
+        <a href="setores.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏢</span>
+          <span>Setores</span>
+        </a>
+
+        <a href="tickets-concluidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>✅</span>
+          <span>Tickets Concluídos</span>
+        </a>
+
+        <a href="tickets.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🎫</span>
+          <span>Tickets de Manutenção</span>
+        </a>
+
+        <a href="tickets-removidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🧺</span>
+          <span>Tickets Removidos</span>
+        </a>
+      </nav>
+
+      <div class="border-t border-slate-200 p-3">
+        <a href="index.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⌂</span>
+          <span>Início</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
     <div class="flex-1 min-w-0 flex flex-col">
 
-      <!-- Header -->
+      <!-- TOPBAR -->
       <header class="h-16 bg-[#f8fafc] border-b border-slate-200 px-4 md:px-6 flex items-center justify-between">
-        <div>
-          <p class="text-sm text-slate-400">Checklist operacional</p>
+        <div class="flex items-center gap-3">
+          <button id="openSidebarBtn" class="md:hidden w-10 h-10 rounded-lg hover:bg-slate-100 flex items-center justify-center text-slate-600 text-xl">
+            ☰
+          </button>
+          <div class="hidden md:block text-sm text-slate-400">
+            Histórico operacional
+          </div>
         </div>
 
-        <div class="flex items-center gap-3">
-          <button class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-sm">
-            🔔
+        <div class="flex items-center gap-3 md:gap-4">
+          <button class="w-8 h-8 rounded-full bg-orange-100 text-orange-500 flex items-center justify-center text-sm" title="Calculadora">
+            🧮
           </button>
-
-          <div class="w-10 h-10 rounded-full bg-sky-200 text-sky-700 font-semibold flex items-center justify-center text-sm">
+          <button class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-sm" title="Calendário">
+            🗓️
+          </button>
+          <button class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm" title="WhatsApp">
+            🟢
+          </button>
+          <div class="w-10 h-10 rounded-full bg-sky-200 text-sky-700 font-semibold flex items-center justify-center text-sm" data-user-initials>
             AD
           </div>
         </div>
       </header>
 
-      <!-- Content -->
+      <!-- CONTENT -->
       <main class="flex-1 p-4 md:p-6">
+        <div class="max-w-7xl">
 
-        <div class="border-b border-slate-200 pb-5">
-          <h1 class="text-2xl md:text-3xl font-bold text-slate-700">
-            Criar Checklist Diário
-          </h1>
-          <p class="text-sm text-slate-400 mt-1">
-            Registre verificações operacionais dos equipamentos e setores.
-          </p>
-        </div>
+          <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-slate-200 pb-5">
+            <div>
+              <h1 class="text-2xl md:text-3xl font-bold text-slate-700">
+                Checklists Realizados
+              </h1>
+              <p class="text-sm text-slate-400 mt-1">
+                Acompanhe todas as verificações registradas pela equipe.
+              </p>
+            </div>
 
-        <div class="grid grid-cols-1 xl:grid-cols-[1fr_340px] gap-6 mt-6">
+            <div class="flex flex-col sm:flex-row gap-3">
+              <a
+                href="checklist-diario.html"
+                class="rounded-xl bg-sky-500 hover:bg-sky-600 px-5 py-3 text-sm font-medium text-white transition text-center"
+              >
+                Novo Checklist
+              </a>
+            </div>
+          </div>
 
-          <!-- Form -->
-          <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 md:p-6">
-            <form id="checklistForm" class="space-y-5">
+          <!-- FILTROS -->
+          <section class="mt-6 bg-white border border-slate-200 rounded-2xl shadow-sm p-4 md:p-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-3">
+              <div class="xl:col-span-2">
+                <label class="block text-sm font-medium text-slate-600 mb-2">Buscar</label>
+                <input
+                  type="text"
+                  id="searchInput"
+                  placeholder="Buscar por setor, equipamento, usuário ou observação..."
+                  class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                />
+              </div>
 
               <div>
-                <label class="block text-sm font-medium text-slate-600 mb-2">
-                  Tipo de Checklist
-                </label>
-
+                <label class="block text-sm font-medium text-slate-600 mb-2">Tipo</label>
                 <select
-                  id="checklistType"
+                  id="typeFilter"
                   class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
-                  required
                 >
-                  <option value="">Selecione</option>
+                  <option value="">Todos</option>
                   <option value="STATUS_ON">Status ON / OFF</option>
                   <option value="FUNCTIONS">Verificação de Funções</option>
                   <option value="TEMPERATURE">Temperatura</option>
@@ -134,388 +288,387 @@
                 </select>
               </div>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-sm font-medium text-slate-600 mb-2">
-                    Setor
-                  </label>
-
-                  <select
-                    id="sectorId"
-                    class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
-                    required
-                  >
-                    <option value="">Selecione o setor</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-slate-600 mb-2">
-                    Equipamento
-                  </label>
-
-                  <select
-                    id="equipmentId"
-                    class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
-                    disabled
-                    required
-                  >
-                    <option value="">Selecione um setor primeiro</option>
-                  </select>
-                </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-600 mb-2">Status</label>
+                <select
+                  id="statusFilter"
+                  class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                >
+                  <option value="">Todos</option>
+                  <option value="OK">Operando</option>
+                  <option value="WARNING">Atenção</option>
+                  <option value="PROBLEM">Problema</option>
+                  <option value="OFF">Desligado</option>
+                </select>
               </div>
 
               <div>
-                <label class="block text-sm font-medium text-slate-600 mb-2">
-                  Situação do Equipamento
-                </label>
-
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  <label class="rounded-xl border border-slate-200 p-4 cursor-pointer hover:border-emerald-300 transition">
-                    <input type="radio" name="equipmentStatus" value="OK" class="hidden peer" required />
-                    <div class="peer-checked:text-emerald-600 peer-checked:font-semibold text-sm text-center">
-                      ✅ Operando
-                    </div>
-                  </label>
-
-                  <label class="rounded-xl border border-slate-200 p-4 cursor-pointer hover:border-yellow-300 transition">
-                    <input type="radio" name="equipmentStatus" value="WARNING" class="hidden peer" />
-                    <div class="peer-checked:text-yellow-600 peer-checked:font-semibold text-sm text-center">
-                      ⚠️ Atenção
-                    </div>
-                  </label>
-
-                  <label class="rounded-xl border border-slate-200 p-4 cursor-pointer hover:border-red-300 transition">
-                    <input type="radio" name="equipmentStatus" value="PROBLEM" class="hidden peer" />
-                    <div class="peer-checked:text-red-600 peer-checked:font-semibold text-sm text-center">
-                      ❌ Problema
-                    </div>
-                  </label>
-
-                  <label class="rounded-xl border border-slate-200 p-4 cursor-pointer hover:border-slate-300 transition">
-                    <input type="radio" name="equipmentStatus" value="OFF" class="hidden peer" />
-                    <div class="peer-checked:text-slate-700 peer-checked:font-semibold text-sm text-center">
-                      ⏹️ Desligado
-                    </div>
-                  </label>
-                </div>
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium text-slate-600 mb-2">
-                  Observações
-                </label>
-
-                <textarea
-                  id="description"
-                  rows="5"
-                  placeholder="Descreva condições do equipamento, falhas, observações ou recomendações..."
-                  class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200 resize-none"
-                  required
-                ></textarea>
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium text-slate-600 mb-2">
-                  Foto (Opcional)
-                </label>
-
+                <label class="block text-sm font-medium text-slate-600 mb-2">Data</label>
                 <input
-                  type="file"
-                  id="photoInput"
-                  accept="image/*"
-                  class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
+                  type="date"
+                  id="dateFilter"
+                  class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
                 />
-
-                <div id="photoPreviewContainer" class="hidden mt-4">
-                  <img
-                    id="photoPreview"
-                    class="w-full max-w-[300px] rounded-2xl border border-slate-200 object-cover"
-                    alt="Prévia"
-                  />
-                </div>
-              </div>
-
-              <div class="flex justify-end gap-3 pt-2">
-                <button
-                  type="button"
-                  class="rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-5 py-3 text-sm font-medium text-slate-600 transition"
-                  onclick="window.location.href='checklists-realizados.html'"
-                >
-                  Cancelar
-                </button>
-
-                <button
-                  type="submit"
-                  id="submitBtn"
-                  class="rounded-xl bg-sky-500 hover:bg-sky-600 px-5 py-3 text-sm font-medium text-white transition"
-                >
-                  Salvar Checklist
-                </button>
-              </div>
-            </form>
-          </div>
-
-          <!-- Side Info -->
-          <div class="space-y-4">
-
-            <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5">
-              <h3 class="text-lg font-semibold text-slate-700">
-                Informações
-              </h3>
-
-              <div class="mt-4 space-y-3 text-sm text-slate-500">
-                <div class="flex items-start gap-3">
-                  <span class="text-emerald-500">✅</span>
-                  <p>Checklist usado para monitorar o funcionamento dos equipamentos.</p>
-                </div>
-
-                <div class="flex items-start gap-3">
-                  <span class="text-yellow-500">⚠️</span>
-                  <p>Itens em atenção podem gerar chamados preventivos.</p>
-                </div>
-
-                <div class="flex items-start gap-3">
-                  <span class="text-red-500">❌</span>
-                  <p>Equipamentos com problema podem ser direcionados para manutenção.</p>
-                </div>
               </div>
             </div>
+          </section>
 
-            <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5">
-              <h3 class="text-lg font-semibold text-slate-700">
-                Status de Verificação
-              </h3>
-
-              <div class="mt-4 space-y-3">
-                <div class="flex items-center justify-between rounded-xl bg-emerald-50 border border-emerald-100 px-4 py-3">
-                  <span class="text-sm text-emerald-700">Operando</span>
-                  <span class="font-bold text-emerald-700" id="operatingCount">0</span>
-                </div>
-
-                <div class="flex items-center justify-between rounded-xl bg-yellow-50 border border-yellow-100 px-4 py-3">
-                  <span class="text-sm text-yellow-700">Atenção</span>
-                  <span class="font-bold text-yellow-700" id="warningCount">0</span>
-                </div>
-
-                <div class="flex items-center justify-between rounded-xl bg-red-50 border border-red-100 px-4 py-3">
-                  <span class="text-sm text-red-700">Problema</span>
-                  <span class="font-bold text-red-700" id="problemCount">0</span>
-                </div>
-              </div>
+          <!-- STATS -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-6">
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Total de Checklists</p>
+              <h2 id="totalChecklists" class="text-3xl font-bold text-slate-700 mt-2">0</h2>
             </div>
 
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Operando</p>
+              <h2 id="okCount" class="text-3xl font-bold text-emerald-500 mt-2">0</h2>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Atenção</p>
+              <h2 id="warningCount" class="text-3xl font-bold text-yellow-500 mt-2">0</h2>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Problema</p>
+              <h2 id="problemCount" class="text-3xl font-bold text-red-500 mt-2">0</h2>
+            </div>
           </div>
+
+          <!-- LISTA -->
+          <div class="mt-6 space-y-4" id="checklistsList">
+            <div id="emptyState" class="hidden bg-white border border-slate-200 rounded-2xl p-10 text-center shadow-sm">
+              <div class="text-5xl mb-4">☑️</div>
+              <h3 class="text-lg font-semibold text-slate-700">
+                Nenhum checklist encontrado
+              </h3>
+              <p class="text-sm text-slate-400 mt-2">
+                Não existem registros com os filtros atuais.
+              </p>
+            </div>
+          </div>
+
         </div>
-
       </main>
     </div>
   </div>
 
-  <div id="toast" class="fixed right-4 bottom-4 hidden z-[100] rounded-2xl px-4 py-3 text-sm font-medium shadow-lg bg-emerald-500 text-white">
-    Checklist salvo com sucesso.
+  <!-- MODAL -->
+  <div id="detailsModal" class="fixed inset-0 bg-black/40 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden">
+      <div class="border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+        <h2 class="text-xl font-bold text-slate-700">Detalhes do Checklist</h2>
+        <button id="closeModalBtn" class="text-slate-500 hover:text-slate-700 text-xl">
+          ✕
+        </button>
+      </div>
+
+      <div id="modalContent" class="p-6 space-y-5 max-h-[80vh] overflow-y-auto"></div>
+    </div>
   </div>
 
+  <script src="./js/current-user.js"></script>
+  <script src="./js/sidebar.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/auth-guard.js"></script>
+
   <script type="module">
-    import { db, storage } from "./js/config.js";
     import {
-      collection,
-      getDocs,
-      addDoc,
-      query,
-      where,
-      serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+      getCurrentUser,
+      getChecklists
+    } from "./js/data-service.js";
 
-    import {
-      ref,
-      uploadBytes,
-      getDownloadURL
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+    const currentUser = getCurrentUser();
 
-    const sectorSelect = document.getElementById("sectorId");
-    const equipmentSelect = document.getElementById("equipmentId");
-    const checklistForm = document.getElementById("checklistForm");
-    const photoInput = document.getElementById("photoInput");
-    const photoPreview = document.getElementById("photoPreview");
-    const photoPreviewContainer = document.getElementById("photoPreviewContainer");
-    const toast = document.getElementById("toast");
+    if (!currentUser) {
+      window.location.href = "login.html";
+    }
 
-    const operatingCount = document.getElementById("operatingCount");
+    const checklistsList = document.getElementById("checklistsList");
+    const emptyState = document.getElementById("emptyState");
+
+    const searchInput = document.getElementById("searchInput");
+    const typeFilter = document.getElementById("typeFilter");
+    const statusFilter = document.getElementById("statusFilter");
+    const dateFilter = document.getElementById("dateFilter");
+
+    const totalChecklists = document.getElementById("totalChecklists");
+    const okCount = document.getElementById("okCount");
     const warningCount = document.getElementById("warningCount");
     const problemCount = document.getElementById("problemCount");
 
-    let sectors = [];
-    let equipments = [];
-    let selectedPhoto = null;
+    const detailsModal = document.getElementById("detailsModal");
+    const modalContent = document.getElementById("modalContent");
+    const closeModalBtn = document.getElementById("closeModalBtn");
 
-    const currentUser = JSON.parse(localStorage.getItem("repairgeCurrentUser") || "null") || {
-      id: "demo-user",
-      name: "Administrador",
-      companyId: "empresa-demo"
-    };
+    let checklistsData = [];
 
-    async function loadSectorsAndEquipments() {
-      try {
-        const sectorsQuery = query(
-          collection(db, "sectors"),
-          where("companyId", "==", currentUser.companyId)
-        );
-
-        const sectorsSnapshot = await getDocs(sectorsQuery);
-
-        sectors = sectorsSnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-
-        sectorSelect.innerHTML = `<option value="">Selecione o setor</option>`;
-
-        sectors.forEach(sector => {
-          sectorSelect.innerHTML += `
-            <option value="${sector.id}">
-              ${sector.name}
-            </option>
-          `;
-        });
-
-        const equipmentQuery = query(
-          collection(db, "equipment"),
-          where("companyId", "==", currentUser.companyId)
-        );
-
-        const equipmentSnapshot = await getDocs(equipmentQuery);
-
-        equipments = equipmentSnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-
-      } catch (error) {
-        console.error("Erro ao carregar setores e equipamentos:", error);
-      }
+    function getCompanyChecklists() {
+      return getChecklists().filter(item => item.companyId === currentUser.companyId);
     }
 
-    function updateEquipmentOptions(sectorId) {
-      const filtered = equipments.filter(item => item.sectorId === sectorId);
+    function formatDate(dateValue) {
+      if (!dateValue) return "-";
 
-      equipmentSelect.innerHTML = "";
+      const date = new Date(dateValue);
 
-      if (!sectorId) {
-        equipmentSelect.innerHTML = `<option value="">Selecione um setor primeiro</option>`;
-        equipmentSelect.disabled = true;
-        return;
-      }
+      if (isNaN(date.getTime())) return "-";
 
-      if (!filtered.length) {
-        equipmentSelect.innerHTML = `<option value="">Nenhum equipamento encontrado</option>`;
-        equipmentSelect.disabled = true;
-        return;
-      }
-
-      equipmentSelect.disabled = false;
-      equipmentSelect.innerHTML = `<option value="">Selecione o equipamento</option>`;
-
-      filtered.forEach(item => {
-        equipmentSelect.innerHTML += `
-          <option value="${item.id}">
-            ${item.name}
-          </option>
-        `;
+      return date.toLocaleDateString("pt-BR") + " às " + date.toLocaleTimeString("pt-BR", {
+        hour: "2-digit",
+        minute: "2-digit"
       });
     }
 
-    photoInput.addEventListener("change", (event) => {
-      const file = event.target.files[0];
+    function getDateOnly(dateValue) {
+      if (!dateValue) return "";
 
-      if (!file) return;
+      const date = new Date(dateValue);
 
-      selectedPhoto = file;
+      if (isNaN(date.getTime())) return "";
 
-      const reader = new FileReader();
+      const yyyy = date.getFullYear();
+      const mm = String(date.getMonth() + 1).padStart(2, "0");
+      const dd = String(date.getDate()).padStart(2, "0");
 
-      reader.onload = function(e) {
-        photoPreview.src = e.target.result;
-        photoPreviewContainer.classList.remove("hidden");
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
+    function getTypeLabel(type) {
+      const map = {
+        STATUS_ON: "Status ON / OFF",
+        FUNCTIONS: "Verificação de Funções",
+        TEMPERATURE: "Temperatura",
+        NOISE: "Ruídos",
+        PRESSURE: "Pressão",
+        SAFETY: "Itens de Segurança"
       };
 
-      reader.readAsDataURL(file);
-    });
+      return map[type] || type || "-";
+    }
 
-    sectorSelect.addEventListener("change", () => {
-      updateEquipmentOptions(sectorSelect.value);
-    });
+    function getStatusBadge(status) {
+      switch (status) {
+        case "OK":
+          return `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-600">Operando</span>`;
+        case "WARNING":
+          return `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-600">Atenção</span>`;
+        case "PROBLEM":
+          return `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-600">Problema</span>`;
+        case "OFF":
+          return `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600">Desligado</span>`;
+        default:
+          return `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600">-</span>`;
+      }
+    }
 
-    checklistForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
+    function updateStats(filtered) {
+      totalChecklists.textContent = filtered.length;
+      okCount.textContent = filtered.filter(item => item.equipmentStatus === "OK").length;
+      warningCount.textContent = filtered.filter(item => item.equipmentStatus === "WARNING").length;
+      problemCount.textContent = filtered.filter(item => item.equipmentStatus === "PROBLEM").length;
+    }
 
-      const submitBtn = document.getElementById("submitBtn");
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Salvando...";
+    function openDetails(id) {
+      const checklist = checklistsData.find(item => item.id === id);
+      if (!checklist) return;
 
-      try {
-        let photoURL = null;
+      modalContent.innerHTML = `
+        <div class="space-y-5">
+          <div>
+            <p class="text-xs uppercase tracking-wide text-slate-400">Tipo</p>
+            <p class="text-slate-700 mt-1">${getTypeLabel(checklist.checklistType)}</p>
+          </div>
 
-        if (selectedPhoto) {
-          const fileName = `checklists/${Date.now()}-${selectedPhoto.name}`;
-          const storageRef = ref(storage, fileName);
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="text-xs uppercase tracking-wide text-slate-400">Setor</p>
+              <p class="text-slate-700 mt-1">${checklist.sectorName || "-"}</p>
+            </div>
 
-          await uploadBytes(storageRef, selectedPhoto);
-          photoURL = await getDownloadURL(storageRef);
-        }
+            <div>
+              <p class="text-xs uppercase tracking-wide text-slate-400">Equipamento</p>
+              <p class="text-slate-700 mt-1">${checklist.equipmentName || "-"}</p>
+            </div>
 
-        const selectedSector = sectors.find(item => item.id === sectorSelect.value);
-        const selectedEquipment = equipments.find(item => item.id === equipmentSelect.value);
+            <div>
+              <p class="text-xs uppercase tracking-wide text-slate-400">Status</p>
+              <div class="mt-2">${getStatusBadge(checklist.equipmentStatus)}</div>
+            </div>
 
-        const status = document.querySelector('input[name="equipmentStatus"]:checked')?.value || "";
+            <div>
+              <p class="text-xs uppercase tracking-wide text-slate-400">Responsável</p>
+              <p class="text-slate-700 mt-1">${checklist.createdByName || "-"}</p>
+            </div>
 
-        await addDoc(collection(db, "operationalChecklists"), {
-          companyId: currentUser.companyId,
-          createdByUserId: currentUser.id,
-          createdByName: currentUser.name,
-          checklistType: document.getElementById("checklistType").value,
-          sectorId: sectorSelect.value,
-          sectorName: selectedSector?.name || "",
-          equipmentId: equipmentSelect.value,
-          equipmentName: selectedEquipment?.name || "",
-          equipmentStatus: status,
-          description: document.getElementById("description").value,
-          photoURL,
-          createdAt: serverTimestamp()
+            <div>
+              <p class="text-xs uppercase tracking-wide text-slate-400">Criado em</p>
+              <p class="text-slate-700 mt-1">${formatDate(checklist.createdAt || checklist.date)}</p>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-xs uppercase tracking-wide text-slate-400">Observações</p>
+            <div class="mt-2 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600 whitespace-pre-wrap">
+              ${checklist.description || "-"}
+            </div>
+          </div>
+
+          ${
+            checklist.photoURL
+              ? `
+                <div>
+                  <p class="text-xs uppercase tracking-wide text-slate-400 mb-2">Imagem</p>
+                  <img src="${checklist.photoURL}" class="w-full rounded-2xl border border-slate-200 max-h-[360px] object-cover" />
+                </div>
+              `
+              : ""
+          }
+        </div>
+      `;
+
+      detailsModal.classList.remove("hidden");
+      detailsModal.classList.add("flex");
+    }
+
+    function renderChecklists() {
+      const search = searchInput.value.toLowerCase().trim();
+      const selectedType = typeFilter.value;
+      const selectedStatus = statusFilter.value;
+      const selectedDate = dateFilter.value;
+
+      const filtered = checklistsData.filter(item => {
+        const text =
+          `${item.description || ""} ${item.sectorName || ""} ${item.equipmentName || ""} ${item.createdByName || ""}`.toLowerCase();
+
+        const matchesSearch = !search || text.includes(search);
+        const matchesType = !selectedType || item.checklistType === selectedType;
+        const matchesStatus = !selectedStatus || item.equipmentStatus === selectedStatus;
+        const matchesDate = !selectedDate || getDateOnly(item.createdAt || item.date) === selectedDate;
+
+        return matchesSearch && matchesType && matchesStatus && matchesDate;
+      });
+
+      updateStats(filtered);
+
+      const oldCards = checklistsList.querySelectorAll(".checklist-card");
+      oldCards.forEach(card => card.remove());
+
+      if (!filtered.length) {
+        emptyState.classList.remove("hidden");
+        return;
+      }
+
+      emptyState.classList.add("hidden");
+
+      filtered.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "checklist-card bg-white border border-slate-200 rounded-2xl p-5 shadow-sm";
+
+        card.innerHTML = `
+          <div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-5">
+            <div class="flex-1 min-w-0">
+              <div class="flex flex-wrap items-center gap-2 mb-3">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-sky-100 text-sky-600">
+                  ${getTypeLabel(item.checklistType)}
+                </span>
+                ${getStatusBadge(item.equipmentStatus)}
+              </div>
+
+              <h3 class="text-lg font-semibold text-slate-700">
+                ${item.equipmentName || "Equipamento não informado"}
+              </h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 text-sm text-slate-500">
+                <div>
+                  <span class="font-semibold text-slate-600">Setor:</span>
+                  ${item.sectorName || "-"}
+                </div>
+
+                <div>
+                  <span class="font-semibold text-slate-600">Responsável:</span>
+                  ${item.createdByName || "-"}
+                </div>
+
+                <div>
+                  <span class="font-semibold text-slate-600">Data:</span>
+                  ${formatDate(item.createdAt || item.date)}
+                </div>
+
+                <div>
+                  <span class="font-semibold text-slate-600">Status:</span>
+                  ${item.equipmentStatusLabel || item.equipmentStatus || "-"}
+                </div>
+              </div>
+
+              ${
+                item.description
+                  ? `
+                    <div class="mt-4 rounded-xl bg-slate-50 border border-slate-200 p-3">
+                      <p class="text-xs uppercase tracking-wide text-slate-400 mb-1">
+                        Observações
+                      </p>
+                      <p class="text-sm text-slate-600 line-clamp-3">
+                        ${item.description}
+                      </p>
+                    </div>
+                  `
+                  : ""
+              }
+            </div>
+
+            <div class="flex flex-row xl:flex-col gap-2 xl:w-[180px]">
+              <button
+                class="details-btn flex-1 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-4 py-3 text-sm font-medium text-slate-600 transition"
+                data-id="${item.id}"
+              >
+                Ver Detalhes
+              </button>
+            </div>
+          </div>
+        `;
+
+        checklistsList.appendChild(card);
+      });
+
+      document.querySelectorAll(".details-btn").forEach(button => {
+        button.addEventListener("click", () => {
+          openDetails(button.dataset.id);
         });
+      });
+    }
 
-        toast.classList.remove("hidden");
+    function loadChecklists() {
+      checklistsData = getCompanyChecklists().sort((a, b) => {
+        return new Date(b.createdAt || b.date || 0) - new Date(a.createdAt || a.date || 0);
+      });
 
-        setTimeout(() => {
-          toast.classList.add("hidden");
-        }, 2500);
+      renderChecklists();
+    }
 
-        checklistForm.reset();
-        photoPreviewContainer.classList.add("hidden");
-        equipmentSelect.innerHTML = `<option value="">Selecione um setor primeiro</option>`;
-        equipmentSelect.disabled = true;
+    searchInput.addEventListener("input", renderChecklists);
+    typeFilter.addEventListener("change", renderChecklists);
+    statusFilter.addEventListener("change", renderChecklists);
+    dateFilter.addEventListener("change", renderChecklists);
 
-        if (status === "OK") {
-          operatingCount.textContent = Number(operatingCount.textContent) + 1;
-        }
+    closeModalBtn.addEventListener("click", () => {
+      detailsModal.classList.add("hidden");
+      detailsModal.classList.remove("flex");
+    });
 
-        if (status === "WARNING") {
-          warningCount.textContent = Number(warningCount.textContent) + 1;
-        }
-
-        if (status === "PROBLEM") {
-          problemCount.textContent = Number(problemCount.textContent) + 1;
-        }
-
-      } catch (error) {
-        console.error("Erro ao salvar checklist:", error);
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Salvar Checklist";
+    detailsModal.addEventListener("click", (event) => {
+      if (event.target === detailsModal) {
+        detailsModal.classList.add("hidden");
+        detailsModal.classList.remove("flex");
       }
     });
 
-    loadSectorsAndEquipments();
+    if (window.RepairgeCurrentUser) {
+      window.RepairgeCurrentUser.updateCurrentUserHeader();
+    }
+
+    loadChecklists();
   </script>
 </body>
 </html>
