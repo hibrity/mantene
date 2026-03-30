@@ -32,15 +32,12 @@
           </div>
           <span class="text-xl font-bold text-slate-700">Repairge</span>
         </div>
-        <button class="text-slate-400 hover:text-slate-600 text-sm" title="Menu">
-          ⋮
-        </button>
       </div>
 
       <div class="px-5 py-4 border-b border-slate-200">
         <p class="text-sm font-semibold text-slate-700 leading-7">
-          Administrador (Acesso Livre)<br />
-          (Empresa)
+          <span data-user-name>Administrador</span><br />
+          <span data-user-role>Administrador</span>
         </p>
       </div>
 
@@ -130,8 +127,8 @@
 
       <div class="px-4 py-4 border-b border-slate-200">
         <p class="text-sm font-semibold text-slate-700 leading-7">
-          Administrador (Acesso Livre)<br />
-          (Empresa)
+          <span data-user-name>Administrador</span><br />
+          <span data-user-role>Administrador</span>
         </p>
       </div>
 
@@ -196,13 +193,6 @@
           <span>Tickets Removidos</span>
         </a>
       </nav>
-
-      <div class="border-t border-slate-200 p-3">
-        <a href="index.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
-          <span>⌂</span>
-          <span>Início</span>
-        </a>
-      </div>
     </aside>
 
     <!-- MAIN -->
@@ -220,17 +210,8 @@
         </div>
 
         <div class="flex items-center gap-3 md:gap-4">
-          <button class="w-8 h-8 rounded-full bg-orange-100 text-orange-500 flex items-center justify-center text-sm" title="Calculadora">
-            🧮
-          </button>
-          <button class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-sm" title="Calendário">
-            🗓️
-          </button>
-          <button class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm" title="WhatsApp">
-            🟢
-          </button>
-          <div class="w-10 h-10 rounded-full bg-sky-200 text-sky-700 font-semibold flex items-center justify-center text-sm">
-            AL
+          <div class="w-10 h-10 rounded-full bg-sky-200 text-sky-700 font-semibold flex items-center justify-center text-sm" data-user-initials>
+            AD
           </div>
         </div>
       </header>
@@ -260,7 +241,7 @@
             </div>
           </div>
 
-          <!-- FILTERS -->
+          <!-- FILTROS -->
           <section class="mt-5 bg-white border border-slate-200 rounded-2xl shadow-sm p-4 md:p-5">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div>
@@ -303,9 +284,27 @@
             </div>
           </section>
 
-          <!-- ALERT -->
-          <div id="errorBox" class="hidden mt-4 rounded-xl border border-red-200 bg-red-50 text-red-600 px-4 py-3 text-sm">
-            Não foi possível carregar os tickets.
+          <!-- STATS -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-5">
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Total Ativos</p>
+              <h2 id="totalTickets" class="text-3xl font-bold text-slate-700 mt-2">0</h2>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Abertos</p>
+              <h2 id="openTickets" class="text-3xl font-bold text-sky-500 mt-2">0</h2>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Em Andamento</p>
+              <h2 id="progressTickets" class="text-3xl font-bold text-yellow-500 mt-2">0</h2>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Urgentes</p>
+              <h2 id="urgentTickets" class="text-3xl font-bold text-red-500 mt-2">0</h2>
+            </div>
           </div>
 
           <!-- TABLE -->
@@ -335,11 +334,7 @@
               </div>
             </div>
 
-            <div id="ticketsCardsMobile" class="grid md:hidden gap-3">
-              <div class="bg-white border border-slate-200 rounded-2xl p-5 text-center text-slate-400 shadow-sm">
-                Carregando tickets...
-              </div>
-            </div>
+            <div id="ticketsCardsMobile" class="grid md:hidden gap-3"></div>
           </section>
         </div>
       </main>
@@ -347,53 +342,46 @@
   </div>
 
   <!-- MODAL DETALHES -->
-  <div id="detailsModalOverlay" class="fixed inset-0 bg-black/40 z-[60] hidden"></div>
-
-  <div id="detailsModal" class="fixed inset-x-0 top-1/2 -translate-y-1/2 mx-auto w-[92%] max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200 z-[70] hidden">
-    <div class="px-5 py-4 border-b border-slate-200 flex items-start justify-between gap-4">
-      <div>
-        <h2 class="text-lg font-bold text-slate-700">Detalhes do Ticket</h2>
-        <p class="mt-1 text-sm text-slate-400">Visualize as informações completas do chamado.</p>
+  <div id="detailsModal" class="fixed inset-0 bg-black/40 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden">
+      <div class="border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+        <h2 class="text-xl font-bold text-slate-700">Detalhes do Ticket</h2>
+        <button id="closeDetailsModalBtn" class="text-slate-500 hover:text-slate-700 text-xl">✕</button>
       </div>
-      <button id="closeDetailsModalBtn" class="text-slate-400 hover:text-slate-600 text-xl">✕</button>
-    </div>
 
-    <div id="detailsContent" class="p-5 space-y-4 max-h-[75vh] overflow-y-auto">
-      <div class="text-sm text-slate-400">Carregando...</div>
-    </div>
+      <div id="detailsContent" class="p-6 space-y-5 max-h-[80vh] overflow-y-auto"></div>
 
-    <div class="px-5 py-4 border-t border-slate-200 flex justify-end">
-      <button
-        type="button"
-        id="closeDetailsFooterBtn"
-        class="rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-sm font-medium px-4 py-3 md:py-2.5 transition"
-      >
-        Fechar
-      </button>
+      <div class="border-t border-slate-200 px-6 py-4 flex justify-end">
+        <button
+          type="button"
+          id="closeDetailsFooterBtn"
+          class="rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-sm font-medium px-4 py-3 md:py-2.5 transition"
+        >
+          Fechar
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- MODAL EXCLUIR -->
-  <div id="deleteModalOverlay" class="fixed inset-0 bg-black/40 z-[80] hidden"></div>
-
-  <div id="deleteModal" class="fixed inset-x-0 top-1/2 -translate-y-1/2 mx-auto w-[92%] max-w-md bg-white rounded-2xl shadow-2xl border border-slate-200 z-[90] hidden">
-    <div class="p-5">
-      <h3 class="text-lg font-bold text-slate-700">Mover ticket para removidos?</h3>
-      <p class="mt-2 text-sm text-slate-400 leading-6">
+  <!-- MODAL REMOVER -->
+  <div id="removeModal" class="fixed inset-0 bg-black/40 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md p-6">
+      <h2 class="text-xl font-bold text-slate-700 mb-3">Mover ticket para removidos?</h2>
+      <p class="text-sm text-slate-500 mb-6">
         O ticket será retirado da lista ativa e enviado para a página de tickets removidos.
       </p>
 
-      <div class="mt-5 flex justify-end gap-3">
+      <div class="flex justify-end gap-3">
         <button
-          id="cancelDeleteBtn"
-          class="rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-sm font-medium px-4 py-3 md:py-2.5 transition"
+          id="cancelRemoveBtn"
+          class="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100"
         >
           Cancelar
         </button>
 
         <button
-          id="confirmDeleteBtn"
-          class="rounded-xl bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-4 py-3 md:py-2.5 transition"
+          id="confirmRemoveBtn"
+          class="rounded-xl bg-red-500 hover:bg-red-600 px-4 py-2 text-sm font-medium text-white"
         >
           Remover
         </button>
@@ -402,26 +390,24 @@
   </div>
 
   <!-- MODAL CONCLUIR -->
-  <div id="completeModalOverlay" class="fixed inset-0 bg-black/40 z-[80] hidden"></div>
-
-  <div id="completeModal" class="fixed inset-x-0 top-1/2 -translate-y-1/2 mx-auto w-[92%] max-w-md bg-white rounded-2xl shadow-2xl border border-slate-200 z-[90] hidden">
-    <div class="p-5">
-      <h3 class="text-lg font-bold text-slate-700">Concluir ticket?</h3>
-      <p class="mt-2 text-sm text-slate-400 leading-6">
+  <div id="completeModal" class="fixed inset-0 bg-black/40 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md p-6">
+      <h2 class="text-xl font-bold text-slate-700 mb-3">Concluir ticket?</h2>
+      <p class="text-sm text-slate-500 mb-6">
         O ticket será retirado da lista ativa e enviado para a página de tickets concluídos.
       </p>
 
-      <div class="mt-5 flex justify-end gap-3">
+      <div class="flex justify-end gap-3">
         <button
           id="cancelCompleteBtn"
-          class="rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-sm font-medium px-4 py-3 md:py-2.5 transition"
+          class="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100"
         >
           Cancelar
         </button>
 
         <button
           id="confirmCompleteBtn"
-          class="rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium px-4 py-3 md:py-2.5 transition"
+          class="rounded-xl bg-emerald-500 hover:bg-emerald-600 px-4 py-2 text-sm font-medium text-white"
         >
           Concluir
         </button>
@@ -429,96 +415,72 @@
     </div>
   </div>
 
-  <!-- TOAST -->
-  <div id="toast" class="fixed right-4 bottom-4 z-[100] hidden max-w-[320px] rounded-2xl px-4 py-3 text-sm font-medium shadow-lg"></div>
+  <script src="./js/current-user.js"></script>
+  <script src="./js/sidebar.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/auth-guard.js"></script>
 
   <script type="module">
-    import { db } from "./js/config.js";
     import {
-      collection,
-      addDoc,
-      getDocs,
-      doc,
-      deleteDoc,
-      query,
-      orderBy,
-      serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+      getCurrentUser,
+      getTickets,
+      updateTicket
+    } from "./js/data-service.js";
 
-    const openSidebarBtn = document.getElementById("openSidebarBtn");
-    const closeSidebarBtn = document.getElementById("closeSidebarBtn");
-    const sidebarMobile = document.getElementById("sidebarMobile");
-    const sidebarMobileOverlay = document.getElementById("sidebarMobileOverlay");
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+      window.location.href = "login.html";
+    }
 
     const ticketsTableBody = document.getElementById("ticketsTableBody");
     const ticketsCardsMobile = document.getElementById("ticketsCardsMobile");
+
     const searchInput = document.getElementById("searchInput");
     const statusFilter = document.getElementById("statusFilter");
     const priorityFilter = document.getElementById("priorityFilter");
-    const errorBox = document.getElementById("errorBox");
+
+    const totalTickets = document.getElementById("totalTickets");
+    const openTickets = document.getElementById("openTickets");
+    const progressTickets = document.getElementById("progressTickets");
+    const urgentTickets = document.getElementById("urgentTickets");
 
     const detailsModal = document.getElementById("detailsModal");
-    const detailsModalOverlay = document.getElementById("detailsModalOverlay");
     const detailsContent = document.getElementById("detailsContent");
     const closeDetailsModalBtn = document.getElementById("closeDetailsModalBtn");
     const closeDetailsFooterBtn = document.getElementById("closeDetailsFooterBtn");
 
-    const deleteModal = document.getElementById("deleteModal");
-    const deleteModalOverlay = document.getElementById("deleteModalOverlay");
-    const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
-    const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+    const removeModal = document.getElementById("removeModal");
+    const cancelRemoveBtn = document.getElementById("cancelRemoveBtn");
+    const confirmRemoveBtn = document.getElementById("confirmRemoveBtn");
 
     const completeModal = document.getElementById("completeModal");
-    const completeModalOverlay = document.getElementById("completeModalOverlay");
     const cancelCompleteBtn = document.getElementById("cancelCompleteBtn");
     const confirmCompleteBtn = document.getElementById("confirmCompleteBtn");
 
-    const toast = document.getElementById("toast");
-
     let ticketsCache = [];
-    let selectedTicketForDelete = null;
-    let selectedTicketForComplete = null;
+    let selectedTicketToRemove = null;
+    let selectedTicketToComplete = null;
 
-    function openSidebar() {
-      sidebarMobile.classList.remove("-translate-x-full");
-      sidebarMobileOverlay.classList.remove("hidden");
+    function getCompanyTickets() {
+      const tickets = getTickets();
+
+      return tickets.filter(ticket =>
+        ticket.companyId === currentUser.companyId &&
+        ticket.status !== "RESOLVED" &&
+        ticket.status !== "REMOVED"
+      );
     }
 
-    function closeSidebar() {
-      sidebarMobile.classList.add("-translate-x-full");
-      sidebarMobileOverlay.classList.add("hidden");
-    }
+    function formatDateTime(dateValue) {
+      if (!dateValue) return "-";
+      const date = new Date(dateValue);
+      if (isNaN(date.getTime())) return "-";
 
-    function showToast(message, type = "success") {
-      toast.textContent = message;
-      toast.className = "fixed right-4 bottom-4 z-[100] max-w-[320px] rounded-2xl px-4 py-3 text-sm font-medium shadow-lg";
-
-      if (type === "success") {
-        toast.classList.add("bg-emerald-500", "text-white");
-      } else {
-        toast.classList.add("bg-red-500", "text-white");
-      }
-
-      toast.classList.remove("hidden");
-
-      setTimeout(() => {
-        toast.classList.add("hidden");
-      }, 2600);
-    }
-
-    function formatDate(value) {
-      if (!value) return "-";
-
-      try {
-        if (typeof value?.toDate === "function") {
-          return value.toDate().toLocaleString("pt-BR");
-        }
-
-        const date = new Date(value);
-        return isNaN(date.getTime()) ? "-" : date.toLocaleString("pt-BR");
-      } catch {
-        return "-";
-      }
+      return date.toLocaleDateString("pt-BR") + " às " + date.toLocaleTimeString("pt-BR", {
+        hour: "2-digit",
+        minute: "2-digit"
+      });
     }
 
     function getPriorityBadge(priority) {
@@ -550,13 +512,11 @@
       return `<span class="inline-flex rounded-full bg-slate-100 text-slate-700 px-3 py-1 text-xs font-semibold">${status || "-"}</span>`;
     }
 
-    function escapeHtml(text = "") {
-      return String(text)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+    function updateStats(tickets) {
+      totalTickets.textContent = tickets.length;
+      openTickets.textContent = tickets.filter(ticket => ticket.status === "OPEN").length;
+      progressTickets.textContent = tickets.filter(ticket => ticket.status === "IN_PROGRESS").length;
+      urgentTickets.textContent = tickets.filter(ticket => ticket.priority === "URGENT").length;
     }
 
     function getFilteredTickets() {
@@ -571,10 +531,7 @@
           ticket.sectorName,
           ticket.equipmentName,
           ticket.requesterName
-        ]
-          .filter(Boolean)
-          .join(" ")
-          .toLowerCase();
+        ].join(" ").toLowerCase();
 
         const matchesSearch = !search || haystack.includes(search);
         const matchesStatus = status === "ALL" || ticket.status === status;
@@ -584,7 +541,115 @@
       });
     }
 
-    function openDetailsModal(ticketId) {
+    function renderTickets() {
+      const filtered = getFilteredTickets();
+
+      updateStats(filtered);
+
+      ticketsTableBody.innerHTML = "";
+      ticketsCardsMobile.innerHTML = "";
+
+      if (filtered.length === 0) {
+        ticketsTableBody.innerHTML = `
+          <tr>
+            <td colspan="7" class="px-5 py-12 text-center text-slate-400">
+              Nenhum ticket encontrado.
+            </td>
+          </tr>
+        `;
+
+        ticketsCardsMobile.innerHTML = `
+          <div class="bg-white border border-slate-200 rounded-2xl p-8 text-center text-slate-400 shadow-sm">
+            Nenhum ticket encontrado.
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(ticket => {
+        const row = document.createElement("tr");
+        row.className = "border-b border-slate-100 last:border-b-0";
+
+        row.innerHTML = `
+          <td class="px-5 py-4">
+            <div class="text-sm font-medium text-slate-700">${ticket.title || "-"}</div>
+            <div class="mt-1 text-xs text-slate-400">${ticket.requesterName || "-"}</div>
+          </td>
+          <td class="px-5 py-4 text-sm text-slate-500">${ticket.sectorName || "-"}</td>
+          <td class="px-5 py-4 text-sm text-slate-500">${ticket.equipmentName || "-"}</td>
+          <td class="px-5 py-4 text-sm">${getPriorityBadge(ticket.priority)}</td>
+          <td class="px-5 py-4 text-sm">${getStatusBadge(ticket.status)}</td>
+          <td class="px-5 py-4 text-sm text-slate-500">${formatDateTime(ticket.createdAt)}</td>
+          <td class="px-5 py-4">
+            <div class="flex items-center justify-end gap-2 flex-wrap">
+              <button class="view-ticket rounded-lg border border-slate-200 px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50" data-id="${ticket.id}">
+                Ver
+              </button>
+              <button class="complete-ticket rounded-lg border border-emerald-200 px-3 py-2 text-xs font-medium text-emerald-600 hover:bg-emerald-50" data-id="${ticket.id}">
+                Concluir
+              </button>
+              <button class="remove-ticket rounded-lg border border-red-200 px-3 py-2 text-xs font-medium text-red-500 hover:bg-red-50" data-id="${ticket.id}">
+                Remover
+              </button>
+            </div>
+          </td>
+        `;
+
+        ticketsTableBody.appendChild(row);
+
+        const mobileCard = document.createElement("div");
+        mobileCard.className = "bg-white border border-slate-200 rounded-2xl p-4 shadow-sm";
+
+        mobileCard.innerHTML = `
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="text-base font-semibold text-slate-700">${ticket.title || "-"}</div>
+              <div class="mt-1 text-sm text-slate-400">${ticket.requesterName || "-"}</div>
+            </div>
+            <div>${getPriorityBadge(ticket.priority)}</div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-1 gap-2 text-sm text-slate-500">
+            <div><span class="font-medium text-slate-600">Setor:</span> ${ticket.sectorName || "-"}</div>
+            <div><span class="font-medium text-slate-600">Equipamento:</span> ${ticket.equipmentName || "-"}</div>
+            <div><span class="font-medium text-slate-600">Status:</span> ${getStatusBadge(ticket.status)}</div>
+            <div><span class="font-medium text-slate-600">Abertura:</span> ${formatDateTime(ticket.createdAt)}</div>
+          </div>
+
+          <div class="mt-4 flex gap-2 flex-wrap">
+            <button class="view-ticket flex-1 rounded-xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50" data-id="${ticket.id}">
+              Ver
+            </button>
+            <button class="complete-ticket flex-1 rounded-xl border border-emerald-200 px-4 py-3 text-sm font-medium text-emerald-600 hover:bg-emerald-50" data-id="${ticket.id}">
+              Concluir
+            </button>
+            <button class="remove-ticket flex-1 rounded-xl border border-red-200 px-4 py-3 text-sm font-medium text-red-500 hover:bg-red-50" data-id="${ticket.id}">
+              Remover
+            </button>
+          </div>
+        `;
+
+        ticketsCardsMobile.appendChild(mobileCard);
+      });
+
+      bindActions();
+    }
+
+    function bindActions() {
+      document.querySelectorAll(".view-ticket").forEach(button => {
+        button.addEventListener("click", () => openDetails(button.dataset.id));
+      });
+
+      document.querySelectorAll(".remove-ticket").forEach(button => {
+        button.addEventListener("click", () => openRemoveModal(button.dataset.id));
+      });
+
+      document.querySelectorAll(".complete-ticket").forEach(button => {
+        button.addEventListener("click", () => openCompleteModal(button.dataset.id));
+      });
+    }
+
+    function openDetails(ticketId) {
       const ticket = ticketsCache.find(item => item.id === ticketId);
       if (!ticket) return;
 
@@ -592,22 +657,22 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
             <div class="text-xs uppercase tracking-wide text-slate-400">Título</div>
-            <div class="mt-2 text-sm font-semibold text-slate-700">${escapeHtml(ticket.title || "-")}</div>
+            <div class="mt-2 text-sm font-semibold text-slate-700">${ticket.title || "-"}</div>
           </div>
 
           <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
             <div class="text-xs uppercase tracking-wide text-slate-400">Solicitante</div>
-            <div class="mt-2 text-sm font-semibold text-slate-700">${escapeHtml(ticket.requesterName || "-")}</div>
+            <div class="mt-2 text-sm font-semibold text-slate-700">${ticket.requesterName || "-"}</div>
           </div>
 
           <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
             <div class="text-xs uppercase tracking-wide text-slate-400">Setor</div>
-            <div class="mt-2 text-sm font-semibold text-slate-700">${escapeHtml(ticket.sectorName || "-")}</div>
+            <div class="mt-2 text-sm font-semibold text-slate-700">${ticket.sectorName || "-"}</div>
           </div>
 
           <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
             <div class="text-xs uppercase tracking-wide text-slate-400">Equipamento</div>
-            <div class="mt-2 text-sm font-semibold text-slate-700">${escapeHtml(ticket.equipmentName || "-")}</div>
+            <div class="mt-2 text-sm font-semibold text-slate-700">${ticket.equipmentName || "-"}</div>
           </div>
 
           <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
@@ -623,287 +688,132 @@
 
         <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
           <div class="text-xs uppercase tracking-wide text-slate-400">Descrição</div>
-          <div class="mt-2 text-sm text-slate-600 leading-7 whitespace-pre-wrap">${escapeHtml(ticket.description || "-")}</div>
+          <div class="mt-2 text-sm text-slate-600 leading-7 whitespace-pre-wrap">${ticket.description || "-"}</div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
             <div class="text-xs uppercase tracking-wide text-slate-400">Criado em</div>
-            <div class="mt-2 text-sm font-semibold text-slate-700">${formatDate(ticket.createdAt)}</div>
+            <div class="mt-2 text-sm font-semibold text-slate-700">${formatDateTime(ticket.createdAt)}</div>
           </div>
 
           <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
             <div class="text-xs uppercase tracking-wide text-slate-400">Atualizado em</div>
-            <div class="mt-2 text-sm font-semibold text-slate-700">${formatDate(ticket.updatedAt)}</div>
+            <div class="mt-2 text-sm font-semibold text-slate-700">${formatDateTime(ticket.updatedAt || ticket.createdAt)}</div>
           </div>
         </div>
 
-        ${
-          ticket.photoURL
-            ? `
-            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
-              <div class="text-xs uppercase tracking-wide text-slate-400">Foto anexada</div>
-              <div class="mt-3">
-                <img src="${ticket.photoURL}" alt="Foto do ticket" class="w-full max-h-[320px] object-cover rounded-xl border border-slate-200" />
-              </div>
+        ${ticket.solutionNotes ? `
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+            <div class="text-xs uppercase tracking-wide text-slate-400">Observações</div>
+            <div class="mt-2 text-sm text-slate-600 leading-7 whitespace-pre-wrap">${ticket.solutionNotes}</div>
+          </div>
+        ` : ""}
+
+        ${ticket.photoURL ? `
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+            <div class="text-xs uppercase tracking-wide text-slate-400">Foto anexada</div>
+            <div class="mt-3">
+              <img src="${ticket.photoURL}" alt="Foto do ticket" class="w-full max-h-[320px] object-cover rounded-xl border border-slate-200" />
             </div>
-          `
-            : ""
-        }
+          </div>
+        ` : ""}
       `;
 
       detailsModal.classList.remove("hidden");
-      detailsModalOverlay.classList.remove("hidden");
+      detailsModal.classList.add("flex");
     }
 
-    function closeDetailsModal() {
+    function closeDetails() {
       detailsModal.classList.add("hidden");
-      detailsModalOverlay.classList.add("hidden");
+      detailsModal.classList.remove("flex");
     }
 
-    function openDeleteModal(ticketId) {
-      selectedTicketForDelete = ticketsCache.find(item => item.id === ticketId) || null;
-      deleteModal.classList.remove("hidden");
-      deleteModalOverlay.classList.remove("hidden");
+    function openRemoveModal(ticketId) {
+      selectedTicketToRemove = ticketsCache.find(item => item.id === ticketId) || null;
+      removeModal.classList.remove("hidden");
+      removeModal.classList.add("flex");
     }
 
-    function closeDeleteModal() {
-      selectedTicketForDelete = null;
-      deleteModal.classList.add("hidden");
-      deleteModalOverlay.classList.add("hidden");
+    function closeRemoveModal() {
+      selectedTicketToRemove = null;
+      removeModal.classList.add("hidden");
+      removeModal.classList.remove("flex");
     }
 
     function openCompleteModal(ticketId) {
-      selectedTicketForComplete = ticketsCache.find(item => item.id === ticketId) || null;
+      selectedTicketToComplete = ticketsCache.find(item => item.id === ticketId) || null;
       completeModal.classList.remove("hidden");
-      completeModalOverlay.classList.remove("hidden");
+      completeModal.classList.add("flex");
     }
 
     function closeCompleteModal() {
-      selectedTicketForComplete = null;
+      selectedTicketToComplete = null;
       completeModal.classList.add("hidden");
-      completeModalOverlay.classList.add("hidden");
+      completeModal.classList.remove("flex");
     }
 
-    function renderTickets(items) {
-      if (!items.length) {
-        ticketsTableBody.innerHTML = `
-          <tr>
-            <td colspan="7" class="px-5 py-12 text-center text-slate-400">
-              Nenhum ticket encontrado.
-            </td>
-          </tr>
-        `;
+    function confirmRemove() {
+      if (!selectedTicketToRemove) return;
 
-        ticketsCardsMobile.innerHTML = `
-          <div class="bg-white border border-slate-200 rounded-2xl p-5 text-center text-slate-400 shadow-sm">
-            Nenhum ticket encontrado.
-          </div>
-        `;
-        return;
-      }
-
-      ticketsTableBody.innerHTML = items.map(ticket => `
-        <tr class="border-b border-slate-100 last:border-b-0">
-          <td class="px-5 py-4">
-            <div class="text-sm font-medium text-slate-700">${escapeHtml(ticket.title || "-")}</div>
-            <div class="mt-1 text-xs text-slate-400">${escapeHtml(ticket.requesterName || "-")}</div>
-          </td>
-          <td class="px-5 py-4 text-sm text-slate-500">${escapeHtml(ticket.sectorName || "-")}</td>
-          <td class="px-5 py-4 text-sm text-slate-500">${escapeHtml(ticket.equipmentName || "-")}</td>
-          <td class="px-5 py-4 text-sm">${getPriorityBadge(ticket.priority)}</td>
-          <td class="px-5 py-4 text-sm">${getStatusBadge(ticket.status)}</td>
-          <td class="px-5 py-4 text-sm text-slate-500">${formatDate(ticket.createdAt)}</td>
-          <td class="px-5 py-4">
-            <div class="flex items-center justify-end gap-2 flex-wrap">
-              <button
-                class="rounded-lg border border-slate-200 px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50"
-                data-action="view"
-                data-id="${ticket.id}"
-              >
-                Ver
-              </button>
-              <button
-                class="rounded-lg border border-emerald-200 px-3 py-2 text-xs font-medium text-emerald-600 hover:bg-emerald-50"
-                data-action="complete"
-                data-id="${ticket.id}"
-              >
-                Concluir
-              </button>
-              <button
-                class="rounded-lg border border-red-200 px-3 py-2 text-xs font-medium text-red-500 hover:bg-red-50"
-                data-action="delete"
-                data-id="${ticket.id}"
-              >
-                Remover
-              </button>
-            </div>
-          </td>
-        </tr>
-      `).join("");
-
-      ticketsCardsMobile.innerHTML = items.map(ticket => `
-        <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
-          <div class="flex items-start justify-between gap-3">
-            <div>
-              <div class="text-base font-semibold text-slate-700">${escapeHtml(ticket.title || "-")}</div>
-              <div class="mt-1 text-sm text-slate-400">${escapeHtml(ticket.requesterName || "-")}</div>
-            </div>
-            <div>${getPriorityBadge(ticket.priority)}</div>
-          </div>
-
-          <div class="mt-4 grid grid-cols-1 gap-2 text-sm text-slate-500">
-            <div><span class="font-medium text-slate-600">Setor:</span> ${escapeHtml(ticket.sectorName || "-")}</div>
-            <div><span class="font-medium text-slate-600">Equipamento:</span> ${escapeHtml(ticket.equipmentName || "-")}</div>
-            <div><span class="font-medium text-slate-600">Status:</span> ${getStatusBadge(ticket.status)}</div>
-            <div><span class="font-medium text-slate-600">Abertura:</span> ${formatDate(ticket.createdAt)}</div>
-          </div>
-
-          <div class="mt-4 flex gap-2 flex-wrap">
-            <button
-              class="flex-1 rounded-xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50"
-              data-action="view"
-              data-id="${ticket.id}"
-            >
-              Ver
-            </button>
-            <button
-              class="flex-1 rounded-xl border border-emerald-200 px-4 py-3 text-sm font-medium text-emerald-600 hover:bg-emerald-50"
-              data-action="complete"
-              data-id="${ticket.id}"
-            >
-              Concluir
-            </button>
-            <button
-              class="flex-1 rounded-xl border border-red-200 px-4 py-3 text-sm font-medium text-red-500 hover:bg-red-50"
-              data-action="delete"
-              data-id="${ticket.id}"
-            >
-              Remover
-            </button>
-          </div>
-        </div>
-      `).join("");
-
-      bindActions();
-    }
-
-    function bindActions() {
-      document.querySelectorAll('[data-action="view"]').forEach(button => {
-        button.addEventListener("click", () => openDetailsModal(button.dataset.id));
+      updateTicket(selectedTicketToRemove.id, {
+        status: "REMOVED",
+        statusLabel: "Removido",
+        removedAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
       });
 
-      document.querySelectorAll('[data-action="delete"]').forEach(button => {
-        button.addEventListener("click", () => openDeleteModal(button.dataset.id));
+      closeRemoveModal();
+      loadTickets();
+    }
+
+    function confirmComplete() {
+      if (!selectedTicketToComplete) return;
+
+      updateTicket(selectedTicketToComplete.id, {
+        status: "RESOLVED",
+        statusLabel: "Concluído",
+        completedAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
       });
 
-      document.querySelectorAll('[data-action="complete"]').forEach(button => {
-        button.addEventListener("click", () => openCompleteModal(button.dataset.id));
+      closeCompleteModal();
+      loadTickets();
+    }
+
+    function loadTickets() {
+      ticketsCache = getCompanyTickets().sort((a, b) => {
+        return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
       });
+
+      renderTickets();
     }
 
-    function applyFilters() {
-      const items = getFilteredTickets();
-      renderTickets(items);
+    searchInput.addEventListener("input", renderTickets);
+    statusFilter.addEventListener("change", renderTickets);
+    priorityFilter.addEventListener("change", renderTickets);
+
+    closeDetailsModalBtn.addEventListener("click", closeDetails);
+    closeDetailsFooterBtn.addEventListener("click", closeDetails);
+    detailsModal.addEventListener("click", (event) => {
+      if (event.target === detailsModal) closeDetails();
+    });
+
+    cancelRemoveBtn.addEventListener("click", closeRemoveModal);
+    confirmRemoveBtn.addEventListener("click", confirmRemove);
+    removeModal.addEventListener("click", (event) => {
+      if (event.target === removeModal) closeRemoveModal();
+    });
+
+    cancelCompleteBtn.addEventListener("click", closeCompleteModal);
+    confirmCompleteBtn.addEventListener("click", confirmComplete);
+    completeModal.addEventListener("click", (event) => {
+      if (event.target === completeModal) closeCompleteModal();
+    });
+
+    if (window.RepairgeCurrentUser) {
+      window.RepairgeCurrentUser.updateCurrentUserHeader();
     }
-
-    async function loadTickets() {
-      try {
-        errorBox.classList.add("hidden");
-
-        const ticketsRef = collection(db, "tickets");
-        const q = query(ticketsRef, orderBy("createdAt", "desc"));
-        const snapshot = await getDocs(q);
-
-        ticketsCache = snapshot.docs.map(docItem => ({
-          id: docItem.id,
-          ...docItem.data()
-        }));
-
-        applyFilters();
-      } catch (error) {
-        console.error("Erro ao carregar tickets:", error);
-        errorBox.classList.remove("hidden");
-
-        ticketsTableBody.innerHTML = `
-          <tr>
-            <td colspan="7" class="px-5 py-12 text-center text-red-400">
-              Erro ao carregar tickets.
-            </td>
-          </tr>
-        `;
-
-        ticketsCardsMobile.innerHTML = `
-          <div class="bg-white border border-red-200 rounded-2xl p-5 text-center text-red-400 shadow-sm">
-            Erro ao carregar tickets.
-          </div>
-        `;
-      }
-    }
-
-    async function moveTicketToCollection(ticket, collectionName, newStatus) {
-      const payload = {
-        ...ticket,
-        originalId: ticket.id,
-        status: newStatus,
-        movedAt: serverTimestamp()
-      };
-
-      delete payload.id;
-
-      await addDoc(collection(db, collectionName), payload);
-      await deleteDoc(doc(db, "tickets", ticket.id));
-    }
-
-    async function confirmDeleteTicket() {
-      if (!selectedTicketForDelete) return;
-
-      try {
-        await moveTicketToCollection(selectedTicketForDelete, "ticketsRemoved", "REMOVED");
-        showToast("Ticket movido para removidos.");
-        closeDeleteModal();
-        closeDetailsModal();
-        await loadTickets();
-      } catch (error) {
-        console.error("Erro ao remover ticket:", error);
-        showToast("Não foi possível mover o ticket.", "error");
-      }
-    }
-
-    async function confirmCompleteTicket() {
-      if (!selectedTicketForComplete) return;
-
-      try {
-        await moveTicketToCollection(selectedTicketForComplete, "ticketsCompleted", "RESOLVED");
-        showToast("Ticket concluído com sucesso.");
-        closeCompleteModal();
-        closeDetailsModal();
-        await loadTickets();
-      } catch (error) {
-        console.error("Erro ao concluir ticket:", error);
-        showToast("Não foi possível concluir o ticket.", "error");
-      }
-    }
-
-    openSidebarBtn?.addEventListener("click", openSidebar);
-    closeSidebarBtn?.addEventListener("click", closeSidebar);
-    sidebarMobileOverlay?.addEventListener("click", closeSidebar);
-
-    closeDetailsModalBtn?.addEventListener("click", closeDetailsModal);
-    closeDetailsFooterBtn?.addEventListener("click", closeDetailsModal);
-    detailsModalOverlay?.addEventListener("click", closeDetailsModal);
-
-    cancelDeleteBtn?.addEventListener("click", closeDeleteModal);
-    deleteModalOverlay?.addEventListener("click", closeDeleteModal);
-    confirmDeleteBtn?.addEventListener("click", confirmDeleteTicket);
-
-    cancelCompleteBtn?.addEventListener("click", closeCompleteModal);
-    completeModalOverlay?.addEventListener("click", closeCompleteModal);
-    confirmCompleteBtn?.addEventListener("click", confirmCompleteTicket);
-
-    searchInput?.addEventListener("input", applyFilters);
-    statusFilter?.addEventListener("change", applyFilters);
-    priorityFilter?.addEventListener("change", applyFilters);
 
     loadTickets();
   </script>
