@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repairge - Tickets Concluídos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #eef2f7;
+    }
+  </style>
+</head>
+<body class="bg-[#f3f4f6] text-slate-700">
+  <div class="min-h-screen flex">
+
+    <!-- SIDEBAR DESKTOP -->
+    <aside class="hidden md:flex w-[260px] bg-[#f5f7fb] border-r border-slate-200 flex-col min-h-screen">
+      <div class="h-16 px-5 flex items-center justify-between border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl border border-sky-200 bg-white flex items-center justify-center text-sky-400 text-lg shadow-sm">
+            🏷️
+          </div>
+          <span class="text-xl font-bold text-slate-700">Repairge</span>
+        </div>
+      </div>
+
+      <div class="px-5 py-4 border-b border-slate-200">
+        <p class="text-sm font-semibold text-slate-700 leading-7">
+          <span data-user-name>Administrador</span><br />
+          <span data-user-role>Administrador</span>
+        </p>
+      </div>
+
+      <nav class="flex-1 px-2 py-3 overflow-y-auto">
+        <a href="dashboard.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⬚</span>
+          <span>Painel Principal</span>
+        </a>
+
+        <a href="chat.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>💬</span>
+          <span>Chat Interno</span>
+        </a>
+
+        <a href="checklists-realizados.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>☑️</span>
+          <span>Checklists Realizados</span>
+        </a>
+
+        <a href="configuracoes.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⚙️</span>
+          <span>Configurações</span>
+        </a>
+
+        <a href="checklist-diario.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>📋</span>
+          <span>Criar Checklist Diário</span>
+        </a>
+
+        <a href="equipamentos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏭</span>
+          <span>Equipamentos</span>
+        </a>
+
+        <a href="usuarios.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>👥</span>
+          <span>Gerenciar Usuários</span>
+        </a>
+
+        <a href="mensagens-apagadas.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🗑️</span>
+          <span>Mensagens Apagadas</span>
+        </a>
+
+        <a href="setores.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏢</span>
+          <span>Setores</span>
+        </a>
+
+        <a href="tickets-concluidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-emerald-100 text-emerald-600">
+          <span>✅</span>
+          <span>Tickets Concluídos</span>
+        </a>
+
+        <a href="tickets.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🎫</span>
+          <span>Tickets de Manutenção</span>
+        </a>
+
+        <a href="tickets-removidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🧺</span>
+          <span>Tickets Removidos</span>
+        </a>
+      </nav>
+
+      <div class="border-t border-slate-200 p-3">
+        <a href="index.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⌂</span>
+          <span>Início</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- SIDEBAR MOBILE -->
+    <div id="sidebarMobileOverlay" class="fixed inset-0 bg-black/40 z-40 hidden md:hidden"></div>
+
+    <aside id="sidebarMobile" class="fixed top-0 left-0 h-full w-[285px] bg-[#f5f7fb] border-r border-slate-200 z-50 transform -translate-x-full transition-transform duration-300 md:hidden flex flex-col">
+      <div class="h-16 px-4 flex items-center justify-between border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl border border-sky-200 bg-white flex items-center justify-center text-sky-400 text-lg shadow-sm">
+            🏷️
+          </div>
+          <span class="text-xl font-bold text-slate-700">Repairge</span>
+        </div>
+        <button id="closeSidebarBtn" class="text-slate-500 text-xl">✕</button>
+      </div>
+
+      <div class="px-4 py-4 border-b border-slate-200">
+        <p class="text-sm font-semibold text-slate-700 leading-7">
+          <span data-user-name>Administrador</span><br />
+          <span data-user-role>Administrador</span>
+        </p>
+      </div>
+
+      <nav class="flex-1 px-2 py-3 overflow-y-auto">
+        <a href="dashboard.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⬚</span>
+          <span>Painel Principal</span>
+        </a>
+
+        <a href="chat.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>💬</span>
+          <span>Chat Interno</span>
+        </a>
+
+        <a href="checklists-realizados.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>☑️</span>
+          <span>Checklists Realizados</span>
+        </a>
+
+        <a href="configuracoes.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⚙️</span>
+          <span>Configurações</span>
+        </a>
+
+        <a href="checklist-diario.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>📋</span>
+          <span>Criar Checklist Diário</span>
+        </a>
+
+        <a href="equipamentos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏭</span>
+          <span>Equipamentos</span>
+        </a>
+
+        <a href="usuarios.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>👥</span>
+          <span>Gerenciar Usuários</span>
+        </a>
+
+        <a href="mensagens-apagadas.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🗑️</span>
+          <span>Mensagens Apagadas</span>
+        </a>
+
+        <a href="setores.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏢</span>
+          <span>Setores</span>
+        </a>
+
+        <a href="tickets-concluidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-emerald-100 text-emerald-600">
+          <span>✅</span>
+          <span>Tickets Concluídos</span>
+        </a>
+
+        <a href="tickets.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🎫</span>
+          <span>Tickets de Manutenção</span>
+        </a>
+
+        <a href="tickets-removidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🧺</span>
+          <span>Tickets Removidos</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="flex-1 min-w-0 flex flex-col">
+
+      <!-- TOPBAR -->
+      <header class="h-16 bg-[#f8fafc] border-b border-slate-200 px-4 md:px-6 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <button id="openSidebarBtn" class="md:hidden w-10 h-10 rounded-lg hover:bg-slate-100 flex items-center justify-center text-slate-600 text-xl">
+            ☰
+          </button>
+          <div class="hidden md:block text-sm text-slate-400">
+            Tickets finalizados
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-emerald-200 text-emerald-700 font-semibold flex items-center justify-center text-sm" data-user-initials>
+            AD
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <main class="flex-1 p-4 md:p-6">
+        <div class="max-w-7xl">
+
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-slate-200 pb-5">
+            <div>
+              <h1 class="text-2xl md:text-3xl font-bold text-slate-700">
+                Tickets Concluídos
+              </h1>
+              <p class="text-sm text-slate-400 mt-1">
+                Visualize chamados finalizados, responsáveis e observações finais.
+              </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Buscar ticket..."
+                class="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-emerald-200 w-full sm:w-[250px]"
+              />
+
+              <select
+                id="priorityFilter"
+                class="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-emerald-200"
+              >
+                <option value="">Todas prioridades</option>
+                <option value="LOW">Baixa</option>
+                <option value="MEDIUM">Média</option>
+                <option value="HIGH">Alta</option>
+                <option value="URGENT">Urgente</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- STATS -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Total Concluídos</p>
+              <h2 id="totalFinished" class="text-3xl font-bold text-slate-700 mt-2">0</h2>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Urgentes Resolvidos</p>
+              <h2 id="urgentFinished" class="text-3xl font-bold text-red-500 mt-2">0</h2>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Alta Prioridade</p>
+              <h2 id="highFinished" class="text-3xl font-bold text-orange-500 mt-2">0</h2>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Finalizados Hoje</p>
+              <h2 id="todayFinished" class="text-3xl font-bold text-emerald-500 mt-2">0</h2>
+            </div>
+          </div>
+
+          <!-- LISTA -->
+          <div class="mt-6 space-y-4" id="ticketsList">
+            <div id="emptyState" class="hidden bg-white border border-slate-200 rounded-2xl p-10 text-center shadow-sm">
+              <div class="text-5xl mb-4">✅</div>
+              <h3 class="text-lg font-semibold text-slate-700">
+                Nenhum ticket concluído encontrado
+              </h3>
+              <p class="text-sm text-slate-400 mt-2">
+                Não existem chamados finalizados com os filtros atuais.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div id="detailsModal" class="fixed inset-0 bg-black/40 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden">
+      <div class="border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+        <h2 class="text-xl font-bold text-slate-700">Detalhes do Ticket</h2>
+        <button id="closeModalBtn" class="text-slate-500 hover:text-slate-700 text-xl">✕</button>
+      </div>
+
+      <div id="modalContent" class="p-6 space-y-5 max-h-[80vh] overflow-y-auto"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="fixed right-4 bottom-4 hidden z-[100] rounded-2xl px-4 py-3 text-sm font-medium shadow-lg bg-amber-500 text-white">
+    Ticket restaurado com sucesso.
+  </div>
+
+  <script src="./js/current-user.js"></script>
+  <script src="./js/sidebar.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/auth-guard.js"></script>
+
+  <script type="module">
+    import {
+      getCurrentUser,
+      getTickets,
+      updateTicket
+    } from "./js/data-service.js";
+
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+      window.location.href = "login.html";
+    }
+
+    const ticketsList = document.getElementById("ticketsList");
+    const emptyState = document.getElementById("emptyState");
+    const searchInput = document.getElementById("searchInput");
+    const priorityFilter = document.getElementById("priorityFilter");
+
+    const totalFinished = document.getElementById("totalFinished");
+    const urgentFinished = document.getElementById("urgentFinished");
+    const highFinished = document.getElementById("highFinished");
+    const todayFinished = document.getElementById("todayFinished");
+
+    const detailsModal = document.getElementById("detailsModal");
+    const modalContent = document.getElementById("modalContent");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const toast = document.getElementById("toast");
+
+    let ticketsData = [];
+
+    function getCompanyFinishedTickets() {
+      return getTickets().filter(ticket =>
+        ticket.companyId === currentUser.companyId &&
+        ticket.status === "RESOLVED"
+      );
+    }
+
+    function getPriorityLabel(priority) {
+      switch (priority) {
+        case "LOW":
+          return `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600">Baixa</span>`;
+        case "MEDIUM":
+          return `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-600">Média</span>`;
+        case "HIGH":
+          return `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-orange-100 text-orange-600">Alta</span>`;
+        case "URGENT":
+          return `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-600">Urgente</span>`;
+        default:
+          return `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600">-</span>`;
+      }
+    }
+
+    function formatDate(dateValue) {
+      if (!dateValue) return "-";
+      const date = new Date(dateValue);
+      if (isNaN(date.getTime())) return "-";
+
+      return date.toLocaleDateString("pt-BR") + " às " + date.toLocaleTimeString("pt-BR", {
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
+
+    function isToday(dateValue) {
+      if (!dateValue) return false;
+
+      const date = new Date(dateValue);
+      if (isNaN(date.getTime())) return false;
+
+      const today = new Date();
+
+      return (
+        date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear()
+      );
+    }
+
+    function updateStats(filtered) {
+      totalFinished.textContent = filtered.length;
+      urgentFinished.textContent = filtered.filter(item => item.priority === "URGENT").length;
+      highFinished.textContent = filtered.filter(item => item.priority === "HIGH").length;
+      todayFinished.textContent = filtered.filter(item => isToday(item.completedAt || item.updatedAt)).length;
+    }
+
+    function renderTickets() {
+      const search = searchInput.value.toLowerCase().trim();
+      const priority = priorityFilter.value;
+
+      const filtered = ticketsData.filter(ticket => {
+        const text = `
+          ${ticket.title || ""}
+          ${ticket.description || ""}
+          ${ticket.sectorName || ""}
+          ${ticket.equipmentName || ""}
+          ${ticket.requesterName || ""}
+          ${ticket.technicianName || ""}
+        `.toLowerCase();
+
+        const matchesSearch = !search || text.includes(search);
+        const matchesPriority = !priority || ticket.priority === priority;
+
+        return matchesSearch && matchesPriority;
+      });
+
+      updateStats(filtered);
+
+      const oldCards = ticketsList.querySelectorAll(".ticket-card");
+      oldCards.forEach(card => card.remove());
+
+      if (!filtered.length) {
+        emptyState.classList.remove("hidden");
+        return;
+      }
+
+      emptyState.classList.add("hidden");
+
+      filtered.forEach(ticket => {
+        const card = document.createElement("div");
+        card.className = "ticket-card bg-white border border-slate-200 rounded-2xl p-5 shadow-sm";
+
+        card.innerHTML = `
+          <div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-5">
+            <div class="flex-1 min-w-0">
+              <div class="flex flex-wrap items-center gap-2 mb-3">
+                ${getPriorityLabel(ticket.priority)}
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-600">
+                  Concluído
+                </span>
+              </div>
+
+              <h3 class="text-lg font-semibold text-slate-700">
+                ${ticket.description || "Sem descrição"}
+              </h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 text-sm text-slate-500">
+                <div>
+                  <span class="font-semibold text-slate-600">Setor:</span>
+                  ${ticket.sectorName || "-"}
+                </div>
+
+                <div>
+                  <span class="font-semibold text-slate-600">Equipamento:</span>
+                  ${ticket.equipmentName || "-"}
+                </div>
+
+                <div>
+                  <span class="font-semibold text-slate-600">Responsável:</span>
+                  ${ticket.technicianName || ticket.requesterName || "Não informado"}
+                </div>
+
+                <div>
+                  <span class="font-semibold text-slate-600">Finalizado em:</span>
+                  ${formatDate(ticket.completedAt || ticket.updatedAt)}
+                </div>
+              </div>
+
+              ${ticket.solutionNotes ? `
+                <div class="mt-4 rounded-xl bg-slate-50 border border-slate-200 p-3">
+                  <p class="text-xs uppercase tracking-wide text-slate-400 mb-1">
+                    Observações Finais
+                  </p>
+                  <p class="text-sm text-slate-600">
+                    ${ticket.solutionNotes}
+                  </p>
+                </div>
+              ` : ""}
+            </div>
+
+            <div class="flex flex-row xl:flex-col gap-2 xl:w-[180px]">
+              <button
+                class="view-details-btn flex-1 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-4 py-3 text-sm font-medium text-slate-600 transition"
+                data-id="${ticket.id}"
+              >
+                Ver Detalhes
+              </button>
+
+              <button
+                class="restore-btn flex-1 rounded-xl bg-amber-500 hover:bg-amber-600 px-4 py-3 text-sm font-medium text-white transition"
+                data-id="${ticket.id}"
+              >
+                Restaurar
+              </button>
+            </div>
+          </div>
+        `;
+
+        ticketsList.appendChild(card);
+      });
+
+      bindButtons();
+    }
+
+    function bindButtons() {
+      document.querySelectorAll(".view-details-btn").forEach(button => {
+        button.addEventListener("click", () => {
+          const ticketId = button.dataset.id;
+          const ticket = ticketsData.find(item => item.id === ticketId);
+          if (!ticket) return;
+
+          modalContent.innerHTML = `
+            <div class="space-y-4">
+              <div>
+                <p class="text-xs uppercase tracking-wide text-slate-400">Descrição</p>
+                <p class="text-slate-700 mt-1">${ticket.description || "-"}</p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <p class="text-xs uppercase tracking-wide text-slate-400">Setor</p>
+                  <p class="text-slate-700 mt-1">${ticket.sectorName || "-"}</p>
+                </div>
+
+                <div>
+                  <p class="text-xs uppercase tracking-wide text-slate-400">Equipamento</p>
+                  <p class="text-slate-700 mt-1">${ticket.equipmentName || "-"}</p>
+                </div>
+
+                <div>
+                  <p class="text-xs uppercase tracking-wide text-slate-400">Prioridade</p>
+                  <div class="mt-2">${getPriorityLabel(ticket.priority)}</div>
+                </div>
+
+                <div>
+                  <p class="text-xs uppercase tracking-wide text-slate-400">Responsável</p>
+                  <p class="text-slate-700 mt-1">${ticket.technicianName || ticket.requesterName || "Não informado"}</p>
+                </div>
+
+                <div>
+                  <p class="text-xs uppercase tracking-wide text-slate-400">Criado em</p>
+                  <p class="text-slate-700 mt-1">${formatDate(ticket.createdAt)}</p>
+                </div>
+
+                <div>
+                  <p class="text-xs uppercase tracking-wide text-slate-400">Finalizado em</p>
+                  <p class="text-slate-700 mt-1">${formatDate(ticket.completedAt || ticket.updatedAt)}</p>
+                </div>
+              </div>
+
+              ${ticket.solutionNotes ? `
+                <div>
+                  <p class="text-xs uppercase tracking-wide text-slate-400">Observações Finais</p>
+                  <div class="mt-2 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+                    ${ticket.solutionNotes}
+                  </div>
+                </div>
+              ` : ""}
+
+              ${ticket.photoURL ? `
+                <div>
+                  <p class="text-xs uppercase tracking-wide text-slate-400 mb-2">Imagem</p>
+                  <img src="${ticket.photoURL}" class="w-full rounded-2xl border border-slate-200 max-h-[300px] object-cover" />
+                </div>
+              ` : ""}
+            </div>
+          `;
+
+          detailsModal.classList.remove("hidden");
+          detailsModal.classList.add("flex");
+        });
+      });
+
+      document.querySelectorAll(".restore-btn").forEach(button => {
+        button.addEventListener("click", () => {
+          const ticketId = button.dataset.id;
+
+          updateTicket(ticketId, {
+            status: "IN_PROGRESS",
+            statusLabel: "Em Andamento",
+            updatedAt: new Date().toISOString()
+          });
+
+          ticketsData = ticketsData.filter(item => item.id !== ticketId);
+          renderTickets();
+
+          toast.classList.remove("hidden");
+          setTimeout(() => {
+            toast.classList.add("hidden");
+          }, 2500);
+        });
+      });
+    }
+
+    function loadTickets() {
+      ticketsData = getCompanyFinishedTickets().sort((a, b) => {
+        return new Date(b.completedAt || b.updatedAt || 0) - new Date(a.completedAt || a.updatedAt || 0);
+      });
+
+      renderTickets();
+    }
+
+    searchInput.addEventListener("input", renderTickets);
+    priorityFilter.addEventListener("change", renderTickets);
+
+    closeModalBtn.addEventListener("click", () => {
+      detailsModal.classList.add("hidden");
+      detailsModal.classList.remove("flex");
+    });
+
+    detailsModal.addEventListener("click", (event) => {
+      if (event.target === detailsModal) {
+        detailsModal.classList.add("hidden");
+        detailsModal.classList.remove("flex");
+      }
+    });
+
+    if (window.RepairgeCurrentUser) {
+      window.RepairgeCurrentUser.updateCurrentUserHeader();
+    }
+
+    loadTickets();
+  </script>
+</body>
+</html>
