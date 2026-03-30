@@ -5,26 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Repairge - Usuários</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 999px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #eef2f7;
+    }
+  </style>
 </head>
 <body class="bg-[#f3f4f6] text-slate-700">
 
   <div class="min-h-screen flex">
 
-    <!-- Sidebar -->
+    <!-- SIDEBAR DESKTOP -->
     <aside class="hidden md:flex w-[260px] bg-[#f5f7fb] border-r border-slate-200 flex-col min-h-screen">
-      <div class="h-16 px-5 flex items-center border-b border-slate-200">
+      <div class="h-16 px-5 flex items-center justify-between border-b border-slate-200">
         <div class="flex items-center gap-3">
           <div class="w-9 h-9 rounded-xl border border-sky-200 bg-white flex items-center justify-center text-sky-400 text-lg shadow-sm">
             🏷️
           </div>
           <span class="text-xl font-bold text-slate-700">Repairge</span>
         </div>
+        <button class="text-slate-400 hover:text-slate-600 text-sm">⋮</button>
       </div>
 
       <div class="px-5 py-4 border-b border-slate-200">
         <p class="text-sm font-semibold text-slate-700 leading-7">
-          Administrador (Acesso Livre)<br />
-          (Empresa)
+          <span data-user-name>Administrador</span><br />
+          <span data-user-role>Administrador</span>
         </p>
       </div>
 
@@ -39,32 +55,171 @@
           <span>Chat Interno</span>
         </a>
 
+        <a href="checklists-realizados.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>☑️</span>
+          <span>Checklists Realizados</span>
+        </a>
+
+        <a href="configuracoes.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⚙️</span>
+          <span>Configurações</span>
+        </a>
+
+        <a href="checklist-diario.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>📋</span>
+          <span>Criar Checklist Diário</span>
+        </a>
+
+        <a href="equipamentos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏭</span>
+          <span>Equipamentos</span>
+        </a>
+
+        <a href="usuarios.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-sky-100/70 text-sky-500">
+          <span>👥</span>
+          <span>Gerenciar Usuários</span>
+        </a>
+
         <a href="mensagens-apagadas.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
           <span>🗑️</span>
           <span>Mensagens Apagadas</span>
         </a>
 
-        <a href="usuarios.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-sky-100 text-sky-600">
+        <a href="setores.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏢</span>
+          <span>Setores</span>
+        </a>
+
+        <a href="tickets-concluidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>✅</span>
+          <span>Tickets Concluídos</span>
+        </a>
+
+        <a href="tickets.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🎫</span>
+          <span>Tickets de Manutenção</span>
+        </a>
+
+        <a href="tickets-removidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🧺</span>
+          <span>Tickets Removidos</span>
+        </a>
+      </nav>
+
+      <div class="border-t border-slate-200 p-3">
+        <a href="index.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⌂</span>
+          <span>Início</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MOBILE SIDEBAR -->
+    <div id="sidebarMobileOverlay" class="fixed inset-0 bg-black/40 z-40 hidden md:hidden"></div>
+
+    <aside id="sidebarMobile" class="fixed top-0 left-0 h-full w-[285px] bg-[#f5f7fb] border-r border-slate-200 z-50 transform -translate-x-full transition-transform duration-300 md:hidden flex flex-col">
+      <div class="h-16 px-4 flex items-center justify-between border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl border border-sky-200 bg-white flex items-center justify-center text-sky-400 text-lg shadow-sm">
+            🏷️
+          </div>
+          <span class="text-xl font-bold text-slate-700">Repairge</span>
+        </div>
+        <button id="closeSidebarBtn" class="text-slate-500 text-xl">✕</button>
+      </div>
+
+      <div class="px-4 py-4 border-b border-slate-200">
+        <p class="text-sm font-semibold text-slate-700 leading-7">
+          <span data-user-name>Administrador</span><br />
+          <span data-user-role>Administrador</span>
+        </p>
+      </div>
+
+      <nav class="flex-1 px-2 py-3 overflow-y-auto">
+        <a href="dashboard.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⬚</span>
+          <span>Painel Principal</span>
+        </a>
+
+        <a href="chat.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>💬</span>
+          <span>Chat Interno</span>
+        </a>
+
+        <a href="checklists-realizados.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>☑️</span>
+          <span>Checklists Realizados</span>
+        </a>
+
+        <a href="configuracoes.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⚙️</span>
+          <span>Configurações</span>
+        </a>
+
+        <a href="checklist-diario.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>📋</span>
+          <span>Criar Checklist Diário</span>
+        </a>
+
+        <a href="equipamentos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏭</span>
+          <span>Equipamentos</span>
+        </a>
+
+        <a href="usuarios.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-sky-100/70 text-sky-500">
           <span>👥</span>
-          <span>Usuários</span>
+          <span>Gerenciar Usuários</span>
+        </a>
+
+        <a href="mensagens-apagadas.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🗑️</span>
+          <span>Mensagens Apagadas</span>
+        </a>
+
+        <a href="setores.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏢</span>
+          <span>Setores</span>
+        </a>
+
+        <a href="tickets-concluidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>✅</span>
+          <span>Tickets Concluídos</span>
+        </a>
+
+        <a href="tickets.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🎫</span>
+          <span>Tickets de Manutenção</span>
+        </a>
+
+        <a href="tickets-removidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🧺</span>
+          <span>Tickets Removidos</span>
         </a>
       </nav>
     </aside>
 
-    <!-- Main -->
+    <!-- MAIN -->
     <div class="flex-1 min-w-0 flex flex-col">
 
       <header class="h-16 bg-[#f8fafc] border-b border-slate-200 px-4 md:px-6 flex items-center justify-between">
-        <div>
-          <p class="text-sm text-slate-400">Gerenciamento de usuários</p>
+        <div class="flex items-center gap-3">
+          <button id="openSidebarBtn" class="md:hidden w-10 h-10 rounded-lg hover:bg-slate-100 flex items-center justify-center text-slate-600 text-xl">
+            ☰
+          </button>
+          <div class="hidden md:block text-sm text-slate-400">
+            Gestão de equipe
+          </div>
         </div>
 
-        <button
-          id="openModalBtn"
-          class="rounded-xl bg-sky-500 hover:bg-sky-600 px-5 py-3 text-sm font-medium text-white transition"
-        >
-          Novo Usuário
-        </button>
+        <div class="flex items-center gap-3">
+          <button id="newUserBtn" class="rounded-xl bg-sky-500 hover:bg-sky-600 px-4 py-2 text-sm font-medium text-white transition">
+            Novo Usuário
+          </button>
+
+          <div class="w-10 h-10 rounded-full bg-sky-200 text-sky-700 font-semibold flex items-center justify-center text-sm" data-user-initials>
+            AD
+          </div>
+        </div>
       </header>
 
       <main class="flex-1 p-4 md:p-6">
@@ -73,15 +228,15 @@
           <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-slate-200 pb-5">
             <div>
               <h1 class="text-2xl md:text-3xl font-bold text-slate-700">
-                Usuários
+                Gerenciar Usuários
               </h1>
               <p class="text-sm text-slate-400 mt-1">
-                Gerencie administradores, técnicos e operadores.
+                Cadastre e controle os usuários da empresa.
               </p>
             </div>
           </div>
 
-          <!-- Filtros -->
+          <!-- FILTROS -->
           <section class="mt-6 bg-white border border-slate-200 rounded-2xl shadow-sm p-4 md:p-5">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div class="md:col-span-2">
@@ -89,19 +244,20 @@
                 <input
                   type="text"
                   id="searchInput"
-                  placeholder="Buscar por nome, email ou função..."
-                  class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                  placeholder="Buscar por nome, email ou cargo..."
+                  class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
                 />
               </div>
 
               <div>
-                <label class="block text-sm font-medium text-slate-600 mb-2">Função</label>
+                <label class="block text-sm font-medium text-slate-600 mb-2">Cargo</label>
                 <select
                   id="roleFilter"
-                  class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                  class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
                 >
-                  <option value="">Todas</option>
+                  <option value="">Todos</option>
                   <option value="Administrador">Administrador</option>
+                  <option value="Supervisor">Supervisor</option>
                   <option value="Técnico">Técnico</option>
                   <option value="Operador">Operador</option>
                 </select>
@@ -109,8 +265,8 @@
             </div>
           </section>
 
-          <!-- Stats -->
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+          <!-- STATS -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-6">
             <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
               <p class="text-sm text-slate-400">Total de Usuários</p>
               <h2 id="totalUsers" class="text-3xl font-bold text-slate-700 mt-2">0</h2>
@@ -118,70 +274,125 @@
 
             <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
               <p class="text-sm text-slate-400">Administradores</p>
-              <h2 id="adminsCount" class="text-3xl font-bold text-sky-500 mt-2">0</h2>
+              <h2 id="adminCount" class="text-3xl font-bold text-sky-500 mt-2">0</h2>
             </div>
 
             <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
               <p class="text-sm text-slate-400">Técnicos</p>
-              <h2 id="techniciansCount" class="text-3xl font-bold text-emerald-500 mt-2">0</h2>
+              <h2 id="techCount" class="text-3xl font-bold text-emerald-500 mt-2">0</h2>
             </div>
 
             <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
               <p class="text-sm text-slate-400">Operadores</p>
-              <h2 id="operatorsCount" class="text-3xl font-bold text-orange-500 mt-2">0</h2>
+              <h2 id="operatorCount" class="text-3xl font-bold text-orange-500 mt-2">0</h2>
             </div>
           </div>
 
-          <div id="usersList" class="grid grid-cols-1 xl:grid-cols-2 gap-4 mt-6"></div>
+          <!-- LISTA -->
+          <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4" id="usersList"></div>
+
+          <div id="emptyState" class="hidden mt-6 bg-white border border-slate-200 rounded-2xl p-10 text-center shadow-sm">
+            <div class="text-5xl mb-4">👥</div>
+            <h3 class="text-lg font-semibold text-slate-700">
+              Nenhum usuário encontrado
+            </h3>
+            <p class="text-sm text-slate-400 mt-2">
+              Não existem usuários com os filtros atuais.
+            </p>
+          </div>
+
         </div>
       </main>
     </div>
   </div>
 
-  <!-- Modal -->
-  <div id="userModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50 p-4">
-    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl p-6">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl font-bold text-slate-700">Novo Usuário</h2>
-        <button id="closeModalBtn" class="text-slate-400 hover:text-slate-600 text-xl">✕</button>
+  <!-- MODAL -->
+  <div id="userModal" class="fixed inset-0 bg-black/40 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden">
+      <div class="border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+        <h2 id="modalTitle" class="text-xl font-bold text-slate-700">
+          Novo Usuário
+        </h2>
+
+        <button id="closeModalBtn" class="text-slate-500 hover:text-slate-700 text-xl">
+          ✕
+        </button>
       </div>
 
-      <form id="userForm" class="space-y-4">
+      <form id="userForm" class="p-6 space-y-5">
+        <input type="hidden" id="userId" />
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="block text-sm font-medium text-slate-600 mb-2">Nome</label>
-            <input type="text" id="name" required class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200" />
+            <input
+              type="text"
+              id="name"
+              class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+              required
+            />
           </div>
 
           <div>
             <label class="block text-sm font-medium text-slate-600 mb-2">Email</label>
-            <input type="email" id="email" required class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200" />
+            <input
+              type="email"
+              id="email"
+              class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+              required
+            />
           </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-medium text-slate-600 mb-2">Senha</label>
-            <input type="password" id="password" required class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200" />
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium text-slate-600 mb-2">Função</label>
-            <select id="role" required class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200">
+            <label class="block text-sm font-medium text-slate-600 mb-2">Cargo</label>
+            <select
+              id="role"
+              class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+              required
+            >
               <option value="">Selecione</option>
               <option value="Administrador">Administrador</option>
+              <option value="Supervisor">Supervisor</option>
               <option value="Técnico">Técnico</option>
               <option value="Operador">Operador</option>
             </select>
           </div>
+
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-2">Telefone</label>
+            <input
+              type="text"
+              id="phone"
+              class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+            />
+          </div>
         </div>
 
-        <div class="flex justify-end gap-3 pt-4">
-          <button type="button" id="cancelBtn" class="rounded-xl border border-slate-200 px-5 py-3 text-sm font-medium text-slate-600 hover:bg-slate-100">
+        <div>
+          <label class="block text-sm font-medium text-slate-600 mb-2">Senha</label>
+          <input
+            type="password"
+            id="password"
+            class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+            placeholder="Digite uma senha"
+          />
+        </div>
+
+        <div class="flex justify-end gap-3 pt-2">
+          <button
+            type="button"
+            id="cancelBtn"
+            class="rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-4 py-3 text-sm font-medium text-slate-600 transition"
+          >
             Cancelar
           </button>
 
-          <button type="submit" class="rounded-xl bg-sky-500 hover:bg-sky-600 px-5 py-3 text-sm font-medium text-white">
+          <button
+            type="submit"
+            class="rounded-xl bg-sky-500 hover:bg-sky-600 px-4 py-3 text-sm font-medium text-white transition"
+          >
             Salvar Usuário
           </button>
         </div>
@@ -189,187 +400,294 @@
     </div>
   </div>
 
+  <div id="toast" class="fixed right-4 bottom-4 z-[100] hidden max-w-[320px] rounded-2xl px-4 py-3 text-sm font-medium shadow-lg"></div>
+
+  <script src="./js/current-user.js"></script>
+  <script src="./js/sidebar.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/auth-guard.js"></script>
+
   <script type="module">
-    import { db, auth } from './js/config.js';
     import {
-      collection,
-      addDoc,
-      getDocs,
-      deleteDoc,
-      doc
-    } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+      getCurrentUser,
+      getUsers,
+      createUser,
+      updateUser,
+      deleteUser
+    } from "./js/data-service.js";
 
-    import {
-      createUserWithEmailAndPassword
-    } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+    const currentUser = getCurrentUser();
 
-    const usersList = document.getElementById('usersList');
-    const searchInput = document.getElementById('searchInput');
-    const roleFilter = document.getElementById('roleFilter');
+    if (!currentUser) {
+      window.location.href = "login.html";
+    }
 
-    const totalUsers = document.getElementById('totalUsers');
-    const adminsCount = document.getElementById('adminsCount');
-    const techniciansCount = document.getElementById('techniciansCount');
-    const operatorsCount = document.getElementById('operatorsCount');
+    const searchInput = document.getElementById("searchInput");
+    const roleFilter = document.getElementById("roleFilter");
+    const usersList = document.getElementById("usersList");
+    const emptyState = document.getElementById("emptyState");
 
-    const userModal = document.getElementById('userModal');
-    const openModalBtn = document.getElementById('openModalBtn');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    const cancelBtn = document.getElementById('cancelBtn');
-    const userForm = document.getElementById('userForm');
+    const totalUsers = document.getElementById("totalUsers");
+    const adminCount = document.getElementById("adminCount");
+    const techCount = document.getElementById("techCount");
+    const operatorCount = document.getElementById("operatorCount");
 
-    const currentUser = JSON.parse(localStorage.getItem('repairgeCurrentUser') || 'null') || {
-      companyId: 'empresa-demo'
-    };
+    const userModal = document.getElementById("userModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const cancelBtn = document.getElementById("cancelBtn");
+    const newUserBtn = document.getElementById("newUserBtn");
+    const userForm = document.getElementById("userForm");
 
-    let users = [];
+    const userIdInput = document.getElementById("userId");
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const roleInput = document.getElementById("role");
+    const phoneInput = document.getElementById("phone");
+    const passwordInput = document.getElementById("password");
 
-    function openModal() {
-      userModal.classList.remove('hidden');
-      userModal.classList.add('flex');
+    const toast = document.getElementById("toast");
+
+    let usersData = [];
+
+    function showToast(message, type = "success") {
+      toast.textContent = message;
+      toast.className = "fixed right-4 bottom-4 z-[100] max-w-[320px] rounded-2xl px-4 py-3 text-sm font-medium shadow-lg";
+
+      if (type === "success") {
+        toast.classList.add("bg-emerald-500", "text-white");
+      } else {
+        toast.classList.add("bg-red-500", "text-white");
+      }
+
+      toast.classList.remove("hidden");
+
+      setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 2500);
+    }
+
+    function getCompanyUsers() {
+      return getUsers().filter(user => user.companyId === currentUser.companyId);
+    }
+
+    function openModal(user = null) {
+      userModal.classList.remove("hidden");
+      userModal.classList.add("flex");
+
+      if (user) {
+        modalTitle.textContent = "Editar Usuário";
+        userIdInput.value = user.id;
+        nameInput.value = user.name || "";
+        emailInput.value = user.email || "";
+        roleInput.value = user.role || "";
+        phoneInput.value = user.phone || "";
+        passwordInput.value = "";
+        passwordInput.placeholder = "Deixe vazio para manter";
+      } else {
+        modalTitle.textContent = "Novo Usuário";
+        userForm.reset();
+        userIdInput.value = "";
+        passwordInput.placeholder = "Digite uma senha";
+      }
     }
 
     function closeModal() {
-      userModal.classList.add('hidden');
-      userModal.classList.remove('flex');
-      userForm.reset();
+      userModal.classList.add("hidden");
+      userModal.classList.remove("flex");
     }
 
-    async function loadUsers() {
-      const snapshot = await getDocs(collection(db, 'users'));
-
-      users = snapshot.docs
-        .map(docItem => ({
-          id: docItem.id,
-          ...docItem.data()
-        }))
-        .filter(user => user.companyId === currentUser.companyId);
-
-      updateStats();
-      renderUsers();
+    function updateStats(filtered) {
+      totalUsers.textContent = filtered.length;
+      adminCount.textContent = filtered.filter(user => user.role === "Administrador").length;
+      techCount.textContent = filtered.filter(user => user.role === "Técnico").length;
+      operatorCount.textContent = filtered.filter(user => user.role === "Operador").length;
     }
 
-    function updateStats() {
-      totalUsers.textContent = users.length;
-      adminsCount.textContent = users.filter(user => user.role === 'Administrador').length;
-      techniciansCount.textContent = users.filter(user => user.role === 'Técnico').length;
-      operatorsCount.textContent = users.filter(user => user.role === 'Operador').length;
+    function getRoleBadge(role) {
+      switch (role) {
+        case "Administrador":
+          return "bg-sky-100 text-sky-600";
+        case "Supervisor":
+          return "bg-purple-100 text-purple-600";
+        case "Técnico":
+          return "bg-emerald-100 text-emerald-600";
+        case "Operador":
+          return "bg-orange-100 text-orange-600";
+        default:
+          return "bg-slate-100 text-slate-600";
+      }
     }
 
     function renderUsers() {
-      const search = searchInput.value.toLowerCase();
-      const role = roleFilter.value;
+      const search = searchInput.value.toLowerCase().trim();
+      const selectedRole = roleFilter.value;
 
-      const filtered = users.filter(user => {
-        const matchesSearch =
-          user.name?.toLowerCase().includes(search) ||
-          user.email?.toLowerCase().includes(search) ||
-          user.role?.toLowerCase().includes(search);
+      const filtered = usersData.filter(user => {
+        const text = `${user.name || ""} ${user.email || ""} ${user.role || ""}`.toLowerCase();
 
-        const matchesRole = !role || user.role === role;
+        const matchesSearch = !search || text.includes(search);
+        const matchesRole = !selectedRole || user.role === selectedRole;
 
         return matchesSearch && matchesRole;
       });
 
-      usersList.innerHTML = '';
+      updateStats(filtered);
+      usersList.innerHTML = "";
 
       if (!filtered.length) {
-        usersList.innerHTML = `
-          <div class="col-span-full bg-white border border-slate-200 rounded-2xl p-10 text-center shadow-sm">
-            <div class="text-5xl mb-4">👥</div>
-            <h3 class="text-lg font-semibold text-slate-700">Nenhum usuário encontrado</h3>
-          </div>
-        `;
+        emptyState.classList.remove("hidden");
         return;
       }
 
+      emptyState.classList.add("hidden");
+
       filtered.forEach(user => {
-        const card = document.createElement('div');
-        card.className = 'bg-white border border-slate-200 rounded-2xl p-5 shadow-sm';
+        const card = document.createElement("div");
+        card.className = "bg-white border border-slate-200 rounded-2xl p-5 shadow-sm";
 
         card.innerHTML = `
           <div class="flex items-start justify-between gap-4">
-            <div class="flex items-center gap-4">
-              <div class="w-14 h-14 rounded-full bg-sky-100 text-sky-700 font-bold flex items-center justify-center text-lg">
-                ${user.name?.substring(0,2).toUpperCase()}
+            <div class="flex gap-4">
+              <div class="w-14 h-14 rounded-2xl bg-sky-100 text-sky-600 font-bold flex items-center justify-center text-lg">
+                ${(user.name || "U").charAt(0).toUpperCase()}
               </div>
 
               <div>
-                <h3 class="text-lg font-semibold text-slate-700">${user.name}</h3>
-                <p class="text-sm text-slate-400">${user.email}</p>
+                <h3 class="text-lg font-semibold text-slate-700">
+                  ${user.name || "-"}
+                </h3>
 
-                <div class="mt-3">
-                  <span class="px-3 py-1 rounded-full text-xs font-semibold bg-sky-100 text-sky-600">
-                    ${user.role}
+                <p class="text-sm text-slate-500 mt-1">
+                  ${user.email || "-"}
+                </p>
+
+                <div class="mt-3 flex flex-wrap items-center gap-2">
+                  <span class="px-3 py-1 rounded-full text-xs font-semibold ${getRoleBadge(user.role)}">
+                    ${user.role || "-"}
                   </span>
+
+                  ${
+                    user.phone
+                      ? `<span class="text-xs text-slate-400">${user.phone}</span>`
+                      : ""
+                  }
                 </div>
               </div>
             </div>
 
-            <button
-              class="delete-user-btn rounded-xl border border-red-200 text-red-500 hover:bg-red-50 px-4 py-2 text-sm font-medium"
-              data-id="${user.id}"
-            >
-              Excluir
-            </button>
+            <div class="flex flex-col gap-2">
+              <button
+                class="edit-btn rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-3 py-2 text-sm font-medium text-slate-600 transition"
+                data-id="${user.id}"
+              >
+                Editar
+              </button>
+
+              ${
+                user.id !== currentUser.id
+                  ? `
+                    <button
+                      class="delete-btn rounded-xl border border-red-200 bg-red-50 hover:bg-red-100 px-3 py-2 text-sm font-medium text-red-600 transition"
+                      data-id="${user.id}"
+                    >
+                      Remover
+                    </button>
+                  `
+                  : ""
+              }
+            </div>
           </div>
         `;
 
         usersList.appendChild(card);
       });
 
-      document.querySelectorAll('.delete-user-btn').forEach(button => {
-        button.addEventListener('click', async () => {
-          const confirmed = confirm('Deseja excluir este usuário?');
-          if (!confirmed) return;
+      document.querySelectorAll(".edit-btn").forEach(button => {
+        button.addEventListener("click", () => {
+          const user = usersData.find(item => item.id === button.dataset.id);
+          if (user) openModal(user);
+        });
+      });
 
-          await deleteDoc(doc(db, 'users', button.dataset.id));
+      document.querySelectorAll(".delete-btn").forEach(button => {
+        button.addEventListener("click", () => {
+          const confirmDelete = confirm("Deseja remover este usuário?");
+          if (!confirmDelete) return;
+
+          deleteUser(button.dataset.id);
+          showToast("Usuário removido com sucesso.");
           loadUsers();
         });
       });
     }
 
-    userForm.addEventListener('submit', async event => {
+    function loadUsers() {
+      usersData = getCompanyUsers().sort((a, b) => {
+        return (a.name || "").localeCompare(b.name || "");
+      });
+
+      renderUsers();
+    }
+
+    userForm.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      const role = document.getElementById('role').value;
+      const id = userIdInput.value;
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim().toLowerCase();
+      const role = roleInput.value;
+      const phone = phoneInput.value.trim();
+      const password = passwordInput.value.trim();
 
-      try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-
-        await addDoc(collection(db, 'users'), {
-          uid: userCredential.user.uid,
-          name,
-          email,
-          role,
-          companyId: currentUser.companyId,
-          online: false,
-          createdAt: new Date().toISOString()
-        });
-
-        closeModal();
-        loadUsers();
-      } catch (error) {
-        console.error(error);
-        alert('Erro ao criar usuário');
+      if (!name || !email || !role) {
+        showToast("Preencha os campos obrigatórios.", "error");
+        return;
       }
+
+      if (!id && !password) {
+        showToast("Digite uma senha para o novo usuário.", "error");
+        return;
+      }
+
+      const payload = {
+        name,
+        email,
+        role,
+        phone,
+        password: password || undefined,
+        companyId: currentUser.companyId,
+        companyName: currentUser.companyName || ""
+      };
+
+      if (id) {
+        updateUser(id, payload);
+        showToast("Usuário atualizado com sucesso.");
+      } else {
+        createUser(payload);
+        showToast("Usuário criado com sucesso.");
+      }
+
+      closeModal();
+      loadUsers();
     });
 
-    searchInput.addEventListener('input', renderUsers);
-    roleFilter.addEventListener('change', renderUsers);
+    searchInput.addEventListener("input", renderUsers);
+    roleFilter.addEventListener("change", renderUsers);
 
-    openModalBtn.addEventListener('click', openModal);
-    closeModalBtn.addEventListener('click', closeModal);
-    cancelBtn.addEventListener('click', closeModal);
+    newUserBtn.addEventListener("click", () => openModal());
+    closeModalBtn.addEventListener("click", closeModal);
+    cancelBtn.addEventListener("click", closeModal);
 
-    userModal.addEventListener('click', event => {
+    userModal.addEventListener("click", (event) => {
       if (event.target === userModal) {
         closeModal();
       }
     });
+
+    if (window.RepairgeCurrentUser) {
+      window.RepairgeCurrentUser.updateCurrentUserHeader();
+    }
 
     loadUsers();
   </script>
