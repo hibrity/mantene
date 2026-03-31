@@ -9,11 +9,27 @@ import {
 } from './storage.js';
 
 /* =========================
+   HELPERS
+========================= */
+
+function nowIso() {
+  return new Date().toISOString();
+}
+
+function normalizeEmail(email) {
+  return String(email || '').trim().toLowerCase();
+}
+
+/* =========================
    AUTH / CURRENT USER
 ========================= */
 
 export function getCurrentUser() {
-  return JSON.parse(localStorage.getItem(STORAGE_KEYS.CURRENT_USER));
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEYS.CURRENT_USER)) || null;
+  } catch {
+    return null;
+  }
 }
 
 export function setCurrentUser(user) {
@@ -37,11 +53,26 @@ export function getUsers() {
 }
 
 export function createUser(userData) {
-  return addItem(STORAGE_KEYS.USERS, userData);
+  return addItem(STORAGE_KEYS.USERS, {
+    createdAt: nowIso(),
+    updatedAt: nowIso(),
+    online: false,
+    ...userData,
+    email: normalizeEmail(userData.email)
+  });
 }
 
 export function updateUser(userId, updatedFields) {
-  return updateItem(STORAGE_KEYS.USERS, userId, updatedFields);
+  const payload = {
+    ...updatedFields,
+    updatedAt: nowIso()
+  };
+
+  if (payload.email) {
+    payload.email = normalizeEmail(payload.email);
+  }
+
+  return updateItem(STORAGE_KEYS.USERS, userId, payload);
 }
 
 export function deleteUser(userId) {
@@ -54,7 +85,8 @@ export function getUserById(userId) {
 
 export function getUserByEmail(email) {
   const users = getUsers();
-  return users.find(user => user.email === email);
+  const normalized = normalizeEmail(email);
+  return users.find(user => normalizeEmail(user.email) === normalized);
 }
 
 /* =========================
@@ -66,11 +98,23 @@ export function getCompanies() {
 }
 
 export function createCompany(companyData) {
-  return addItem(STORAGE_KEYS.COMPANIES, companyData);
+  return addItem(STORAGE_KEYS.COMPANIES, {
+    createdAt: nowIso(),
+    updatedAt: nowIso(),
+    showWhatsapp: true,
+    showCalculator: true,
+    showCalendar: true,
+    whatsappLink: '',
+    calendarLink: '',
+    ...companyData
+  });
 }
 
 export function updateCompany(companyId, updatedFields) {
-  return updateItem(STORAGE_KEYS.COMPANIES, companyId, updatedFields);
+  return updateItem(STORAGE_KEYS.COMPANIES, companyId, {
+    ...updatedFields,
+    updatedAt: nowIso()
+  });
 }
 
 export function deleteCompany(companyId) {
@@ -90,11 +134,18 @@ export function getSectors() {
 }
 
 export function createSector(sectorData) {
-  return addItem(STORAGE_KEYS.SECTORS, sectorData);
+  return addItem(STORAGE_KEYS.SECTORS, {
+    createdAt: nowIso(),
+    updatedAt: nowIso(),
+    ...sectorData
+  });
 }
 
 export function updateSector(sectorId, updatedFields) {
-  return updateItem(STORAGE_KEYS.SECTORS, sectorId, updatedFields);
+  return updateItem(STORAGE_KEYS.SECTORS, sectorId, {
+    ...updatedFields,
+    updatedAt: nowIso()
+  });
 }
 
 export function deleteSector(sectorId) {
@@ -114,11 +165,19 @@ export function getEquipment() {
 }
 
 export function createEquipment(equipmentData) {
-  return addItem(STORAGE_KEYS.EQUIPMENT, equipmentData);
+  return addItem(STORAGE_KEYS.EQUIPMENT, {
+    createdAt: nowIso(),
+    updatedAt: nowIso(),
+    status: 'ACTIVE',
+    ...equipmentData
+  });
 }
 
 export function updateEquipment(equipmentId, updatedFields) {
-  return updateItem(STORAGE_KEYS.EQUIPMENT, equipmentId, updatedFields);
+  return updateItem(STORAGE_KEYS.EQUIPMENT, equipmentId, {
+    ...updatedFields,
+    updatedAt: nowIso()
+  });
 }
 
 export function deleteEquipment(equipmentId) {
@@ -138,15 +197,36 @@ export function getTickets() {
 }
 
 export function createTicket(ticketData) {
+  const priority = ticketData.priority || 'MEDIUM';
+
+  const priorityLabels = {
+    LOW: 'Baixa',
+    MEDIUM: 'Média',
+    HIGH: 'Alta',
+    URGENT: 'Urgente'
+  };
+
   return addItem(STORAGE_KEYS.TICKETS, {
-    status: 'Aberto',
-    priority: 'Média',
+    createdAt: nowIso(),
+    updatedAt: nowIso(),
+    completedAt: null,
+    removedAt: null,
+    materialsRequested: [],
+    solutionNotes: '',
+    status: 'OPEN',
+    statusLabel: 'Aberto',
+    priority,
+    priorityLabel: priorityLabels[priority] || 'Média',
+    photoURL: null,
     ...ticketData
   });
 }
 
 export function updateTicket(ticketId, updatedFields) {
-  return updateItem(STORAGE_KEYS.TICKETS, ticketId, updatedFields);
+  return updateItem(STORAGE_KEYS.TICKETS, ticketId, {
+    ...updatedFields,
+    updatedAt: nowIso()
+  });
 }
 
 export function deleteTicket(ticketId) {
@@ -166,11 +246,20 @@ export function getChecklists() {
 }
 
 export function createChecklist(checklistData) {
-  return addItem(STORAGE_KEYS.CHECKLISTS, checklistData);
+  return addItem(STORAGE_KEYS.CHECKLISTS, {
+    createdAt: nowIso(),
+    updatedAt: nowIso(),
+    date: nowIso(),
+    photoURL: null,
+    ...checklistData
+  });
 }
 
 export function updateChecklist(checklistId, updatedFields) {
-  return updateItem(STORAGE_KEYS.CHECKLISTS, checklistId, updatedFields);
+  return updateItem(STORAGE_KEYS.CHECKLISTS, checklistId, {
+    ...updatedFields,
+    updatedAt: nowIso()
+  });
 }
 
 export function deleteChecklist(checklistId) {
@@ -190,11 +279,27 @@ export function getMessages() {
 }
 
 export function createMessage(messageData) {
-  return addItem(STORAGE_KEYS.MESSAGES, messageData);
+  return addItem(STORAGE_KEYS.MESSAGES, {
+    createdAt: nowIso(),
+    updatedAt: nowIso(),
+    read: false,
+    ...messageData
+  });
+}
+
+export function updateMessage(messageId, updatedFields) {
+  return updateItem(STORAGE_KEYS.MESSAGES, messageId, {
+    ...updatedFields,
+    updatedAt: nowIso()
+  });
 }
 
 export function deleteMessage(messageId) {
   return deleteItem(STORAGE_KEYS.MESSAGES, messageId);
+}
+
+export function getMessageById(messageId) {
+  return getItemById(STORAGE_KEYS.MESSAGES, messageId);
 }
 
 /* =========================
@@ -219,13 +324,18 @@ export function getNotifications() {
 
 export function createNotification(notificationData) {
   return addItem(STORAGE_KEYS.NOTIFICATIONS, {
+    createdAt: nowIso(),
+    updatedAt: nowIso(),
     read: false,
     ...notificationData
   });
 }
 
 export function updateNotification(notificationId, updatedFields) {
-  return updateItem(STORAGE_KEYS.NOTIFICATIONS, notificationId, updatedFields);
+  return updateItem(STORAGE_KEYS.NOTIFICATIONS, notificationId, {
+    ...updatedFields,
+    updatedAt: nowIso()
+  });
 }
 
 export function deleteNotification(notificationId) {
@@ -236,18 +346,37 @@ export function deleteNotification(notificationId) {
    DASHBOARD HELPERS
 ========================= */
 
-export function getDashboardStats() {
-  const tickets = getTickets();
-  const equipment = getEquipment();
-  const sectors = getSectors();
-  const users = getUsers();
+export function getDashboardStats(companyId = null) {
+  const tickets = companyId
+    ? getTickets().filter(ticket => ticket.companyId === companyId)
+    : getTickets();
+
+  const equipment = companyId
+    ? getEquipment().filter(eq => eq.companyId === companyId)
+    : getEquipment();
+
+  const sectors = companyId
+    ? getSectors().filter(sector => sector.companyId === companyId)
+    : getSectors();
+
+  const users = companyId
+    ? getUsers().filter(user => user.companyId === companyId)
+    : getUsers();
+
+  const checklists = companyId
+    ? getChecklists().filter(checklist => checklist.companyId === companyId)
+    : getChecklists();
 
   return {
     totalTickets: tickets.length,
-    openTickets: tickets.filter(ticket => ticket.status === 'Aberto').length,
+    openTickets: tickets.filter(ticket => ticket.status === 'OPEN').length,
+    resolvedTickets: tickets.filter(ticket => ticket.status === 'RESOLVED').length,
+    removedTickets: tickets.filter(ticket => ticket.status === 'REMOVED').length,
     totalEquipment: equipment.length,
     activeEquipment: equipment.filter(eq => eq.status === 'ACTIVE').length,
+    maintenanceEquipment: equipment.filter(eq => eq.status === 'MAINTENANCE').length,
     totalSectors: sectors.length,
-    totalUsers: users.length
+    totalUsers: users.length,
+    totalChecklists: checklists.length
   };
 }
