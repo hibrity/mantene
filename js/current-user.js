@@ -17,13 +17,13 @@ function getCurrentUser() {
     const raw = localStorage.getItem(STORAGE_KEY);
 
     if (!raw) {
-      return fallbackUser;
+      return null;
     }
 
     const parsed = JSON.parse(raw);
 
     if (!parsed || typeof parsed !== "object") {
-      return fallbackUser;
+      return null;
     }
 
     return {
@@ -32,8 +32,12 @@ function getCurrentUser() {
     };
   } catch (error) {
     console.error("Erro ao ler usuário atual:", error);
-    return fallbackUser;
+    return null;
   }
+}
+
+function getSafeCurrentUser() {
+  return getCurrentUser() || fallbackUser;
 }
 
 function setCurrentUser(userData) {
@@ -78,6 +82,11 @@ function requireUser(redirectTo = "login.html") {
 function requireRole(allowedRoles = [], redirectTo = "dashboard.html") {
   const user = getCurrentUser();
 
+  if (!user || !user.companyId) {
+    window.location.href = "login.html";
+    return null;
+  }
+
   if (!allowedRoles.length) {
     return user;
   }
@@ -98,7 +107,7 @@ function updateCurrentUserHeader(options = {}) {
     companySelector = "[data-user-company]"
   } = options;
 
-  const user = getCurrentUser();
+  const user = getSafeCurrentUser();
 
   const initialsEls = document.querySelectorAll(initialsSelector);
   const nameEls = document.querySelectorAll(nameSelector);
@@ -129,18 +138,9 @@ function updateCurrentUserHeader(options = {}) {
   });
 }
 
-function bootstrapCurrentUser() {
-  const existing = localStorage.getItem(STORAGE_KEY);
-
-  if (!existing) {
-    setCurrentUser(fallbackUser);
-  }
-}
-
-bootstrapCurrentUser();
-
 window.RepairgeCurrentUser = {
   getCurrentUser,
+  getSafeCurrentUser,
   setCurrentUser,
   clearCurrentUser,
   isLoggedIn,
