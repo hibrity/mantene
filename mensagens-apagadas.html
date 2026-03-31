@@ -7,8 +7,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
+      width: 10px;
+      height: 10px;
     }
 
     ::-webkit-scrollbar-thumb {
@@ -22,24 +22,24 @@
   </style>
 </head>
 <body class="bg-[#f3f4f6] text-slate-700">
-
   <div class="min-h-screen flex">
 
-    <!-- Sidebar -->
+    <!-- SIDEBAR DESKTOP -->
     <aside class="hidden md:flex w-[260px] bg-[#f5f7fb] border-r border-slate-200 flex-col min-h-screen">
-      <div class="h-16 px-5 flex items-center border-b border-slate-200">
+      <div class="h-16 px-5 flex items-center justify-between border-b border-slate-200">
         <div class="flex items-center gap-3">
           <div class="w-9 h-9 rounded-xl border border-sky-200 bg-white flex items-center justify-center text-sky-400 text-lg shadow-sm">
             🏷️
           </div>
           <span class="text-xl font-bold text-slate-700">Repairge</span>
         </div>
+        <button class="text-slate-400 hover:text-slate-600 text-sm">⋮</button>
       </div>
 
       <div class="px-5 py-4 border-b border-slate-200">
         <p class="text-sm font-semibold text-slate-700 leading-7">
-          Administrador (Acesso Livre)<br />
-          (Empresa)
+          <span data-user-name>Administrador</span><br />
+          <span data-user-role>Administrador</span>
         </p>
       </div>
 
@@ -54,36 +54,174 @@
           <span>Chat Interno</span>
         </a>
 
-        <a href="mensagens-apagadas.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-sky-100 text-sky-600">
-          <span>🗑️</span>
-          <span>Mensagens Apagadas</span>
+        <a href="checklists-realizados.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>☑️</span>
+          <span>Checklists Realizados</span>
+        </a>
+
+        <a href="configuracoes.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⚙️</span>
+          <span>Configurações</span>
+        </a>
+
+        <a href="checklist-diario.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>📋</span>
+          <span>Criar Checklist Diário</span>
+        </a>
+
+        <a href="equipamentos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏭</span>
+          <span>Equipamentos</span>
         </a>
 
         <a href="usuarios.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
           <span>👥</span>
-          <span>Usuários</span>
+          <span>Gerenciar Usuários</span>
+        </a>
+
+        <a href="mensagens-apagadas.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-sky-100/70 text-sky-500">
+          <span>🗑️</span>
+          <span>Mensagens Apagadas</span>
+        </a>
+
+        <a href="setores.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏢</span>
+          <span>Setores</span>
+        </a>
+
+        <a href="tickets-concluidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>✅</span>
+          <span>Tickets Concluídos</span>
+        </a>
+
+        <a href="tickets.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🎫</span>
+          <span>Tickets de Manutenção</span>
+        </a>
+
+        <a href="tickets-removidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🧺</span>
+          <span>Tickets Removidos</span>
+        </a>
+      </nav>
+
+      <div class="border-t border-slate-200 p-3">
+        <a href="index.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⌂</span>
+          <span>Início</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MOBILE SIDEBAR -->
+    <div id="sidebarMobileOverlay" class="fixed inset-0 bg-black/40 z-40 hidden md:hidden"></div>
+
+    <aside id="sidebarMobile" class="fixed top-0 left-0 h-full w-[285px] bg-[#f5f7fb] border-r border-slate-200 z-50 transform -translate-x-full transition-transform duration-300 md:hidden flex flex-col">
+      <div class="h-16 px-4 flex items-center justify-between border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl border border-sky-200 bg-white flex items-center justify-center text-sky-400 text-lg shadow-sm">
+            🏷️
+          </div>
+          <span class="text-xl font-bold text-slate-700">Repairge</span>
+        </div>
+        <button id="closeSidebarBtn" class="text-slate-500 text-xl">✕</button>
+      </div>
+
+      <div class="px-4 py-4 border-b border-slate-200">
+        <p class="text-sm font-semibold text-slate-700 leading-7">
+          <span data-user-name>Administrador</span><br />
+          <span data-user-role>Administrador</span>
+        </p>
+      </div>
+
+      <nav class="flex-1 px-2 py-3 overflow-y-auto">
+        <a href="dashboard.html" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⬚</span>
+          <span>Painel Principal</span>
+        </a>
+
+        <a href="chat.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>💬</span>
+          <span>Chat Interno</span>
+        </a>
+
+        <a href="checklists-realizados.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>☑️</span>
+          <span>Checklists Realizados</span>
+        </a>
+
+        <a href="configuracoes.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>⚙️</span>
+          <span>Configurações</span>
+        </a>
+
+        <a href="checklist-diario.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>📋</span>
+          <span>Criar Checklist Diário</span>
+        </a>
+
+        <a href="equipamentos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏭</span>
+          <span>Equipamentos</span>
+        </a>
+
+        <a href="usuarios.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>👥</span>
+          <span>Gerenciar Usuários</span>
+        </a>
+
+        <a href="mensagens-apagadas.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-sky-100/70 text-sky-500">
+          <span>🗑️</span>
+          <span>Mensagens Apagadas</span>
+        </a>
+
+        <a href="setores.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🏢</span>
+          <span>Setores</span>
+        </a>
+
+        <a href="tickets-concluidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>✅</span>
+          <span>Tickets Concluídos</span>
+        </a>
+
+        <a href="tickets.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🎫</span>
+          <span>Tickets de Manutenção</span>
+        </a>
+
+        <a href="tickets-removidos.html" class="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+          <span>🧺</span>
+          <span>Tickets Removidos</span>
         </a>
       </nav>
     </aside>
 
-    <!-- Main -->
+    <!-- MAIN -->
     <div class="flex-1 min-w-0 flex flex-col">
-
-      <!-- Header -->
       <header class="h-16 bg-[#f8fafc] border-b border-slate-200 px-4 md:px-6 flex items-center justify-between">
-        <div>
-          <p class="text-sm text-slate-400">Gerenciamento de mensagens removidas</p>
+        <div class="flex items-center gap-3">
+          <button id="openSidebarBtn" class="md:hidden w-10 h-10 rounded-lg hover:bg-slate-100 flex items-center justify-center text-slate-600 text-xl">
+            ☰
+          </button>
+          <div class="hidden md:block text-sm text-slate-400">
+            Histórico de mensagens excluídas
+          </div>
         </div>
 
-        <div class="w-10 h-10 rounded-full bg-sky-200 text-sky-700 font-semibold flex items-center justify-center text-sm">
-          AD
+        <div class="flex items-center gap-3">
+          <button id="clearAllBtn" class="rounded-xl bg-red-500 hover:bg-red-600 px-4 py-2 text-sm font-medium text-white transition">
+            Limpar Tudo
+          </button>
+
+          <div class="w-10 h-10 rounded-full bg-sky-200 text-sky-700 font-semibold flex items-center justify-center text-sm" data-user-initials>
+            AD
+          </div>
         </div>
       </header>
 
-      <!-- Content -->
       <main class="flex-1 p-4 md:p-6">
-
-        <div class="max-w-7xl">
+        <div class="max-w-7xl mx-auto">
 
           <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-slate-200 pb-5">
             <div>
@@ -91,72 +229,69 @@
                 Mensagens Apagadas
               </h1>
               <p class="text-sm text-slate-400 mt-1">
-                Visualize e gerencie mensagens excluídas do chat interno.
+                Visualize e gerencie o histórico de mensagens excluídas do chat interno.
               </p>
             </div>
-
-            <button
-              id="deleteAllBtn"
-              class="rounded-xl bg-red-500 hover:bg-red-600 px-5 py-3 text-sm font-medium text-white transition"
-            >
-              Excluir Tudo Permanentemente
-            </button>
           </div>
 
-          <!-- Filtros -->
+          <!-- FILTROS -->
           <section class="mt-6 bg-white border border-slate-200 rounded-2xl shadow-sm p-4 md:p-5">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div class="md:col-span-2">
-                <label class="block text-sm font-medium text-slate-600 mb-2">
-                  Buscar
-                </label>
+                <label class="block text-sm font-medium text-slate-600 mb-2">Buscar</label>
                 <input
                   type="text"
                   id="searchInput"
-                  placeholder="Buscar por usuário ou conteúdo..."
-                  class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                  placeholder="Buscar por remetente, destinatário, conteúdo..."
+                  class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
                 />
               </div>
 
               <div>
-                <label class="block text-sm font-medium text-slate-600 mb-2">
-                  Filtrar por
-                </label>
+                <label class="block text-sm font-medium text-slate-600 mb-2">Apagadas por</label>
                 <select
-                  id="filterUser"
-                  class="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
+                  id="deletedByFilter"
+                  class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-sky-200"
                 >
-                  <option value="">Todos os usuários</option>
+                  <option value="">Todos</option>
                 </select>
               </div>
             </div>
           </section>
 
-          <!-- Stats -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+          <!-- STATS -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-6">
             <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-              <p class="text-sm text-slate-400">Mensagens Apagadas</p>
+              <p class="text-sm text-slate-400">Total Apagadas</p>
               <h2 id="totalDeleted" class="text-3xl font-bold text-slate-700 mt-2">0</h2>
             </div>
 
             <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-              <p class="text-sm text-slate-400">Usuários Envolvidos</p>
-              <h2 id="totalUsers" class="text-3xl font-bold text-sky-500 mt-2">0</h2>
+              <p class="text-sm text-slate-400">Apagadas Hoje</p>
+              <h2 id="todayDeleted" class="text-3xl font-bold text-red-500 mt-2">0</h2>
             </div>
 
             <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-              <p class="text-sm text-slate-400">Hoje</p>
-              <h2 id="todayDeleted" class="text-3xl font-bold text-red-500 mt-2">0</h2>
+              <p class="text-sm text-slate-400">Remetentes Únicos</p>
+              <h2 id="uniqueSenders" class="text-3xl font-bold text-sky-500 mt-2">0</h2>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Contatos Envolvidos</p>
+              <h2 id="uniquePeople" class="text-3xl font-bold text-emerald-500 mt-2">0</h2>
             </div>
           </div>
 
-          <!-- Lista -->
-          <div id="messagesList" class="mt-6 space-y-4">
-            <div class="bg-white border border-slate-200 rounded-2xl p-10 text-center shadow-sm">
+          <!-- LISTA -->
+          <div class="mt-6 space-y-4" id="deletedMessagesList">
+            <div id="emptyState" class="hidden bg-white border border-slate-200 rounded-2xl p-10 text-center shadow-sm">
               <div class="text-5xl mb-4">🗑️</div>
               <h3 class="text-lg font-semibold text-slate-700">
-                Carregando mensagens apagadas...
+                Nenhuma mensagem apagada encontrada
               </h3>
+              <p class="text-sm text-slate-400 mt-2">
+                Não existem mensagens removidas com os filtros atuais.
+              </p>
             </div>
           </div>
 
@@ -165,308 +300,357 @@
     </div>
   </div>
 
-  <!-- Modal -->
-  <div id="confirmModal" class="fixed inset-0 bg-black/40 z-50 hidden items-center justify-center p-4">
-    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md p-6">
-      <h2 class="text-xl font-bold text-slate-700 mb-3">
-        Confirmar Exclusão
-      </h2>
-
-      <p class="text-sm text-slate-500 mb-6">
-        Esta ação irá remover permanentemente a mensagem e não poderá ser desfeita.
-      </p>
-
-      <div class="flex justify-end gap-3">
-        <button
-          id="cancelDeleteBtn"
-          class="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100"
-        >
-          Cancelar
-        </button>
-
-        <button
-          id="confirmDeleteBtn"
-          class="rounded-xl bg-red-500 hover:bg-red-600 px-4 py-2 text-sm font-medium text-white"
-        >
-          Excluir
+  <!-- MODAL -->
+  <div id="detailsModal" class="fixed inset-0 bg-black/40 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden">
+      <div class="border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+        <h2 class="text-xl font-bold text-slate-700">Detalhes da Mensagem</h2>
+        <button id="closeModalBtn" class="text-slate-500 hover:text-slate-700 text-xl">
+          ✕
         </button>
       </div>
+
+      <div id="modalContent" class="p-6 space-y-5 max-h-[80vh] overflow-y-auto"></div>
     </div>
   </div>
 
-  <script type="module">
-    import { db } from "./js/config.js";
-    import {
-      collection,
-      query,
-      where,
-      getDocs,
-      deleteDoc,
-      doc
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  <div id="toast" class="fixed right-4 bottom-4 z-[100] hidden max-w-[320px] rounded-2xl px-4 py-3 text-sm font-medium shadow-lg"></div>
 
-    const messagesList = document.getElementById("messagesList");
+  <script src="./js/current-user.js"></script>
+  <script src="./js/sidebar.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/auth-guard.js"></script>
+
+  <script type="module">
+    import {
+      getCurrentUser,
+      getUsers
+    } from "./js/data-service.js";
+
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+      window.location.href = "login.html";
+    }
+
+    const deletedMessagesList = document.getElementById("deletedMessagesList");
+    const emptyState = document.getElementById("emptyState");
+
     const searchInput = document.getElementById("searchInput");
-    const filterUser = document.getElementById("filterUser");
+    const deletedByFilter = document.getElementById("deletedByFilter");
+    const clearAllBtn = document.getElementById("clearAllBtn");
 
     const totalDeleted = document.getElementById("totalDeleted");
-    const totalUsers = document.getElementById("totalUsers");
     const todayDeleted = document.getElementById("todayDeleted");
+    const uniqueSenders = document.getElementById("uniqueSenders");
+    const uniquePeople = document.getElementById("uniquePeople");
 
-    const deleteAllBtn = document.getElementById("deleteAllBtn");
+    const detailsModal = document.getElementById("detailsModal");
+    const modalContent = document.getElementById("modalContent");
+    const closeModalBtn = document.getElementById("closeModalBtn");
 
-    const confirmModal = document.getElementById("confirmModal");
-    const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
-    const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+    const toast = document.getElementById("toast");
 
-    const currentUser = JSON.parse(localStorage.getItem("repairgeCurrentUser") || "null") || {
-      companyId: "empresa-demo"
-    };
+    let usersData = [];
+    let deletedMessagesData = [];
 
-    let deletedMessages = [];
-    let selectedDeleteId = null;
+    function showToast(message, type = "success") {
+      toast.textContent = message;
+      toast.className = "fixed right-4 bottom-4 z-[100] hidden max-w-[320px] rounded-2xl px-4 py-3 text-sm font-medium shadow-lg";
 
-    async function loadDeletedMessages() {
-      try {
-        const messagesQuery = query(
-          collection(db, "messages"),
-          where("companyId", "==", currentUser.companyId),
-          where("isDeleted", "==", true)
-        );
-
-        const snapshot = await getDocs(messagesQuery);
-
-        deletedMessages = snapshot.docs.map(docItem => ({
-          id: docItem.id,
-          ...docItem.data()
-        }));
-
-        populateUserFilter();
-        updateStats();
-        renderMessages();
-      } catch (error) {
-        console.error("Erro ao carregar mensagens apagadas:", error);
-
-        messagesList.innerHTML = `
-          <div class="bg-white border border-red-200 rounded-2xl p-8 text-center shadow-sm">
-            <div class="text-5xl mb-4">⚠️</div>
-            <h3 class="text-lg font-semibold text-red-500">
-              Erro ao carregar mensagens apagadas
-            </h3>
-          </div>
-        `;
+      if (type === "success") {
+        toast.classList.add("bg-emerald-500", "text-white");
+      } else {
+        toast.classList.add("bg-red-500", "text-white");
       }
+
+      toast.classList.remove("hidden");
+
+      setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 2500);
     }
 
-    function populateUserFilter() {
-      const users = [...new Set(deletedMessages.map(msg => msg.senderName).filter(Boolean))];
+    function getCompanyUsers() {
+      return getUsers().filter(user => user.companyId === currentUser.companyId);
+    }
 
-      filterUser.innerHTML = `<option value="">Todos os usuários</option>`;
+    function getDeletedMessages() {
+      const all = JSON.parse(localStorage.getItem("repairgeDeletedMessages") || "[]");
+      return all.filter(message => message.companyId === currentUser.companyId);
+    }
 
-      users.forEach(user => {
-        filterUser.innerHTML += `<option value="${user}">${user}</option>`;
+    function saveDeletedMessages(messages) {
+      const all = JSON.parse(localStorage.getItem("repairgeDeletedMessages") || "[]");
+      const fromOtherCompanies = all.filter(message => message.companyId !== currentUser.companyId);
+      const merged = [...fromOtherCompanies, ...messages];
+      localStorage.setItem("repairgeDeletedMessages", JSON.stringify(merged));
+    }
+
+    function formatDate(dateValue) {
+      if (!dateValue) return "-";
+
+      const date = new Date(dateValue);
+      if (isNaN(date.getTime())) return "-";
+
+      return date.toLocaleDateString("pt-BR") + " às " + date.toLocaleTimeString("pt-BR", {
+        hour: "2-digit",
+        minute: "2-digit"
       });
     }
 
-    function updateStats() {
-      totalDeleted.textContent = deletedMessages.length;
+    function isToday(dateValue) {
+      if (!dateValue) return false;
 
-      const uniqueUsers = [...new Set(deletedMessages.map(msg => msg.senderId))];
-      totalUsers.textContent = uniqueUsers.length;
+      const date = new Date(dateValue);
+      const today = new Date();
 
-      const today = new Date().toISOString().split("T")[0];
-
-      const todayCount = deletedMessages.filter(msg => {
-        if (!msg.deletedAt?.seconds) return false;
-
-        const date = new Date(msg.deletedAt.seconds * 1000)
-          .toISOString()
-          .split("T")[0];
-
-        return date === today;
-      });
-
-      todayDeleted.textContent = todayCount.length;
+      return (
+        date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear()
+      );
     }
 
-    function renderMessages() {
+    function getUserNameById(userId, fallback = "-") {
+      const user = usersData.find(item => item.id === userId);
+      return user?.name || fallback;
+    }
+
+    function populateDeletedByFilter() {
+      const uniqueDeletedBy = [...new Set(deletedMessagesData.map(item => item.deletedById).filter(Boolean))];
+
+      deletedByFilter.innerHTML = `<option value="">Todos</option>`;
+
+      uniqueDeletedBy.forEach(userId => {
+        const option = document.createElement("option");
+        option.value = userId;
+        option.textContent = getUserNameById(userId, "Usuário");
+        deletedByFilter.appendChild(option);
+      });
+    }
+
+    function updateStats(filtered) {
+      totalDeleted.textContent = filtered.length;
+      todayDeleted.textContent = filtered.filter(item => isToday(item.deletedAt)).length;
+      uniqueSenders.textContent = new Set(filtered.map(item => item.senderId).filter(Boolean)).size;
+
+      const contacts = new Set();
+      filtered.forEach(item => {
+        if (item.senderId) contacts.add(item.senderId);
+        if (item.receiverId) contacts.add(item.receiverId);
+      });
+      uniquePeople.textContent = contacts.size;
+    }
+
+    function openDetails(id) {
+      const message = deletedMessagesData.find(item => item.id === id);
+      if (!message) return;
+
+      modalContent.innerHTML = `
+        <div class="space-y-5">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="text-xs uppercase tracking-wide text-slate-400">Remetente</p>
+              <p class="text-slate-700 mt-1">${message.senderName || getUserNameById(message.senderId, "-")}</p>
+            </div>
+
+            <div>
+              <p class="text-xs uppercase tracking-wide text-slate-400">Destinatário</p>
+              <p class="text-slate-700 mt-1">${getUserNameById(message.receiverId, "-")}</p>
+            </div>
+
+            <div>
+              <p class="text-xs uppercase tracking-wide text-slate-400">Enviada em</p>
+              <p class="text-slate-700 mt-1">${formatDate(message.createdAt)}</p>
+            </div>
+
+            <div>
+              <p class="text-xs uppercase tracking-wide text-slate-400">Apagada em</p>
+              <p class="text-slate-700 mt-1">${formatDate(message.deletedAt)}</p>
+            </div>
+
+            <div>
+              <p class="text-xs uppercase tracking-wide text-slate-400">Apagada por</p>
+              <p class="text-slate-700 mt-1">${message.deletedByName || getUserNameById(message.deletedById, "-")}</p>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-xs uppercase tracking-wide text-slate-400">Conteúdo</p>
+            <div class="mt-2 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600 whitespace-pre-wrap">
+              ${message.text || "-"}
+            </div>
+          </div>
+        </div>
+      `;
+
+      detailsModal.classList.remove("hidden");
+      detailsModal.classList.add("flex");
+    }
+
+    function permanentlyDeleteMessage(id) {
+      const filtered = deletedMessagesData.filter(item => item.id !== id);
+      deletedMessagesData = filtered;
+      saveDeletedMessages(filtered);
+      populateDeletedByFilter();
+      renderDeletedMessages();
+      showToast("Mensagem removida permanentemente.");
+    }
+
+    function renderDeletedMessages() {
       const search = searchInput.value.toLowerCase().trim();
-      const selectedUser = filterUser.value;
+      const deletedBy = deletedByFilter.value;
 
-      const filtered = deletedMessages.filter(msg => {
+      const filtered = deletedMessagesData.filter(item => {
         const text = `
-          ${msg.senderName || ""}
-          ${msg.receiverName || ""}
-          ${msg.text || ""}
+          ${item.text || ""}
+          ${item.senderName || ""}
+          ${item.deletedByName || ""}
+          ${getUserNameById(item.receiverId, "")}
         `.toLowerCase();
 
         const matchesSearch = !search || text.includes(search);
-        const matchesUser = !selectedUser || msg.senderName === selectedUser;
+        const matchesDeletedBy = !deletedBy || item.deletedById === deletedBy;
 
-        return matchesSearch && matchesUser;
+        return matchesSearch && matchesDeletedBy;
       });
 
+      updateStats(filtered);
+
+      const oldCards = deletedMessagesList.querySelectorAll(".deleted-message-card");
+      oldCards.forEach(card => card.remove());
+
       if (!filtered.length) {
-        messagesList.innerHTML = `
-          <div class="bg-white border border-slate-200 rounded-2xl p-10 text-center shadow-sm">
-            <div class="text-5xl mb-4">🗑️</div>
-            <h3 class="text-lg font-semibold text-slate-700">
-              Nenhuma mensagem apagada encontrada
-            </h3>
-            <p class="text-sm text-slate-400 mt-2">
-              Não existem mensagens removidas com os filtros atuais.
-            </p>
-          </div>
-        `;
+        emptyState.classList.remove("hidden");
         return;
       }
 
-      messagesList.innerHTML = "";
+      emptyState.classList.add("hidden");
 
-      filtered.forEach(message => {
-        const deletedDate = message.deletedAt?.seconds
-          ? new Date(message.deletedAt.seconds * 1000)
-          : null;
-
+      filtered.forEach(item => {
         const card = document.createElement("div");
-        card.className = "bg-white border border-slate-200 rounded-2xl p-5 shadow-sm";
+        card.className = "deleted-message-card bg-white border border-slate-200 rounded-2xl p-5 shadow-sm";
 
         card.innerHTML = `
-          <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-5">
-
-            <div class="flex-1">
+          <div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-5">
+            <div class="flex-1 min-w-0">
               <div class="flex flex-wrap items-center gap-2 mb-3">
                 <span class="px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-600">
-                  Mensagem Apagada
+                  Apagada
                 </span>
-
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-500">
-                  ${message.senderName || "Usuário"}
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600">
+                  ${formatDate(item.deletedAt)}
                 </span>
               </div>
 
               <h3 class="text-lg font-semibold text-slate-700">
-                ${message.senderName || "Usuário"} → ${message.receiverName || "Usuário"}
+                ${item.senderName || getUserNameById(item.senderId, "Usuário")}
+                <span class="text-slate-400 font-normal">→</span>
+                ${getUserNameById(item.receiverId, "Usuário")}
               </h3>
+
+              <div class="mt-3 rounded-xl bg-slate-50 border border-slate-200 p-4">
+                <p class="text-sm text-slate-600 line-clamp-3 whitespace-pre-wrap">
+                  ${item.text || "-"}
+                </p>
+              </div>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 text-sm text-slate-500">
                 <div>
-                  <span class="font-semibold text-slate-600">Remetente:</span>
-                  ${message.senderName || "-"}
+                  <span class="font-semibold text-slate-600">Enviada em:</span>
+                  ${formatDate(item.createdAt)}
                 </div>
 
                 <div>
-                  <span class="font-semibold text-slate-600">Destinatário:</span>
-                  ${message.receiverName || "-"}
+                  <span class="font-semibold text-slate-600">Apagada por:</span>
+                  ${item.deletedByName || getUserNameById(item.deletedById, "-")}
                 </div>
-
-                <div>
-                  <span class="font-semibold text-slate-600">Apagada em:</span>
-                  ${
-                    deletedDate
-                      ? deletedDate.toLocaleDateString("pt-BR") + " às " + deletedDate.toLocaleTimeString("pt-BR", {
-                          hour: "2-digit",
-                          minute: "2-digit"
-                        })
-                      : "-"
-                  }
-                </div>
-              </div>
-
-              <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
-                <p class="text-xs uppercase tracking-wide text-slate-400 mb-2">
-                  Conteúdo da Mensagem
-                </p>
-
-                <p class="text-sm text-slate-600 whitespace-pre-wrap break-words">
-                  ${message.text || "(Mensagem vazia)"}
-                </p>
               </div>
             </div>
 
-            <div class="flex flex-row lg:flex-col gap-2 lg:w-[180px]">
+            <div class="flex flex-row xl:flex-col gap-2 xl:w-[190px]">
               <button
-                class="delete-btn flex-1 rounded-xl bg-red-500 hover:bg-red-600 px-4 py-3 text-sm font-medium text-white transition"
-                data-id="${message.id}"
+                class="details-btn flex-1 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-4 py-3 text-sm font-medium text-slate-600 transition"
+                data-id="${item.id}"
               >
-                Excluir Permanentemente
+                Ver Detalhes
+              </button>
+
+              <button
+                class="delete-forever-btn flex-1 rounded-xl bg-red-500 hover:bg-red-600 px-4 py-3 text-sm font-medium text-white transition"
+                data-id="${item.id}"
+              >
+                Excluir Definitivo
               </button>
             </div>
-
           </div>
         `;
 
-        messagesList.appendChild(card);
+        deletedMessagesList.appendChild(card);
       });
 
-      document.querySelectorAll(".delete-btn").forEach(button => {
+      document.querySelectorAll(".details-btn").forEach(button => {
         button.addEventListener("click", () => {
-          selectedDeleteId = button.dataset.id;
-          confirmModal.classList.remove("hidden");
-          confirmModal.classList.add("flex");
+          openDetails(button.dataset.id);
+        });
+      });
+
+      document.querySelectorAll(".delete-forever-btn").forEach(button => {
+        button.addEventListener("click", () => {
+          const confirmed = confirm("Deseja excluir esta mensagem permanentemente?");
+          if (!confirmed) return;
+          permanentlyDeleteMessage(button.dataset.id);
         });
       });
     }
 
-    async function deleteMessagePermanently(id) {
-      try {
-        await deleteDoc(doc(db, "messages", id));
+    function loadData() {
+      usersData = getCompanyUsers();
+      deletedMessagesData = getDeletedMessages().sort((a, b) => {
+        return new Date(b.deletedAt || 0) - new Date(a.deletedAt || 0);
+      });
 
-        deletedMessages = deletedMessages.filter(msg => msg.id !== id);
-
-        updateStats();
-        renderMessages();
-
-        confirmModal.classList.add("hidden");
-        confirmModal.classList.remove("flex");
-      } catch (error) {
-        console.error("Erro ao excluir mensagem:", error);
-      }
+      populateDeletedByFilter();
+      renderDeletedMessages();
     }
 
-    async function deleteAllMessages() {
-      const confirmed = confirm("Tem certeza que deseja excluir todas as mensagens apagadas permanentemente?");
+    searchInput.addEventListener("input", renderDeletedMessages);
+    deletedByFilter.addEventListener("change", renderDeletedMessages);
 
+    clearAllBtn.addEventListener("click", () => {
+      if (!deletedMessagesData.length) {
+        showToast("Não há mensagens apagadas para limpar.", "error");
+        return;
+      }
+
+      const confirmed = confirm("Deseja excluir permanentemente todas as mensagens apagadas?");
       if (!confirmed) return;
 
-      try {
-        for (const message of deletedMessages) {
-          await deleteDoc(doc(db, "messages", message.id));
-        }
+      deletedMessagesData = [];
+      saveDeletedMessages([]);
+      populateDeletedByFilter();
+      renderDeletedMessages();
+      showToast("Histórico limpo com sucesso.");
+    });
 
-        deletedMessages = [];
-        updateStats();
-        renderMessages();
-      } catch (error) {
-        console.error("Erro ao excluir todas as mensagens:", error);
+    closeModalBtn.addEventListener("click", () => {
+      detailsModal.classList.add("hidden");
+      detailsModal.classList.remove("flex");
+    });
+
+    detailsModal.addEventListener("click", (event) => {
+      if (event.target === detailsModal) {
+        detailsModal.classList.add("hidden");
+        detailsModal.classList.remove("flex");
       }
+    });
+
+    if (window.RepairgeCurrentUser) {
+      window.RepairgeCurrentUser.updateCurrentUserHeader();
     }
 
-    searchInput.addEventListener("input", renderMessages);
-    filterUser.addEventListener("change", renderMessages);
-
-    deleteAllBtn.addEventListener("click", deleteAllMessages);
-
-    cancelDeleteBtn.addEventListener("click", () => {
-      confirmModal.classList.add("hidden");
-      confirmModal.classList.remove("flex");
-      selectedDeleteId = null;
-    });
-
-    confirmDeleteBtn.addEventListener("click", () => {
-      if (selectedDeleteId) {
-        deleteMessagePermanently(selectedDeleteId);
-      }
-    });
-
-    confirmModal.addEventListener("click", event => {
-      if (event.target === confirmModal) {
-        confirmModal.classList.add("hidden");
-        confirmModal.classList.remove("flex");
-      }
-    });
-
-    loadDeletedMessages();
+    loadData();
   </script>
 </body>
 </html>
