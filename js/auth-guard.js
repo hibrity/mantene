@@ -8,8 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  const user = currentUserApi.getCurrentUser();
-
   const publicPages = [
     "login.html",
     "cadastro.html",
@@ -20,53 +18,70 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   const currentPage = window.location.pathname.split("/").pop() || "index.html";
-
   const isPublicPage = publicPages.includes(currentPage);
 
-  if (!isPublicPage && !currentUserApi.isLoggedIn()) {
+  const isLoggedIn = currentUserApi.isLoggedIn();
+  const user = currentUserApi.getCurrentUser();
+
+  // Se não estiver logado e a página for privada, manda para login
+  if (!isPublicPage && !isLoggedIn) {
     window.location.href = "login.html";
     return;
   }
 
-  if ((currentPage === "login.html" || currentPage === "cadastro.html") && currentUserApi.isLoggedIn()) {
+  // Se já estiver logado, não deixa voltar para login/cadastro
+  if (
+    isLoggedIn &&
+    ["login.html", "cadastro.html", "register.html"].includes(currentPage)
+  ) {
     window.location.href = "dashboard.html";
     return;
   }
 
-  const adminOnlyPages = [
-    "usuarios.html",
-    "configuracoes.html",
-    "mensagens-apagadas.html"
-  ];
-
-  const technicianPages = [
-    "tickets.html",
-    "novo-ticket.html",
-    "tickets-concluidos.html",
-    "tickets-removidos.html",
-    "checklist-diario.html",
-    "checklists-realizados.html"
-  ];
-
-  if (adminOnlyPages.includes(currentPage)) {
-    const allowedRoles = ["Administrador"];
-
-    if (!allowedRoles.includes(user.role)) {
-      alert("Você não tem permissão para acessar esta página.");
-      window.location.href = "dashboard.html";
-      return;
+  // Se a página é pública, não precisa validar cargos
+  if (isPublicPage) {
+    if (currentUserApi.updateCurrentUserHeader) {
+      currentUserApi.updateCurrentUserHeader();
     }
+    return;
   }
 
-  if (technicianPages.includes(currentPage)) {
-    const allowedRoles = ["Administrador", "Técnico"];
-
-    if (!allowedRoles.includes(user.role)) {
-      alert("Você não tem permissão para acessar esta página.");
-      window.location.href = "dashboard.html";
-      return;
-    }
+  // Segurança extra
+  if (!user || !user.role) {
+    window.location.href = "login.html";
+    return;
   }
 
-  currentUserApi.updateCurrentUserHeader();
+  // Permissões por página
+  const pagePermissions = {
+    "dashboard.html": ["Administrador", "Supervisor", "Técnico", "Operador"],
+    "chat.html": ["Administrador", "Supervisor", "Técnico", "Operador"],
+
+    "usuarios.html": ["Administrador"],
+    "configuracoes.html": ["Administrador"],
+    "mensagens-apagadas.html": ["Administrador"],
+
+    "setores.html": ["Administrador", "Supervisor"],
+    "equipamentos.html": ["Administrador", "Supervisor", "Técnico"],
+
+    "tickets.html": ["Administrador", "Supervisor", "Técnico"],
+    "novo-ticket.html": ["Administrador", "Supervisor", "Técnico", "Operador"],
+    "tickets-concluidos.html": ["Administrador", "Supervisor", "Técnico"],
+    "tickets-removidos.html": ["Administrador", "Supervisor"],
+
+    "checklist-diario.html": ["Administrador", "Supervisor", "Técnico", "Operador"],
+    "checklists-realizados.html": ["Administrador", "Supervisor", "Técnico"]
+  };
+
+  const allowedRoles = pagePermissions[currentPage];
+
+  if (allowedRoles && !allowedRoles.includes(user.role)) {
+    alert("Você não tem permissão para acessar esta página.");
+    window.location.href = "dashboard.html";
+    return;
+  }
+
+  if (currentUserApi.updateCurrentUserHeader) {
+    currentUserApi.updateCurrentUserHeader();
+  }
 });
