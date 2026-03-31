@@ -39,8 +39,8 @@
 
       <div class="px-5 py-4 border-b border-slate-200">
         <p class="text-sm font-semibold text-slate-700 leading-7">
-          Administrador (Acesso Livre)<br />
-          (Empresa)
+          <span data-user-name>Administrador</span><br />
+          <span data-user-role>Administrador</span>
         </p>
       </div>
 
@@ -130,8 +130,8 @@
 
       <div class="px-4 py-4 border-b border-slate-200">
         <p class="text-sm font-semibold text-slate-700 leading-7">
-          Administrador (Acesso Livre)<br />
-          (Empresa)
+          <span data-user-name>Administrador</span><br />
+          <span data-user-role>Administrador</span>
         </p>
       </div>
 
@@ -221,17 +221,17 @@
         </div>
 
         <div class="flex items-center gap-3 md:gap-4">
-          <button class="w-8 h-8 rounded-full bg-orange-100 text-orange-500 flex items-center justify-center text-sm" title="Calculadora">
+          <button id="headerCalculatorBtn" class="w-8 h-8 rounded-full bg-orange-100 text-orange-500 flex items-center justify-center text-sm" title="Calculadora">
             🧮
           </button>
-          <button class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-sm" title="Calendário">
+          <button id="headerCalendarBtn" class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-sm" title="Calendário">
             🗓️
           </button>
-          <button class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm" title="WhatsApp">
+          <button id="headerWhatsappBtn" class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm" title="WhatsApp">
             🟢
           </button>
-          <div class="w-10 h-10 rounded-full bg-sky-200 text-sky-700 font-semibold flex items-center justify-center text-sm">
-            AL
+          <div class="w-10 h-10 rounded-full bg-sky-200 text-sky-700 font-semibold flex items-center justify-center text-sm" data-user-initials>
+            AD
           </div>
         </div>
       </header>
@@ -245,86 +245,136 @@
               <h1 class="text-[22px] md:text-[28px] font-bold text-slate-700 leading-tight">
                 Painel Principal
               </h1>
-              <p class="mt-2 text-base md:text-sm text-slate-400 leading-8 md:leading-6">
-                Olá, Administrador (Acesso Livre)! (Empresa). Navegue pelas funcionalidades abaixo.
+              <p id="welcomeText" class="mt-2 text-base md:text-sm text-slate-400 leading-8 md:leading-6">
+                Olá! Navegue pelas funcionalidades abaixo.
               </p>
             </div>
           </div>
 
+          <!-- KPIs -->
+          <section class="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 md:p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Tickets Ativos</p>
+              <h2 id="kpiActiveTickets" class="text-3xl font-bold text-slate-700 mt-2">0</h2>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 md:p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Equipamentos</p>
+              <h2 id="kpiEquipment" class="text-3xl font-bold text-slate-700 mt-2">0</h2>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 md:p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Setores</p>
+              <h2 id="kpiSectors" class="text-3xl font-bold text-slate-700 mt-2">0</h2>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 md:p-5 shadow-sm">
+              <p class="text-sm text-slate-400">Usuários</p>
+              <h2 id="kpiUsers" class="text-3xl font-bold text-slate-700 mt-2">0</h2>
+            </div>
+          </section>
+
           <section class="mt-6 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
 
-            <a href="tickets.html" class="bg-white border border-slate-200 rounded-2xl min-h-[140px] md:min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
-              <div class="text-sky-300 text-3xl">🎫</div>
-              <div class="mt-8 md:mt-10 text-center text-[15px] md:text-[15px] font-medium text-slate-600 leading-6">
+            <a href="tickets.html" class="bg-white border border-slate-200 rounded-2xl min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
+              <div class="flex items-center justify-between">
+                <div class="text-sky-300 text-3xl">🎫</div>
+                <span id="cardActiveTickets" class="text-xs font-semibold px-2 py-1 rounded-full bg-sky-100 text-sky-600">0</span>
+              </div>
+              <div class="mt-8 md:mt-10 text-center text-[15px] font-medium text-slate-600 leading-6">
                 Chamados Ativos
               </div>
             </a>
 
-            <a href="chat.html" class="bg-white border border-slate-200 rounded-2xl min-h-[140px] md:min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
-              <div class="text-sky-300 text-3xl">💬</div>
+            <a href="chat.html" class="bg-white border border-slate-200 rounded-2xl min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
+              <div class="flex items-center justify-between">
+                <div class="text-sky-300 text-3xl">💬</div>
+                <span id="cardDeletedMessages" class="text-xs font-semibold px-2 py-1 rounded-full bg-slate-100 text-slate-600">0</span>
+              </div>
               <div class="mt-8 md:mt-10 text-center text-[15px] font-medium text-slate-600 leading-6">
                 Chat Interno
               </div>
             </a>
 
-            <a href="checklists-realizados.html" class="bg-white border border-slate-200 rounded-2xl min-h-[140px] md:min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
-              <div class="text-sky-300 text-3xl">☑️</div>
+            <a href="checklists-realizados.html" class="bg-white border border-slate-200 rounded-2xl min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
+              <div class="flex items-center justify-between">
+                <div class="text-sky-300 text-3xl">☑️</div>
+                <span id="cardChecklists" class="text-xs font-semibold px-2 py-1 rounded-full bg-sky-100 text-sky-600">0</span>
+              </div>
               <div class="mt-8 md:mt-10 text-center text-[15px] font-medium text-slate-600 leading-6">
                 Checklists Realizados
               </div>
             </a>
 
-            <a href="configuracoes.html" class="bg-white border border-slate-200 rounded-2xl min-h-[140px] md:min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
+            <a href="configuracoes.html" class="bg-white border border-slate-200 rounded-2xl min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
               <div class="text-sky-300 text-3xl">⚙️</div>
               <div class="mt-8 md:mt-10 text-center text-[15px] font-medium text-slate-600 leading-6">
                 Configurações
               </div>
             </a>
 
-            <a href="checklist-diario.html" class="bg-white border border-slate-200 rounded-2xl min-h-[140px] md:min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
+            <a href="checklist-diario.html" class="bg-white border border-slate-200 rounded-2xl min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
               <div class="text-sky-300 text-3xl">📋</div>
               <div class="mt-8 md:mt-10 text-center text-[15px] font-medium text-slate-600 leading-6">
                 Criar Checklist Diário
               </div>
             </a>
 
-            <a href="equipamentos.html" class="bg-white border border-sky-200 rounded-2xl min-h-[140px] md:min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
-              <div class="text-sky-300 text-3xl">🏭</div>
+            <a href="equipamentos.html" class="bg-white border border-sky-200 rounded-2xl min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
+              <div class="flex items-center justify-between">
+                <div class="text-sky-300 text-3xl">🏭</div>
+                <span id="cardEquipment" class="text-xs font-semibold px-2 py-1 rounded-full bg-sky-100 text-sky-600">0</span>
+              </div>
               <div class="mt-8 md:mt-10 text-center text-[15px] font-medium text-sky-400 leading-6">
                 Equipamentos
               </div>
             </a>
 
-            <a href="usuarios.html" class="bg-white border border-slate-200 rounded-2xl min-h-[140px] md:min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
-              <div class="text-sky-300 text-3xl">👥</div>
+            <a href="usuarios.html" class="bg-white border border-slate-200 rounded-2xl min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
+              <div class="flex items-center justify-between">
+                <div class="text-sky-300 text-3xl">👥</div>
+                <span id="cardUsers" class="text-xs font-semibold px-2 py-1 rounded-full bg-sky-100 text-sky-600">0</span>
+              </div>
               <div class="mt-8 md:mt-10 text-center text-[15px] font-medium text-slate-600 leading-6">
                 Gerenciar Usuários
               </div>
             </a>
 
-            <a href="mensagens-apagadas.html" class="bg-white border border-slate-200 rounded-2xl min-h-[140px] md:min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
-              <div class="text-sky-300 text-3xl">🗑️</div>
+            <a href="mensagens-apagadas.html" class="bg-white border border-slate-200 rounded-2xl min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
+              <div class="flex items-center justify-between">
+                <div class="text-sky-300 text-3xl">🗑️</div>
+                <span id="cardTrashMessages" class="text-xs font-semibold px-2 py-1 rounded-full bg-red-100 text-red-600">0</span>
+              </div>
               <div class="mt-8 md:mt-10 text-center text-[15px] font-medium text-slate-600 leading-6">
                 Mensagens Apagadas
               </div>
             </a>
 
-            <a href="setores.html" class="bg-white border border-slate-200 rounded-2xl min-h-[140px] md:min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
-              <div class="text-sky-300 text-3xl">🏢</div>
+            <a href="setores.html" class="bg-white border border-slate-200 rounded-2xl min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
+              <div class="flex items-center justify-between">
+                <div class="text-sky-300 text-3xl">🏢</div>
+                <span id="cardSectors" class="text-xs font-semibold px-2 py-1 rounded-full bg-sky-100 text-sky-600">0</span>
+              </div>
               <div class="mt-8 md:mt-10 text-center text-[15px] font-medium text-slate-600 leading-6">
                 Setores
               </div>
             </a>
 
-            <a href="tickets-concluidos.html" class="bg-white border border-slate-200 rounded-2xl min-h-[140px] md:min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
-              <div class="text-sky-300 text-3xl">✅</div>
+            <a href="tickets-concluidos.html" class="bg-white border border-slate-200 rounded-2xl min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
+              <div class="flex items-center justify-between">
+                <div class="text-sky-300 text-3xl">✅</div>
+                <span id="cardFinishedTickets" class="text-xs font-semibold px-2 py-1 rounded-full bg-emerald-100 text-emerald-600">0</span>
+              </div>
               <div class="mt-8 md:mt-10 text-center text-[15px] font-medium text-slate-600 leading-6">
                 Tickets Concluídos
               </div>
             </a>
 
-            <a href="tickets-removidos.html" class="bg-white border border-slate-200 rounded-2xl min-h-[140px] md:min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
-              <div class="text-sky-300 text-3xl">🧺</div>
+            <a href="tickets-removidos.html" class="bg-white border border-slate-200 rounded-2xl min-h-[150px] p-4 md:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition block">
+              <div class="flex items-center justify-between">
+                <div class="text-sky-300 text-3xl">🧺</div>
+                <span id="cardRemovedTickets" class="text-xs font-semibold px-2 py-1 rounded-full bg-red-100 text-red-600">0</span>
+              </div>
               <div class="mt-8 md:mt-10 text-center text-[15px] font-medium text-slate-600 leading-6">
                 Tickets Removidos
               </div>
@@ -336,30 +386,170 @@
     </div>
   </div>
 
+  <script src="./js/current-user.js"></script>
+  <script src="./js/sidebar.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/auth-guard.js"></script>
+
   <script type="module">
-    import { auth } from "./js/config.js";
+    import {
+      getCurrentUser,
+      getUsers,
+      getSectors,
+      getEquipment,
+      getTickets,
+      getChecklists,
+      getCompanies
+    } from "./js/data-service.js";
 
-    const openSidebarBtn = document.getElementById("openSidebarBtn");
-    const closeSidebarBtn = document.getElementById("closeSidebarBtn");
-    const sidebarMobile = document.getElementById("sidebarMobile");
-    const sidebarMobileOverlay = document.getElementById("sidebarMobileOverlay");
+    const currentUser = getCurrentUser();
 
-    function openSidebar() {
-      sidebarMobile.classList.remove("-translate-x-full");
-      sidebarMobileOverlay.classList.remove("hidden");
+    if (!currentUser) {
+      window.location.href = "login.html";
     }
 
-    function closeSidebar() {
-      sidebarMobile.classList.add("-translate-x-full");
-      sidebarMobileOverlay.classList.add("hidden");
+    const welcomeText = document.getElementById("welcomeText");
+
+    const kpiActiveTickets = document.getElementById("kpiActiveTickets");
+    const kpiEquipment = document.getElementById("kpiEquipment");
+    const kpiSectors = document.getElementById("kpiSectors");
+    const kpiUsers = document.getElementById("kpiUsers");
+
+    const cardActiveTickets = document.getElementById("cardActiveTickets");
+    const cardChecklists = document.getElementById("cardChecklists");
+    const cardEquipment = document.getElementById("cardEquipment");
+    const cardUsers = document.getElementById("cardUsers");
+    const cardTrashMessages = document.getElementById("cardTrashMessages");
+    const cardSectors = document.getElementById("cardSectors");
+    const cardFinishedTickets = document.getElementById("cardFinishedTickets");
+    const cardRemovedTickets = document.getElementById("cardRemovedTickets");
+    const cardDeletedMessages = document.getElementById("cardDeletedMessages");
+
+    const headerWhatsappBtn = document.getElementById("headerWhatsappBtn");
+    const headerCalendarBtn = document.getElementById("headerCalendarBtn");
+    const headerCalculatorBtn = document.getElementById("headerCalculatorBtn");
+
+    function getCompanyUsers() {
+      return getUsers().filter(user => user.companyId === currentUser.companyId);
     }
 
-    openSidebarBtn?.addEventListener("click", openSidebar);
-    closeSidebarBtn?.addEventListener("click", closeSidebar);
-    sidebarMobileOverlay?.addEventListener("click", closeSidebar);
+    function getCompanySectors() {
+      return getSectors().filter(item => item.companyId === currentUser.companyId);
+    }
 
-    console.log("Dashboard carregado.");
-    console.log("Firebase Auth conectado:", auth);
+    function getCompanyEquipment() {
+      return getEquipment().filter(item => item.companyId === currentUser.companyId);
+    }
+
+    function getCompanyTickets() {
+      return getTickets().filter(item => item.companyId === currentUser.companyId);
+    }
+
+    function getCompanyChecklists() {
+      return getChecklists().filter(item => item.companyId === currentUser.companyId);
+    }
+
+    function getCompanyDeletedMessages() {
+      const deleted = JSON.parse(localStorage.getItem("repairgeDeletedMessages") || "[]");
+      return deleted.filter(item => item.companyId === currentUser.companyId);
+    }
+
+    function getCurrentCompany() {
+      return getCompanies().find(company => company.id === currentUser.companyId) || null;
+    }
+
+    function updateWelcome() {
+      const role = currentUser.role || "Usuário";
+      const companyName = currentUser.companyName || "Empresa";
+      welcomeText.textContent = `Olá, ${currentUser.name || "Usuário"}! Perfil: ${role}. Empresa: ${companyName}.`;
+    }
+
+    function updateStats() {
+      const users = getCompanyUsers();
+      const sectors = getCompanySectors();
+      const equipment = getCompanyEquipment();
+      const tickets = getCompanyTickets();
+      const checklists = getCompanyChecklists();
+      const deletedMessages = getCompanyDeletedMessages();
+
+      const activeTickets = tickets.filter(ticket =>
+        ticket.status !== "RESOLVED" && ticket.status !== "REMOVED"
+      );
+
+      const finishedTickets = tickets.filter(ticket => ticket.status === "RESOLVED");
+      const removedTickets = tickets.filter(ticket => ticket.status === "REMOVED");
+
+      kpiActiveTickets.textContent = activeTickets.length;
+      kpiEquipment.textContent = equipment.length;
+      kpiSectors.textContent = sectors.length;
+      kpiUsers.textContent = users.length;
+
+      cardActiveTickets.textContent = activeTickets.length;
+      cardChecklists.textContent = checklists.length;
+      cardEquipment.textContent = equipment.length;
+      cardUsers.textContent = users.length;
+      cardTrashMessages.textContent = deletedMessages.length;
+      cardSectors.textContent = sectors.length;
+      cardFinishedTickets.textContent = finishedTickets.length;
+      cardRemovedTickets.textContent = removedTickets.length;
+      cardDeletedMessages.textContent = deletedMessages.length;
+    }
+
+    function applyCompanySettings() {
+      const company = getCurrentCompany();
+
+      if (!company) return;
+
+      if (company.showWhatsapp === false) {
+        headerWhatsappBtn.classList.add("hidden");
+      } else {
+        headerWhatsappBtn.classList.remove("hidden");
+      }
+
+      if (company.showCalendar === false) {
+        headerCalendarBtn.classList.add("hidden");
+      } else {
+        headerCalendarBtn.classList.remove("hidden");
+      }
+
+      if (company.showCalculator === false) {
+        headerCalculatorBtn.classList.add("hidden");
+      } else {
+        headerCalculatorBtn.classList.remove("hidden");
+      }
+
+      headerWhatsappBtn.onclick = () => {
+        if (company.whatsappLink) {
+          window.open(company.whatsappLink, "_blank");
+        }
+      };
+
+      headerCalendarBtn.onclick = () => {
+        if (company.calendarLink) {
+          window.open(company.calendarLink, "_blank");
+        }
+      };
+
+      headerCalculatorBtn.onclick = () => {
+        const result = prompt("Calculadora rápida\n\nDigite uma conta, por exemplo: 10+5*2");
+        if (!result) return;
+
+        try {
+          const value = Function(`"use strict"; return (${result})`)();
+          alert(`Resultado: ${value}`);
+        } catch {
+          alert("Conta inválida.");
+        }
+      };
+    }
+
+    if (window.RepairgeCurrentUser) {
+      window.RepairgeCurrentUser.updateCurrentUserHeader();
+    }
+
+    updateWelcome();
+    updateStats();
+    applyCompanySettings();
   </script>
 </body>
 </html>
